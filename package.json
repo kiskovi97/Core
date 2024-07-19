@@ -1,0 +1,11 @@
+{
+  "name": "kiskvoi.core",
+  "displayName": "Kiskovi Core",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "keywords": [],
+  "dependencies": {
+  },
+  "author": "Gergo Kovacs",
+  "description": "This is the Core package of Gergo Kovacs"
+}
