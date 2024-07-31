@@ -1,8 +1,8 @@
 ﻿namespace Kiskovi.Core
 {
-    internal class GameActionList : GameAction
+    internal class TriggerActionList : TriggerAction
     {
-        public GameAction[] Actions;
+        public TriggerAction[] Actions;
         public override void Trigger(params object[] parameter)
         {
             foreach (var action in Actions)

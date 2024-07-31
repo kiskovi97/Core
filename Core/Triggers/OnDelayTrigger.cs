@@ -6,7 +6,7 @@ namespace Kiskovi.Core
     internal class OnDelayTrigger : MonoBehaviour
     {
         public float delay;
-        public GameAction action;
+        public TriggerAction action;
 
         private void Start()
         {
@@ -16,7 +16,7 @@ namespace Kiskovi.Core
         private IEnumerator DelayTrigger()
         {
             yield return new WaitForSeconds(delay);
-            GameAction.Trigger(action);
+            TriggerAction.Trigger(action);
         }
     }
 }

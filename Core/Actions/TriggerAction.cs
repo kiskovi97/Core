@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace Kiskovi.Core
 {
-    public class GameAction : MonoBehaviour
+    public class TriggerAction : MonoBehaviour
     {
         public void TriggerThis()
         {
             Trigger();
         }
 
-        public static void Trigger(GameAction action, params object[] parameter)
+        public static void Trigger(TriggerAction action, params object[] parameter)
         {
             if (action != null)
             {

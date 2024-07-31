@@ -4,7 +4,7 @@ namespace Kiskovi.Core
 {
     internal class OnEnableTrigger : MonoBehaviour
     {
-        public GameAction gameAction;
+        public TriggerAction action;
         public bool onlyReEnable;
         public bool onlyWhenTimeIsOn;
 
@@ -16,7 +16,7 @@ namespace Kiskovi.Core
         {
             if (!onlyReEnable || disabledOnce)
                 if (!onlyWhenTimeIsOn || Time.timeScale > 0.1f)
-                    GameAction.Trigger(gameAction);
+                    TriggerAction.Trigger(action);
         }
 
         private void Update()
@@ -24,7 +24,7 @@ namespace Kiskovi.Core
             if (!triggered && onlyWhenTimeIsOn && Time.timeScale > 0.1f)
             {
                 triggered = true;
-                GameAction.Trigger(gameAction);
+                TriggerAction.Trigger(action);
             }
         }
 
