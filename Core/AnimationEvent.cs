@@ -10,7 +10,7 @@ namespace Kiskovi.Core
         public struct ParameterEvents
         {
             public string name;
-            public GameAction action;
+            public TriggerAction action;
         }
 
         public ParameterEvents[] parameterEvents;
@@ -21,7 +21,7 @@ namespace Kiskovi.Core
             {
                 if (parameterEvent.name == parameter)
                 {
-                    GameAction.Trigger(parameterEvent.action);
+                    TriggerAction.Trigger(parameterEvent.action);
                 }
             }
         }

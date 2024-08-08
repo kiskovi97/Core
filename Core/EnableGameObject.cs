@@ -2,7 +2,7 @@
 
 namespace Kiskovi.Core
 {
-    internal class EnableGameObject : GameAction
+    internal class EnableGameObject : TriggerAction
     {
         public GameObject obj;
         public bool enable;

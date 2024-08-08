@@ -5,6 +5,8 @@
   "unity": "2022.3",
   "keywords": [],
   "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.textmeshpro": "3.0.6"
   },
   "author": "Gergo Kovacs",
   "description": "This is the Core package of Gergo Kovacs"
