@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -40,6 +41,7 @@ namespace Kiskovi.Core
 
         public virtual void AddItem(T itemData)
         {
+            list = list.Where(item => item.IsAvailable).ToList();
             currentIndex++;
             while (currentIndex >= list.Count)
             {
@@ -72,6 +74,7 @@ namespace Kiskovi.Core
 
         public void Refresh()
         {
+            list = list.Where(item => item.IsAvailable).ToList();
             foreach (var item in list)
                 item.Refresh();
         }
