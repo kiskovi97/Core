@@ -101,10 +101,10 @@ namespace Kiskovi.Core
 
         protected virtual DataHolder<T> CreateNewObject()
         {
-            var newItem = container.InstantiatePrefabForComponent<DataHolder<T>>(prefab, parentTransform);
+            var newItem = container.InstantiatePrefab(prefab, parentTransform);
             newItem.gameObject.SetActive(false);
             newItem.transform.localScale = Vector3.one;
-            return newItem;
+            return newItem.GetComponent<DataHolder<T>>();
         }
 
         protected virtual GameObject CreateSeparator()
