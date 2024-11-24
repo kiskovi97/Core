@@ -6,17 +6,17 @@ namespace Kiskovi.Core
     {
         public override void InstallBindings()
         {
-            Container.DeclareSignal<InputSignals.ControlSchemeChanged>();
+            Container.DeclareSignal<InputSignals.ControlSchemeChanged>().OptionalSubscriber();
 
-            Container.DeclareSignal<UIInteractions.Navigate>();
-            Container.DeclareSignal<UIInteractions.NavigateUI>();
-            Container.DeclareSignal<UIInteractions.AccepSignal>();
-            Container.DeclareSignal<UIInteractions.DeclineSignal>();
-            Container.DeclareSignal<UIInteractions.ExitSignal>();
-            Container.DeclareSignal<UIInteractions.DeleteSignal>();
-            Container.DeclareSignal<UIInteractions.ModifyValueSignal>();
+            Container.DeclareSignal<UIInteractions.Navigate>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.NavigateUI>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.AccepSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.DeclineSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.ExitSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.DeleteSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.ModifyValueSignal>().OptionalSubscriber();
 
-            Container.DeclareSignal<PauseGameRequestSignal>();
+            Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<UISignalSender>().AsSingle().NonLazy();
         }

@@ -6,7 +6,7 @@ namespace Kiskovi.Core
     {
         public override void InstallBindings()
         {
-            Container.DeclareSignal<SelectionClearSignal>();
+            Container.DeclareSignal<SelectionClearSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<GlobalSelectionSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GlobalSelectionNavigationSystem>().AsSingle().NonLazy();
