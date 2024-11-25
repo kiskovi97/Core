@@ -10,7 +10,7 @@ namespace Kiskovi.Core
 
         [Inject] private SignalBus _signalBus;
 
-        public static void Trigger(TriggerAction action, params object[] parameter)
+        public override void Trigger(params object[] parameter)
         {
             _signalBus.TryFire(new SceneLoadRequestSignal()
             {

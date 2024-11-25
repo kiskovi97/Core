@@ -3,15 +3,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using FMODUnity;
-
 using Zenject;
 
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 
-namespace Kiskvoi.Core
+namespace Kiskovi.Core
 {
     public class SceneLoadRequestSignal 
     { 
@@ -123,8 +121,8 @@ namespace Kiskvoi.Core
         IEnumerator ReLoadSceneAsync()
         {
             yield return BeforeLoad(0f, DE_LOAD_DEFAULT, 1f);
-            yield return _sceneProvider.GetScene((int)SceneNumber.TEMP).LoadSceneAsync(LoadSceneMode.Single);
-            yield return lastScreenLoaded.LoadSceneAsync(LoadSceneMode.Single);
+            //yield return _sceneProvider.GetScene(0).LoadSceneAsync(LoadSceneMode.Single);  // TODO
+            //yield return lastScreenLoaded.LoadSceneAsync(LoadSceneMode.Single);
             yield return AfterLoad(LOAD_DEFAULT, 1f);
         }
 

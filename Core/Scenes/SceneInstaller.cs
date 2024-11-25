@@ -8,7 +8,7 @@ namespace Kiskovi.Core
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<SceneProvider>().AsSingle().WithParameters(levelList).NonLazy();
+            Container.BindInterfacesAndSelfTo<SceneProvider>().AsSingle().WithArguments(levelList).NonLazy();
         }
     }
 }
