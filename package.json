@@ -7,7 +7,9 @@
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.textmeshpro": "3.0.6",
-    "com.unity.cinemachine": "2.10.2"
+    "com.unity.cinemachine": "2.10.2",
+    "com.unity.addressables": "1.21.21",
+    "com.unity.localization": "1.5.3"
   },
   "author": "Gergo Kovacs",
   "description": "This is the Core package of Gergo Kovacs"
