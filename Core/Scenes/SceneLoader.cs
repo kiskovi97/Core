@@ -39,12 +39,12 @@ namespace Kiskovi.Core
 
         private static SceneLoader Instance;
 
-        //private ITimeManager _timeManager;
+        private ITimeManager _timeManager;
 
         [Inject]
-        internal void Initialize(SceneProvider sceneProvider, SignalBus signalBus) //ITimeManager timeManager, 
+        internal void Initialize(SceneProvider sceneProvider, SignalBus signalBus, ITimeManager timeManager) //ITimeManager timeManager, 
         {
-            //_timeManager = timeManager;
+            _timeManager = timeManager;
             _sceneProvider = sceneProvider;
             _signalBus = signalBus;
         }
@@ -141,13 +141,13 @@ namespace Kiskovi.Core
             TriggerAction.Trigger(onSceneChange);
 
             yield return new WaitForSecondsRealtime(animationTime);
-            //_timeManager.SetStableTimePausePanel(true);
+            _timeManager.SetStableTimePausePanel(true);
         }
 
         IEnumerator AfterLoad(string loadTrigger, float animationDelay)
         {
             yield return new WaitForSecondsRealtime(animationDelay);
-            //_timeManager.ResetStableTime();
+            _timeManager.ResetStableTime();
             if (uiBlock != null)
                 uiBlock.SetActive(false);
             if (animator != null)
