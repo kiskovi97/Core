@@ -2,12 +2,19 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class SceneInstaller : Installer<SceneInstaller>
+    public class SceneInstaller : Installer<SceneList, SceneInstaller>
     {
-        public LevelList levelList;
+        public SceneList levelList;
+
+        public SceneInstaller(SceneList levelList)
+        {
+            this.levelList = levelList;
+        }
 
         public override void InstallBindings()
         {
+            Container.DeclareSignal<SceneLoadRequestSignal>().OptionalSubscriber();
+
             Container.BindInterfacesAndSelfTo<SceneProvider>().AsSingle().WithArguments(levelList).NonLazy();
         }
     }

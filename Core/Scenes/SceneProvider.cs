@@ -6,9 +6,9 @@ namespace Kiskovi.Core
 {
     internal class SceneProvider
     {
-        internal LevelList levelList;
+        internal SceneList levelList;
 
-        internal SceneProvider(LevelList levelList)
+        internal SceneProvider(SceneList levelList)
         {
             this.levelList = levelList;
         }

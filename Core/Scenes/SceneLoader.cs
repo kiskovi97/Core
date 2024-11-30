@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using Zenject;
 
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 
 namespace Kiskovi.Core
@@ -73,6 +72,8 @@ namespace Kiskovi.Core
                 Instance = instance;
                 DontDestroyOnLoad(instance.gameObject);
                 loadingScreen = SceneManager.GetActiveScene().buildIndex;
+                if (Instance.loadingPanel != null)
+                    Instance.loadingPanel.SetObjectActive(false);
             }
             else
             {
@@ -152,6 +153,9 @@ namespace Kiskovi.Core
                 uiBlock.SetActive(false);
             if (animator != null)
                 animator.SetTrigger(loadTrigger);
+            yield return new WaitForSecondsRealtime(animationDelay);
+            if (loadingPanel != null)
+                loadingPanel.SetObjectActive(false);
         }
 
         public void ReLoadScene()
