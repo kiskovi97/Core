@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using System.Reflection;
 
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-
-
-#if UNITY_EDITOR
 
 [RequireComponent(typeof(CompositeCollider2D))]
 public class ShadowCaster2DCreator : MonoBehaviour
@@ -63,6 +62,9 @@ public class ShadowCaster2DCreator : MonoBehaviour
         }
     }
 }
+
+
+#if UNITY_EDITOR
 
 [CustomEditor(typeof(ShadowCaster2DCreator))]
 public class ShadowCaster2DTileMapEditor : Editor
