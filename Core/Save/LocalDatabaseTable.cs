@@ -10,20 +10,22 @@ namespace Kiskovi.Core
         Task Clear();
 
         Task SaveToDisk();
+
+        void StartSave();
     }
 
-    public abstract class LocalDatabaseTableBase<T> : ILocalDatabaseTable where T : class, IData, new()
+    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable where T : class, IData, new()
     {
         private T _data;
         private SaveSystem _saveSystem;
 
-        public async DatabaseTableBase(ISaveSystem saveSystem)
+        public async LocalDatabaseTable(ISaveSystem saveSystem)
         {
             _saveSystem = saveSystem;
             await LoadFromDisk();
         }
 
-        private virtual async Task LoadFromDisk()
+        protected virtual async Task LoadFromDisk()
         {
             _data = await _saveSystem.GetData<T>();
         }
@@ -36,6 +38,11 @@ namespace Kiskovi.Core
         public virtual async Task Clear()
         {
             _data = new T();
+            await SaveToDisk();
+        }
+
+        public async void StartSave()
+        {
             await SaveToDisk();
         }
     }

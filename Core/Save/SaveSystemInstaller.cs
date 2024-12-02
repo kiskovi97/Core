@@ -8,7 +8,7 @@ namespace Kiskovi.Core
         {
             Container.DeclareSignal<IDatabaseManager.DatabaseChangedSignal>().OptionalSubscriber();
 
-            Container.BindInterfacesAndSelfTo<SaveSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<SaveSystem>().WithArguments(Application.persistentDataPath).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DatabaseManager>().AsSingle().NonLazy();
 
         }
