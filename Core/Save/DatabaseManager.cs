@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
+using Zenject;
+
 namespace Kiskovi.Core
 {
     public interface IRemoteDatabaseTable
@@ -33,10 +35,11 @@ namespace Kiskovi.Core
         private IEnumerable<IRemoteDatabaseTable> _remoteTables;
 
 
-        internal DatabaseTables(IEnumerable<ILocalDatabaseTable> localTables, IEnumerable<IRemoteDatabaseTable> remoteTables, SignalBus signalBus)
+        internal DatabaseManager(IEnumerable<ILocalDatabaseTable> localTables, IEnumerable<IRemoteDatabaseTable> remoteTables, SignalBus signalBus)
         {
             _localTables = localTables;
             _remoteTables = remoteTables;
+            _signalBus = signalBus;
 
             IsInitialized = true;
             

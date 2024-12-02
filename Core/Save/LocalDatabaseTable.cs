@@ -16,28 +16,29 @@ namespace Kiskovi.Core
 
     public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable where T : class, IData, new()
     {
-        private T _data;
-        private SaveSystem _saveSystem;
+        private ISaveSystem _saveSystem;
 
-        public async LocalDatabaseTable(ISaveSystem saveSystem)
+        protected T Data { get; private set; } = new T();
+
+        public LocalDatabaseTable(ISaveSystem saveSystem)
         {
             _saveSystem = saveSystem;
-            await LoadFromDisk();
+            LoadFromDisk();
         }
 
         protected virtual async Task LoadFromDisk()
         {
-            _data = await _saveSystem.GetData<T>();
+            Data = await _saveSystem.GetData<T>();
         }
 
         public virtual async Task SaveToDisk()
         {
-            await _saveSystem.SaveData(_data);
+            await _saveSystem.SaveData(Data);
         }
 
         public virtual async Task Clear()
         {
-            _data = new T();
+            Data = new T();
             await SaveToDisk();
         }
 
