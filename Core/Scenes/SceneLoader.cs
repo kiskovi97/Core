@@ -71,7 +71,11 @@ namespace Kiskovi.Core
             {
                 Instance = instance;
                 DontDestroyOnLoad(instance.gameObject);
+#if UNITY_EDITOR
+                loadingScreen = -1;
+#else
                 loadingScreen = SceneManager.GetActiveScene().buildIndex;
+#endif
                 if (Instance.loadingPanel != null)
                     Instance.loadingPanel.SetObjectActive(false);
             }
