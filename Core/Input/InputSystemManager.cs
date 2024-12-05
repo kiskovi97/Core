@@ -7,8 +7,6 @@ namespace Kiskovi.Core
 {
     internal class InputSystemManager : MonoBehaviour
     {
-        public InputActionReference actionReference;
-
         private static InputSystemManager Instance;
         private static BasicInputActions inputActions;
 
