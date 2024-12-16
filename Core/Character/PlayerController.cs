@@ -12,7 +12,7 @@ namespace Kiskovi.Core
         [Inject] private SignalBus signalBus;
 
         private Vector2 movement;
-        public override Vector2 Movement => movement;
+        public override Vector2 Movement => movement.normalized;
 
         private void OnEnable()
         {

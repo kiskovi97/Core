@@ -15,7 +15,7 @@ namespace Kiskovi.Core
 
         private Vector2 movement;
 
-        public override Vector2 Movement => movement;
+        public override Vector2 Movement => movement.normalized;
 
         private void OnEnable()
         {
