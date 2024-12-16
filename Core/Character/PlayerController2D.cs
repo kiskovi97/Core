@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class PlayerController2D : MonoBehaviour
+    public class PlayerController2D : PlayerControllerBase
     {
         public static PlayerController2D Instance;
 
@@ -15,7 +15,7 @@ namespace Kiskovi.Core
 
         private Vector2 movement;
 
-        public Vector2 Movement => movement;
+        public override Vector2 Movement => movement;
 
         private void OnEnable()
         {

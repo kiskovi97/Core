@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    internal class PlayerController : MonoBehaviour
+    internal class PlayerController : PlayerControllerBase
     {
         public Rigidbody rigidBody;
         public float speed = 1.0f;
@@ -12,6 +12,7 @@ namespace Kiskovi.Core
         [Inject] private SignalBus signalBus;
 
         private Vector2 movement;
+        public override Vector2 Movement => movement;
 
         private void OnEnable()
         {
