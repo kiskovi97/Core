@@ -79,7 +79,7 @@ namespace Kiskovi.Core
         private void UpdateNearest()
         {
             var prevNear = nearestObject;
-            nearestObject = objects.OrderBy(item => (item.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+            nearestObject = objects.Where(item => item != null).OrderBy(item => (item.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
 
             if (prevNear == nearestObject) return;
 
