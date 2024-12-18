@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 using Zenject;
 
@@ -13,9 +12,10 @@ namespace Kiskovi.Core
         [Inject] private UISignalSender uiInteractionSender;
         [Inject] private MovementSignalSender movementSender;
         [Inject] private InteractionSignalSender interactionSender;
+        [Inject] private MapSignalSender mapSignalSender;
 
         private static void Initalize(InputSystemManager instance, UISignalSender uiInteractionSender, 
-            MovementSignalSender movementSignalSender, InteractionSignalSender interactionSignalSender)
+            MovementSignalSender movementSignalSender, InteractionSignalSender interactionSignalSender, MapSignalSender mapSignalSender)
         {
             Instance = instance;
 
@@ -24,6 +24,7 @@ namespace Kiskovi.Core
             inputActions.UIInputs.SetCallbacks(uiInteractionSender);
             inputActions.Movement.SetCallbacks(movementSignalSender);
             inputActions.Interaction.SetCallbacks(interactionSignalSender);
+            inputActions.Map.SetCallbacks(mapSignalSender);
         }
 
         private static void ResetInstance()
@@ -36,7 +37,7 @@ namespace Kiskovi.Core
         {
             if (Instance == null)
             {
-                Initalize(this, uiInteractionSender, movementSender, interactionSender);
+                Initalize(this, uiInteractionSender, movementSender, interactionSender, mapSignalSender);
                 DontDestroyOnLoad(gameObject);
 
             }

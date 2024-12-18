@@ -22,12 +22,14 @@ namespace Kiskovi.Core
             Container.DeclareSignal<ActionPressedSignal>().OptionalSubscriber();
             Container.DeclareSignal<CancelPressedSignal>().OptionalSubscriber();
 
+            Container.DeclareSignal<ToggleMapSignal>().OptionalSubscriber();
 
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<UISignalSender>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<MovementSignalSender>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InteractionSignalSender>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<MapSignalSender>().AsSingle().NonLazy();
         }
     }
 }

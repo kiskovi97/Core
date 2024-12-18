@@ -630,6 +630,45 @@ namespace Kiskovi.Core
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Map"",
+            ""id"": ""c09a70bf-7bfa-404b-8589-737ebeaa7bb7"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""753334bc-8c49-4a78-9fd9-e670f0bd16ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9b718675-7b1f-4493-a90b-49f022670890"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ToggleMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3ab69eb-e5ac-4fdc-8e65-9fa165978b75"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ToggleMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -691,6 +730,9 @@ namespace Kiskovi.Core
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+            // Map
+            m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
+            m_Map_ToggleMap = m_Map.FindAction("ToggleMap", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1068,6 +1110,52 @@ namespace Kiskovi.Core
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Map
+        private readonly InputActionMap m_Map;
+        private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
+        private readonly InputAction m_Map_ToggleMap;
+        public struct MapActions
+        {
+            private @BasicInputActions m_Wrapper;
+            public MapActions(@BasicInputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleMap => m_Wrapper.m_Map_ToggleMap;
+            public InputActionMap Get() { return m_Wrapper.m_Map; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
+            public void AddCallbacks(IMapActions instance)
+            {
+                if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
+                @ToggleMap.started += instance.OnToggleMap;
+                @ToggleMap.performed += instance.OnToggleMap;
+                @ToggleMap.canceled += instance.OnToggleMap;
+            }
+
+            private void UnregisterCallbacks(IMapActions instance)
+            {
+                @ToggleMap.started -= instance.OnToggleMap;
+                @ToggleMap.performed -= instance.OnToggleMap;
+                @ToggleMap.canceled -= instance.OnToggleMap;
+            }
+
+            public void RemoveCallbacks(IMapActions instance)
+            {
+                if (m_Wrapper.m_MapActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IMapActions instance)
+            {
+                foreach (var item in m_Wrapper.m_MapActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_MapActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public MapActions @Map => new MapActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -1118,6 +1206,10 @@ namespace Kiskovi.Core
             void OnScrollWheel(InputAction.CallbackContext context);
             void OnMiddleClick(InputAction.CallbackContext context);
             void OnRightClick(InputAction.CallbackContext context);
+        }
+        public interface IMapActions
+        {
+            void OnToggleMap(InputAction.CallbackContext context);
         }
     }
 }

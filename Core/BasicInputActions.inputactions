@@ -606,6 +606,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Map",
+            "id": "c09a70bf-7bfa-404b-8589-737ebeaa7bb7",
+            "actions": [
+                {
+                    "name": "ToggleMap",
+                    "type": "Button",
+                    "id": "753334bc-8c49-4a78-9fd9-e670f0bd16ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9b718675-7b1f-4493-a90b-49f022670890",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ToggleMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3ab69eb-e5ac-4fdc-8e65-9fa165978b75",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ToggleMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

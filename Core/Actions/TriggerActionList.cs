@@ -5,7 +5,7 @@ namespace Kiskovi.Core
     internal class TriggerActionList : TriggerAction
     {
         public TriggerAction[] Actions;
-        public bool triggerActionsOfChildren = false;
+        public bool triggerActionsOfChildren = true;
 
         public override void Trigger(params object[] parameter)
         {
