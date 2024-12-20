@@ -22,6 +22,7 @@ namespace Kiskovi.Core
         private void OnDisable()
         {
             signalBus.Unsubscribe<MoveSignal>(OnMove);
+            movement = Vector2.zero;
         }
 
         private void OnMove(MoveSignal signal)
