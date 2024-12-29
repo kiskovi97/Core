@@ -13,8 +13,6 @@ namespace Kiskovi.Core
 
         public GameObject nearObject;
         public GameObject nearestObject;
-        public GameObject grabbedObject;
-        public bool grabbed;
 
         public GameObject ClosestObject => interactions.FirstOrDefault()?.gameObject;
 
@@ -56,21 +54,17 @@ namespace Kiskovi.Core
             interactions.Clear();
 
             if (nearObject != null)
-                nearObject.SetActive(grabbed);
+                nearObject.SetActive(false);
             if (nearestObject != null)
                 nearestObject.SetActive(false);
-            if (grabbedObject != null)
-                grabbedObject.SetActive(false);
         }
 
         private void Update()
         {
             if (nearObject != null)
-                nearObject.SetActive(players.Any() || grabbed);
+                nearObject.SetActive(players.Any());
             if (nearestObject != null)
                 nearestObject.SetActive(interactions.Any());
-            if (grabbedObject != null)
-                grabbedObject.SetActive(grabbed);
         }
 
         internal void AddNearest(InteractionObject interactionObject)
