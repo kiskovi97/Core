@@ -13,6 +13,7 @@ namespace Kiskovi.Core
         }
 
         [Inject] private SignalBus _signalBus;
+        [Inject(Id = "PlayerId")] private string _id;
 
         public Type type;
         public TriggerAction onPressed;
@@ -22,10 +23,10 @@ namespace Kiskovi.Core
             switch(type)
             {
                 case Type.Action:
-                    _signalBus.Subscribe<ActionPressedSignal>(OnActionPressed);
+                    _signalBus.SubscribeId<ActionPressedSignal>(_id, OnActionPressed);
                     break;
                 case Type.Cancel:
-                    _signalBus.Subscribe<CancelPressedSignal>(OnActionPressed);
+                    _signalBus.SubscribeId<CancelPressedSignal>(_id, OnActionPressed);
                     break;
             }
         }
@@ -35,10 +36,10 @@ namespace Kiskovi.Core
             switch (type)
             {
                 case Type.Action:
-                    _signalBus.TryUnsubscribe<ActionPressedSignal>(OnActionPressed);
+                    _signalBus.TryUnsubscribeId<ActionPressedSignal>(_id, OnActionPressed);
                     break;
                 case Type.Cancel:
-                    _signalBus.TryUnsubscribe<CancelPressedSignal>(OnActionPressed);
+                    _signalBus.TryUnsubscribeId<CancelPressedSignal>(_id, OnActionPressed);
                     break;
             }
         }

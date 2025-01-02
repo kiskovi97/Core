@@ -10,8 +10,10 @@ namespace Kiskovi.Core
 
         public Rigidbody2D rigidBody;
         public float speed = 1.0f;
+        public bool isMultiFriendly;
 
         [Inject] private SignalBus signalBus;
+        [Inject(Id = "PlayerId")] private string _id;
 
         private Vector2 movement;
 
@@ -19,14 +21,14 @@ namespace Kiskovi.Core
 
         private void OnEnable()
         {
-            signalBus.Subscribe<MoveSignal>(OnMove);
+            signalBus.SubscribeId<MoveSignal>(_id, OnMove);
 
             Instance = this;
         }
 
         private void OnDisable()
         {
-            signalBus.Unsubscribe<MoveSignal>(OnMove);
+            signalBus.TryUnsubscribeId<MoveSignal>(_id, OnMove);
             movement = Vector2.zero;
         }
 

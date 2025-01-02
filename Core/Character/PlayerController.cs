@@ -10,18 +10,19 @@ namespace Kiskovi.Core
         public float speed = 1.0f;
 
         [Inject] private SignalBus signalBus;
+        [Inject(Id = "PlayerId")] private string _id;
 
         private Vector2 movement;
         public override Vector2 Movement => movement.normalized;
 
         private void OnEnable()
         {
-            signalBus.Subscribe<MoveSignal>(OnMove);
+            signalBus.SubscribeId<MoveSignal>(_id, OnMove);
         }
 
         private void OnDisable()
         {
-            signalBus.Unsubscribe<MoveSignal>(OnMove);
+            signalBus.TryUnsubscribeId<MoveSignal>(_id, OnMove);
             movement = Vector2.zero;
         }
 

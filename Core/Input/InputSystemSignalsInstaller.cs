@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using System.Xml;
+
+using Zenject;
 
 namespace Kiskovi.Core
 {
@@ -17,19 +19,20 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.ModifyValueSignal>().OptionalSubscriber();
 
 
-            Container.DeclareSignal<MoveSignal>().OptionalSubscriber();
-            Container.DeclareSignal<ActionHoldSignal>().OptionalSubscriber();
-            Container.DeclareSignal<ActionPressedSignal>().OptionalSubscriber();
-            Container.DeclareSignal<CancelPressedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();
+            Container.DeclareSignal<ActionHoldSignal>().WithId(null).OptionalSubscriber();
+            Container.DeclareSignal<ActionPressedSignal>().WithId(null).OptionalSubscriber();
+            Container.DeclareSignal<CancelPressedSignal>().WithId(null).OptionalSubscriber();
 
             Container.DeclareSignal<ToggleMapSignal>().OptionalSubscriber();
 
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<UISignalSender>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<MovementSignalSender>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<InteractionSignalSender>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerSignalSender>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<MapSignalSender>().AsSingle().NonLazy();
+
+            Container.Bind<string>().WithId("PlayerId").FromInstance(null);
         }
     }
 }

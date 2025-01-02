@@ -269,190 +269,6 @@ namespace Kiskovi.Core
             ]
         },
         {
-            ""name"": ""Interaction"",
-            ""id"": ""f9670986-14a1-4fce-928d-71b995a50ae7"",
-            ""actions"": [
-                {
-                    ""name"": ""Action"",
-                    ""type"": ""Button"",
-                    ""id"": ""72c313d5-0888-43d7-90d3-14d8847feb2f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ActionHold"",
-                    ""type"": ""Value"",
-                    ""id"": ""bde57198-c3e1-4c56-9058-62296bd3cced"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Cancel"",
-                    ""type"": ""Button"",
-                    ""id"": ""fe505240-1670-47d3-8646-34ff5e6a0525"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""66eafdfd-3906-4a6a-af91-07cb25a12b3f"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cc14d418-56cb-43ee-861f-87e39877c657"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""79962190-b9a9-47a2-b0db-710c49575634"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ActionHold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""136b0ec6-ec60-4c36-9d3b-e1972e6ad76e"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ActionHold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e60336da-88ed-4f1d-90e6-2127430978a1"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1679fddd-496a-4caa-8ad8-f21fccfc3ba9"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Movement"",
-            ""id"": ""ff8ed4a1-bfe7-413e-be53-7621efd9ec7a"",
-            ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""67d8ff6e-734f-4f9e-b5b9-1a779523f2ca"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""7d630c73-f7fd-43bb-bf74-5394e2fb076c"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""99a57617-3186-4308-8dc0-6a4a8702ee35"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""ca55beec-c4ef-45d4-b5af-c6c6b7d74c84"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""49807846-499e-4b6d-bc46-4497d07f27bd"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""0402ca13-f79b-4ba0-9582-07a1efb99b77"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""377894a9-7033-4d90-8631-c353422e7c5b"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
             ""name"": ""UI"",
             ""id"": ""7f0c3ec8-de99-4ccc-aef4-68912ed59377"",
             ""actions"": [
@@ -669,6 +485,182 @@ namespace Kiskovi.Core
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player"",
+            ""id"": ""88042b9c-4655-4d0c-958f-97e54d9bbd52"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""4aa979c5-2c96-4203-98e2-bcc6faf17e80"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action"",
+                    ""type"": ""Button"",
+                    ""id"": ""398c179c-7b31-41a7-8f94-676db21378e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActionHold"",
+                    ""type"": ""Value"",
+                    ""id"": ""8a5d5210-d312-4fa0-9ba1-bbfba8e9d0a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7e109e2-4e9c-497b-a475-e55a178e2dfd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""71ae26ba-2afb-44aa-b9f9-d572766209ec"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""a4c2bc46-2233-4b83-acea-b0568e551ead"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""7a7d723b-caed-44dd-a0ac-cd57d923cbb4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""bd4b3697-7756-4bed-97fa-5c80982eaca4"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""bd36fe8b-521d-4885-a172-2fa39b81a889"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6b01d185-dda5-4022-baaf-7f8f95ee6524"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25db677c-e9e4-4cbf-b1b7-63fd6acc3e36"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c00ae8c6-6ce0-41f8-8e4e-54b782849105"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7a41f3a-4a47-41ba-a06c-1fc1f871df69"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""040ef4e3-a553-4fc2-b7e0-6c35e02c3ebd"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8fc2a01-bf6e-4a25-b488-a66e770e37bf"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08832780-7689-4a54-a831-f6e4e9820d95"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -712,14 +704,6 @@ namespace Kiskovi.Core
             m_UIInputs_Prev = m_UIInputs.FindAction("Prev", throwIfNotFound: true);
             m_UIInputs_Next = m_UIInputs.FindAction("Next", throwIfNotFound: true);
             m_UIInputs_ModifyValue = m_UIInputs.FindAction("ModifyValue", throwIfNotFound: true);
-            // Interaction
-            m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
-            m_Interaction_Action = m_Interaction.FindAction("Action", throwIfNotFound: true);
-            m_Interaction_ActionHold = m_Interaction.FindAction("ActionHold", throwIfNotFound: true);
-            m_Interaction_Cancel = m_Interaction.FindAction("Cancel", throwIfNotFound: true);
-            // Movement
-            m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
-            m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -733,6 +717,12 @@ namespace Kiskovi.Core
             // Map
             m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
             m_Map_ToggleMap = m_Map.FindAction("ToggleMap", throwIfNotFound: true);
+            // Player
+            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+            m_Player_Action = m_Player.FindAction("Action", throwIfNotFound: true);
+            m_Player_ActionHold = m_Player.FindAction("ActionHold", throwIfNotFound: true);
+            m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -901,114 +891,6 @@ namespace Kiskovi.Core
         }
         public UIInputsActions @UIInputs => new UIInputsActions(this);
 
-        // Interaction
-        private readonly InputActionMap m_Interaction;
-        private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
-        private readonly InputAction m_Interaction_Action;
-        private readonly InputAction m_Interaction_ActionHold;
-        private readonly InputAction m_Interaction_Cancel;
-        public struct InteractionActions
-        {
-            private @BasicInputActions m_Wrapper;
-            public InteractionActions(@BasicInputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Action => m_Wrapper.m_Interaction_Action;
-            public InputAction @ActionHold => m_Wrapper.m_Interaction_ActionHold;
-            public InputAction @Cancel => m_Wrapper.m_Interaction_Cancel;
-            public InputActionMap Get() { return m_Wrapper.m_Interaction; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(InteractionActions set) { return set.Get(); }
-            public void AddCallbacks(IInteractionActions instance)
-            {
-                if (instance == null || m_Wrapper.m_InteractionActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_InteractionActionsCallbackInterfaces.Add(instance);
-                @Action.started += instance.OnAction;
-                @Action.performed += instance.OnAction;
-                @Action.canceled += instance.OnAction;
-                @ActionHold.started += instance.OnActionHold;
-                @ActionHold.performed += instance.OnActionHold;
-                @ActionHold.canceled += instance.OnActionHold;
-                @Cancel.started += instance.OnCancel;
-                @Cancel.performed += instance.OnCancel;
-                @Cancel.canceled += instance.OnCancel;
-            }
-
-            private void UnregisterCallbacks(IInteractionActions instance)
-            {
-                @Action.started -= instance.OnAction;
-                @Action.performed -= instance.OnAction;
-                @Action.canceled -= instance.OnAction;
-                @ActionHold.started -= instance.OnActionHold;
-                @ActionHold.performed -= instance.OnActionHold;
-                @ActionHold.canceled -= instance.OnActionHold;
-                @Cancel.started -= instance.OnCancel;
-                @Cancel.performed -= instance.OnCancel;
-                @Cancel.canceled -= instance.OnCancel;
-            }
-
-            public void RemoveCallbacks(IInteractionActions instance)
-            {
-                if (m_Wrapper.m_InteractionActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
-
-            public void SetCallbacks(IInteractionActions instance)
-            {
-                foreach (var item in m_Wrapper.m_InteractionActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_InteractionActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
-        public InteractionActions @Interaction => new InteractionActions(this);
-
-        // Movement
-        private readonly InputActionMap m_Movement;
-        private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
-        private readonly InputAction m_Movement_Move;
-        public struct MovementActions
-        {
-            private @BasicInputActions m_Wrapper;
-            public MovementActions(@BasicInputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_Movement_Move;
-            public InputActionMap Get() { return m_Wrapper.m_Movement; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
-            public void AddCallbacks(IMovementActions instance)
-            {
-                if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
-            }
-
-            private void UnregisterCallbacks(IMovementActions instance)
-            {
-                @Move.started -= instance.OnMove;
-                @Move.performed -= instance.OnMove;
-                @Move.canceled -= instance.OnMove;
-            }
-
-            public void RemoveCallbacks(IMovementActions instance)
-            {
-                if (m_Wrapper.m_MovementActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
-
-            public void SetCallbacks(IMovementActions instance)
-            {
-                foreach (var item in m_Wrapper.m_MovementActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_MovementActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
-        public MovementActions @Movement => new MovementActions(this);
-
         // UI
         private readonly InputActionMap m_UI;
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
@@ -1156,6 +1038,76 @@ namespace Kiskovi.Core
             }
         }
         public MapActions @Map => new MapActions(this);
+
+        // Player
+        private readonly InputActionMap m_Player;
+        private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+        private readonly InputAction m_Player_Move;
+        private readonly InputAction m_Player_Action;
+        private readonly InputAction m_Player_ActionHold;
+        private readonly InputAction m_Player_Cancel;
+        public struct PlayerActions
+        {
+            private @BasicInputActions m_Wrapper;
+            public PlayerActions(@BasicInputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Action => m_Wrapper.m_Player_Action;
+            public InputAction @ActionHold => m_Wrapper.m_Player_ActionHold;
+            public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
+            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public void AddCallbacks(IPlayerActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Action.started += instance.OnAction;
+                @Action.performed += instance.OnAction;
+                @Action.canceled += instance.OnAction;
+                @ActionHold.started += instance.OnActionHold;
+                @ActionHold.performed += instance.OnActionHold;
+                @ActionHold.canceled += instance.OnActionHold;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+            }
+
+            private void UnregisterCallbacks(IPlayerActions instance)
+            {
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Action.started -= instance.OnAction;
+                @Action.performed -= instance.OnAction;
+                @Action.canceled -= instance.OnAction;
+                @ActionHold.started -= instance.OnActionHold;
+                @ActionHold.performed -= instance.OnActionHold;
+                @ActionHold.canceled -= instance.OnActionHold;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
+            }
+
+            public void RemoveCallbacks(IPlayerActions instance)
+            {
+                if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayerActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PlayerActions @Player => new PlayerActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -1186,16 +1138,6 @@ namespace Kiskovi.Core
             void OnNext(InputAction.CallbackContext context);
             void OnModifyValue(InputAction.CallbackContext context);
         }
-        public interface IInteractionActions
-        {
-            void OnAction(InputAction.CallbackContext context);
-            void OnActionHold(InputAction.CallbackContext context);
-            void OnCancel(InputAction.CallbackContext context);
-        }
-        public interface IMovementActions
-        {
-            void OnMove(InputAction.CallbackContext context);
-        }
         public interface IUIActions
         {
             void OnNavigate(InputAction.CallbackContext context);
@@ -1210,6 +1152,13 @@ namespace Kiskovi.Core
         public interface IMapActions
         {
             void OnToggleMap(InputAction.CallbackContext context);
+        }
+        public interface IPlayerActions
+        {
+            void OnMove(InputAction.CallbackContext context);
+            void OnAction(InputAction.CallbackContext context);
+            void OnActionHold(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
     }
 }

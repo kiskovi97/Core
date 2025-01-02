@@ -13,16 +13,17 @@ namespace Kiskovi.Core
         private bool isHolding;
 
         [Inject] private SignalBus _signalBus;
+        [Inject(Id = "PlayerId")] private string _id;
 
         private void OnEnable()
         {
-            _signalBus.Subscribe<ActionHoldSignal>(OnHold);
+            _signalBus.SubscribeId<ActionHoldSignal>(_id, OnHold);
             isHolding = false;
         }
 
         private void OnDisable()
         {
-            _signalBus.Unsubscribe<ActionHoldSignal>(OnHold);
+            _signalBus.TryUnsubscribeId<ActionHoldSignal>(_id, OnHold);
         }
 
         private void OnHold(ActionHoldSignal signal)

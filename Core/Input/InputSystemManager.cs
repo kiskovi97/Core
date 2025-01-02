@@ -10,20 +10,18 @@ namespace Kiskovi.Core
         private static BasicInputActions inputActions;
 
         [Inject] private UISignalSender uiInteractionSender;
-        [Inject] private MovementSignalSender movementSender;
-        [Inject] private InteractionSignalSender interactionSender;
+        [Inject] private PlayerSignalSender playerSignalSender;
         [Inject] private MapSignalSender mapSignalSender;
 
         private static void Initalize(InputSystemManager instance, UISignalSender uiInteractionSender, 
-            MovementSignalSender movementSignalSender, InteractionSignalSender interactionSignalSender, MapSignalSender mapSignalSender)
+            PlayerSignalSender playerSignalSender, MapSignalSender mapSignalSender)
         {
             Instance = instance;
 
             inputActions = new BasicInputActions();
             inputActions.Enable();
             inputActions.UIInputs.SetCallbacks(uiInteractionSender);
-            inputActions.Movement.SetCallbacks(movementSignalSender);
-            inputActions.Interaction.SetCallbacks(interactionSignalSender);
+            inputActions.Player.SetCallbacks(playerSignalSender);
             inputActions.Map.SetCallbacks(mapSignalSender);
         }
 
@@ -37,7 +35,7 @@ namespace Kiskovi.Core
         {
             if (Instance == null)
             {
-                Initalize(this, uiInteractionSender, movementSender, interactionSender, mapSignalSender);
+                Initalize(this, uiInteractionSender, playerSignalSender, mapSignalSender);
                 DontDestroyOnLoad(gameObject);
 
             }
