@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Kiskovi.Core
 {
-    internal class UIWindow : UIPanel
+    public class UIWindow : UIPanel
     {
         [SerializeField] private Animator animator;
         [SerializeField] protected GameObject windowObject;
@@ -30,6 +30,8 @@ namespace Kiskovi.Core
         {
             if (windowObject != null)
                 windowObject.SetObjectActive(false);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(false);
         }
 
         protected virtual void OnDestroy()
@@ -97,6 +99,8 @@ namespace Kiskovi.Core
         {
             if (windowObject != null)
                 windowObject.SetObjectActive(true);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(true);
             OnFront();
             inProgress = this;
             if (animator != null)
@@ -109,7 +113,8 @@ namespace Kiskovi.Core
                 yield return null;
             }
             inProgress = null;
-            blockingObject.SetObjectActive(false);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(false);
         }
 
         private IEnumerator StartToOpen()
@@ -125,6 +130,8 @@ namespace Kiskovi.Core
 
             if (windowObject != null)
                 windowObject.SetObjectActive(true);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(true);
 
             TriggerAction.Trigger(onOpen);
             openedWindows = openedWindows.Append(this).OrderBy(item => item.transform.GetSiblingIndex()).ToList();
@@ -143,7 +150,8 @@ namespace Kiskovi.Core
             }
             inProgress = null;
 
-            blockingObject.SetObjectActive(false);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(false);
         }
 
         private IEnumerator StartToClose()
@@ -153,7 +161,8 @@ namespace Kiskovi.Core
             OnBackground();
 
             openedWindows.Remove(this);
-            blockingObject.SetObjectActive(true);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(true);
 
             TriggerAction.Trigger(onClose);
 
@@ -171,6 +180,8 @@ namespace Kiskovi.Core
 
             if (windowObject != null)
                 windowObject.SetObjectActive(false);
+            if (blockingObject != null)
+                blockingObject.SetObjectActive(false);
 
             if (openedWindows.Count > 0)
             {

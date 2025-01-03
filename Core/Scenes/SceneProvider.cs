@@ -13,7 +13,7 @@ namespace Kiskovi.Core
             this.levelList = levelList;
         }
 
-        internal AssetReference GetScene(int sceneIndex)
+        internal AssetReference GetScene(SceneEnum sceneIndex)
         {
             return levelList.GetScene(sceneIndex);
         }

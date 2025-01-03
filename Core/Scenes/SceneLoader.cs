@@ -12,7 +12,7 @@ namespace Kiskovi.Core
 {
     public class SceneLoadRequestSignal 
     { 
-        public int index;
+        public SceneEnum scene;
         public bool force = false;
         public float delayTime = 0f;
     }
@@ -32,7 +32,7 @@ namespace Kiskovi.Core
 
 
         private static AssetReference lastScreenLoaded;
-        private static int loadingScreen = 0;
+        private static SceneEnum loadingScreen = 0;
         private SceneProvider _sceneProvider;
         private SignalBus _signalBus;
 
@@ -72,7 +72,7 @@ namespace Kiskovi.Core
                 Instance = instance;
                 DontDestroyOnLoad(instance.gameObject);
 #if UNITY_EDITOR
-                loadingScreen = -1;
+                loadingScreen = SceneEnum.None;
 #else
                 loadingScreen = SceneManager.GetActiveScene().buildIndex;
 #endif
@@ -88,24 +88,24 @@ namespace Kiskovi.Core
 
         private void OnSceneLoadRequest(SceneLoadRequestSignal signal)
         {
-            Debug.Log("Load Scene by index: " + signal.index);
-            if (!signal.force && loadingScreen == signal.index) //|| index == SceneManager.GetActiveScene().buildIndex
+            Debug.Log("Load Scene by index: " + signal.scene);
+            if (!signal.force && loadingScreen == signal.scene) //|| index == SceneManager.GetActiveScene().buildIndex
             {
                 Debug.Log("sceneIndex is the same as the loadingScreen: " + loadingScreen);
                 return;
             }
-            loadingScreen = signal.index;
-            _LoadScene(signal.index, signal.delayTime);
+            loadingScreen = signal.scene;
+            _LoadScene(signal.scene, signal.delayTime);
         }
 
 
-        private void _LoadScene(int sceneIndex, float delayTime)
+        private void _LoadScene(SceneEnum sceneIndex, float delayTime)
         {
             ObjectsVisibilityManager.Clear();
             StartCoroutine(LoadAsyncronosly(sceneIndex, delayTime));
         }
 
-        IEnumerator LoadWithotAnimationAsyncronosly(int sceneIndex, float delayTime)
+        IEnumerator LoadWithotAnimationAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
             yield return BeforeLoad(delayTime, DE_LOAD_NONE, 1f);
             Debug.Log("Load Scene started: " + sceneIndex);
@@ -114,7 +114,7 @@ namespace Kiskovi.Core
             yield return AfterLoad(LOAD_NONE, 0.1f);
         }
 
-        IEnumerator LoadAsyncronosly(int sceneIndex, float delayTime)
+        IEnumerator LoadAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
             yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, 1f);
             Debug.Log("Load Scene started: " + sceneIndex);            

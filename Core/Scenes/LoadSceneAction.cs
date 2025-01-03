@@ -4,7 +4,7 @@ namespace Kiskovi.Core
 {
     public class LoadSceneAction : TriggerAction
     {
-        public int index;
+        public SceneEnum index;
         public bool force = false;
         public float delayTime = 0f;
 
@@ -14,7 +14,7 @@ namespace Kiskovi.Core
         {
             _signalBus.TryFire(new SceneLoadRequestSignal()
             {
-                index = index,
+                scene = index,
                 force = force,
                 delayTime = delayTime,
             });
