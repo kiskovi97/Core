@@ -66,6 +66,8 @@ namespace Kiskovi.Core
 
         public async Task SaveToDisk()
         {
+            Debug.Log("Saving Database");
+
             foreach (var database in _localTables)
             {
                 await database.SaveToDisk();
