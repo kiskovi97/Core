@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Unity.Collections;
@@ -10,6 +9,8 @@ namespace Kiskovi.Core
 {
     public class InteractionObject : MonoBehaviour
     {
+        public ContactFilter2D contactFilter;
+
         private HashSet<InteractableObject> objects = new HashSet<InteractableObject>();
 
         [ReadOnly] public InteractableObject nearestObject;
@@ -70,9 +71,40 @@ namespace Kiskovi.Core
             else if (refresh == 0)
             {
                 refresh = -1;
-                gameObject.SetActive(false);
-                gameObject.SetActive(true);
+                RecalculateObjects();
             }
+            UpdateNearest();
+        }
+
+        public void RecalculateObjects()
+        {
+            //gameObject.SetActive(false);
+            //gameObject.SetActive(true);
+
+            objects.Clear();
+
+            Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+
+            foreach (var collider in colliders)
+            {
+                if (!collider.isTrigger) continue;
+
+                Collider2D[] results = new Collider2D[100];
+                int count = collider.OverlapCollider(contactFilter, results);
+
+                for (int i = 0; i < count; i++)
+                {
+                    if (colliders.Contains(results[i])) continue;
+
+                    var interactable = results[i].gameObject.GetComponent<InteractableObject>();
+                    if (interactable != null && !objects.Contains(interactable))
+                    {
+                        objects.Add(interactable);
+                        Debug.LogWarning("interactable added: " + interactable.name);
+                    }
+                }
+            }
+
             UpdateNearest();
         }
 
