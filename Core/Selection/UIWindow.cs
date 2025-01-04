@@ -7,6 +7,10 @@ namespace Kiskovi.Core
 {
     public class UIWindow : UIPanel
     {
+        [Header("show trigger: open")]
+        [Header("show trigger: close")]
+        [Space]
+
         [SerializeField] private Animator animator;
         [SerializeField] protected GameObject windowObject;
         [SerializeField] private GameObject blockingObject;
