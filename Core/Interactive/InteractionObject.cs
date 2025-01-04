@@ -100,7 +100,6 @@ namespace Kiskovi.Core
                     if (interactable != null && !objects.Contains(interactable))
                     {
                         objects.Add(interactable);
-                        Debug.LogWarning("interactable added: " + interactable.name);
                     }
                 }
             }
