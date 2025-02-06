@@ -43,7 +43,7 @@ namespace Kiskovi.Core
         private IEnumerator SetActiveFalse()
         {
             foreach (var animator in animators)
-                if (animator.gameObject.activeInHierarchy)
+                if (animator != null && animator.gameObject.activeInHierarchy)
                     animator.SetTrigger("onHide");
             if (unscaledTime)
                 yield return new WaitForSecondsRealtime(destroyTime);
