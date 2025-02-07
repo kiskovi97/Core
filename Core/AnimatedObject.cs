@@ -6,7 +6,8 @@ namespace Kiskovi.Core
 {
     public class AnimatedObject : MonoBehaviour
     {
-        [Header("Destroy trigger: onHide")]
+        [Header("Hide trigger: onHide")]
+        [Header("Show trigger: onShow")]
         [Space]
         [SerializeField] private float destroyTime = 0.5f;
         [SerializeField] private List<Animator> animators = new List<Animator>();
@@ -29,7 +30,13 @@ namespace Kiskovi.Core
                 return;
             }
             if (active)
+            {
+                StopAllCoroutines();
                 gameObject.SetActive(true);
+                foreach (var animator in animators)
+                    if (animator != null && animator.gameObject.activeInHierarchy)
+                        animator.SetTrigger("onShow");
+            }
             else if (prevValue != active)
             {
                 if (gameObject.activeInHierarchy)
