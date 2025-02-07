@@ -61,6 +61,11 @@ public class ShadowCaster2DCreator : MonoBehaviour
             DestroyImmediate(child.gameObject);
         }
     }
+
+    public void OnEnable()
+    {
+        Create();
+    }
 }
 
 
