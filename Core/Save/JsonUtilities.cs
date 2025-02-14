@@ -7,76 +7,137 @@ using System.IO;
 
 namespace Kiskovi.Core
 {
-  internal static class JsonUtilities
-  {
-    static readonly JsonSerializerSettings settings = new JsonSerializerSettings()
+    internal static class JsonUtilities
     {
-      Formatting = Formatting.Indented,
-      NullValueHandling = NullValueHandling.Ignore,
-      MissingMemberHandling = MissingMemberHandling.Ignore,
-      ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-      Converters = { new ColorJsonConverter() },
-    };
-
-    public static async Task<T> LoadJSONAsync<T>(string uri) where T : class
-    {
-      if (string.IsNullOrEmpty(uri) || !File.Exists(uri))
-      {
-        return null;
-      }
-
-      return await ReadFileToJSONAsync<T>(uri);
-    }
-
-    private static async Task<T> ReadFileToJSONAsync<T>(string uri) where T : class
-    {
-      T obj = null;
-      try
-      {
-        var content = await File.ReadAllTextAsync(uri);
-        if (!string.IsNullOrEmpty(content))
+        static readonly JsonSerializerSettings settings = new JsonSerializerSettings()
         {
-          obj = JsonConvert.DeserializeObject<T>(content, settings);
-        }
-      }
-      catch (Exception exp)
-      {
-        Debug.LogWarning(exp);
-      }
-      finally
-      {
-      }
-      return obj;
-    }
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Converters = { new ColorJsonConverter() },
+        };
 
-    public async static Task SaveJSONAsync(string uri, object data)
-    {
-      if (data == null)
-      {
-        return;
-      }
-
-      try
-      {
-        string fileDir = Path.GetDirectoryName(uri);
-        if (string.IsNullOrEmpty(fileDir) == false)
+        public static async Task<T> LoadJSONAsync<T>(string uri) where T : class
         {
-          if (Directory.Exists(fileDir) == false)
-          {
-            Directory.CreateDirectory(fileDir);
-          }
+            if (string.IsNullOrEmpty(uri) || !File.Exists(uri))
+            {
+                return null;
+            }
+
+            return await ReadFileToJSONAsync<T>(uri);
         }
 
-        string json = JsonConvert.SerializeObject(data, settings);
-        await File.WriteAllTextAsync(uri, json);
-      }
-      catch (Exception exp)
-      {
-        Debug.LogWarning(exp);
-      }
-      finally
-      {
-      }
+        public static T LoadJSONSync<T>(string uri) where T : class
+        {
+            if (string.IsNullOrEmpty(uri) || !File.Exists(uri))
+            {
+                return null;
+            }
+
+            return ReadFileToJSONSync<T>(uri);
+        }
+
+        private static async Task<T> ReadFileToJSONAsync<T>(string uri) where T : class
+        {
+            T obj = null;
+            try
+            {
+                var content = await File.ReadAllTextAsync(uri);
+                if (!string.IsNullOrEmpty(content))
+                {
+                    obj = JsonConvert.DeserializeObject<T>(content, settings);
+                }
+            }
+            catch (Exception exp)
+            {
+                Debug.LogWarning(exp);
+            }
+            finally
+            {
+            }
+            return obj;
+        }
+
+        private static T ReadFileToJSONSync<T>(string uri) where T : class
+        {
+            T obj = null;
+            try
+            {
+                var content = File.ReadAllText(uri);
+                if (!string.IsNullOrEmpty(content))
+                {
+                    obj = JsonConvert.DeserializeObject<T>(content, settings);
+                }
+            }
+            catch (Exception exp)
+            {
+                Debug.LogWarning(exp);
+            }
+            finally
+            {
+            }
+            return obj;
+        }
+
+        public async static Task SaveJSONAsync(string uri, object data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            try
+            {
+                string fileDir = Path.GetDirectoryName(uri);
+                if (string.IsNullOrEmpty(fileDir) == false)
+                {
+                    if (Directory.Exists(fileDir) == false)
+                    {
+                        Directory.CreateDirectory(fileDir);
+                    }
+                }
+
+                string json = JsonConvert.SerializeObject(data, settings);
+                await File.WriteAllTextAsync(uri, json);
+            }
+            catch (Exception exp)
+            {
+                Debug.LogWarning(exp);
+            }
+            finally
+            {
+            }
+        }
+
+        public static void SaveJSONSync(string uri, object data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            try
+            {
+                string fileDir = Path.GetDirectoryName(uri);
+                if (string.IsNullOrEmpty(fileDir) == false)
+                {
+                    if (Directory.Exists(fileDir) == false)
+                    {
+                        Directory.CreateDirectory(fileDir);
+                    }
+                }
+
+                string json = JsonConvert.SerializeObject(data, settings);
+                File.WriteAllText(uri, json);
+            }
+            catch (Exception exp)
+            {
+                Debug.LogWarning(exp);
+            }
+            finally
+            {
+            }
+        }
     }
-  }
 }

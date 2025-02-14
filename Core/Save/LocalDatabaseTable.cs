@@ -26,14 +26,14 @@ namespace Kiskovi.Core
             LoadFromDisk();
         }
 
-        protected virtual async Task LoadFromDisk()
+        protected virtual void LoadFromDisk()
         {
-            Data = await _saveSystem.GetData<T>();
+            Data = _saveSystem.GetDataSync<T>();
         }
 
         public virtual async Task SaveToDisk()
         {
-            await _saveSystem.SaveData(Data);
+            await _saveSystem.SaveDataAsync(Data);
         }
 
         public virtual async Task Clear()
