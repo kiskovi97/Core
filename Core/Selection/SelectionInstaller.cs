@@ -10,6 +10,7 @@ namespace Kiskovi.Core
 
             Container.BindInterfacesAndSelfTo<GlobalSelectionSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GlobalSelectionNavigationSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<UIManager>().AsSingle().NonLazy();
 
         }
     }

@@ -12,7 +12,7 @@ namespace Kiskovi.Core
         [Space]
 
         [SerializeField] private Animator animator;
-        [SerializeField] protected GameObject windowObject;
+        [SerializeField] protected GameObject[] windowObjects;
         [SerializeField] private GameObject blockingObject;
         [SerializeField] private TriggerAction onOpen;
         [SerializeField] private TriggerAction onClose;
@@ -26,14 +26,17 @@ namespace Kiskovi.Core
 
         public static bool IsWindowOpen => openedWindows.Count > 0;
 
-        public bool isOpen => windowObject != null && windowObject.activeInHierarchy;
+        public bool isOpen => windowObjects != null && windowObjects.Length > 0 && windowObjects.Any(item => item.activeInHierarchy);
 
         private static UIWindow inProgress = null;
 
         protected virtual void Start()
         {
-            if (windowObject != null)
-                windowObject.SetObjectActive(false);
+            foreach (var window in windowObjects)
+            {
+                if (window != null)
+                    window.SetObjectActive(false);
+            }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(false);
         }
@@ -101,8 +104,11 @@ namespace Kiskovi.Core
 
         private IEnumerator StartToGoFront()
         {
-            if (windowObject != null)
-                windowObject.SetObjectActive(true);
+            foreach (var window in windowObjects)
+            {
+                if (window != null)
+                    window.SetObjectActive(true);
+            }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(true);
             OnFront();
@@ -132,8 +138,11 @@ namespace Kiskovi.Core
             if (UIBasePanel.Instance != null)
                 UIBasePanel.Instance.ToBack();
 
-            if (windowObject != null)
-                windowObject.SetObjectActive(true);
+            foreach (var window in windowObjects)
+            {
+                if (window != null)
+                    window.SetObjectActive(true);
+            }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(true);
 
@@ -182,8 +191,11 @@ namespace Kiskovi.Core
             }
             inProgress = null;
 
-            if (windowObject != null)
-                windowObject.SetObjectActive(false);
+            foreach (var window in windowObjects)
+            {
+                if (window != null)
+                    window.SetObjectActive(false);
+            }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(false);
 
