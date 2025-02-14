@@ -12,6 +12,12 @@ namespace Kiskovi.Core
 
         [Inject] private IDatabaseManager databaseManager;
 
+
+        private void OnEnable()
+        {
+            databaseManager.SaveToDisk();
+        }
+
         private void Update()
         {
             time += Time.deltaTime;
