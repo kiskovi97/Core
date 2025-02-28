@@ -22,7 +22,7 @@ namespace Kiskovi.Core
 
         private static float animationTime = 0.2f;
 
-        protected static UIWindow PauseMenu { get; set; }
+        public static UIWindow PauseMenu { get; set; }
 
         public static bool IsWindowOpen => openedWindows.Count > 0;
 
