@@ -15,7 +15,9 @@ namespace Kiskovi.Core
         IEnumerator Start()
         {
             // Wait for the localization system to initialize
-            yield return LocalizationSettings.InitializationOperation;
+            var operation = LocalizationSettings.InitializationOperation;
+            if (!operation.IsDone)
+                yield return operation;
 
             // Generate list of available Locales
             var options = new List<Dropdown.OptionData>();
