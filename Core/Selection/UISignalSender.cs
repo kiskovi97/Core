@@ -20,7 +20,7 @@ namespace Kiskovi.Core
         {
             if (context.performed)
             {
-                _signalBus.TryFire(new UIInteractions.AccepSignal());
+                _signalBus.TryFire(new UIInteractions.AcceptSignal());
             }
         }
 

@@ -20,13 +20,13 @@ namespace Kiskovi.Core
 
         private void OnEnable()
         {
-            signalBus.Subscribe<UIInteractions.AccepSignal>(OnAccept);
+            signalBus.Subscribe<UIInteractions.AcceptSignal>(OnAccept);
             signalBus.Subscribe<UIInteractions.DeclineSignal>(OnDecline);
         }
 
         private void OnDisable()
         {
-            signalBus.TryUnsubscribe<UIInteractions.AccepSignal>(OnAccept);
+            signalBus.TryUnsubscribe<UIInteractions.AcceptSignal>(OnAccept);
             signalBus.TryUnsubscribe<UIInteractions.DeclineSignal>(OnDecline);
         }
 

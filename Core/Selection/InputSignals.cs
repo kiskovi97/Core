@@ -11,7 +11,7 @@ namespace Kiskovi.Core
     public class UIInteractions
     {
         public class ExitSignal { }
-        public class AccepSignal { }
+        public class AcceptSignal { }
         public class DeclineSignal { }
         public class DeleteSignal { }
         public class Navigate

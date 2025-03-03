@@ -13,7 +13,7 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.Navigate>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.NavigateUI>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.NavigateTabsSignal>().OptionalSubscriber();
-            Container.DeclareSignal<UIInteractions.AccepSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.AcceptSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.DeclineSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.ExitSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.DeleteSignal>().OptionalSubscriber();
