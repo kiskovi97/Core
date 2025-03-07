@@ -11,6 +11,7 @@ namespace Kiskovi.Core
         public Rigidbody2D rigidBody;
         public float speed = 1.0f;
         public bool isMultiFriendly;
+        public TriggerAction OnMoved;
 
         [Inject] private SignalBus signalBus;
         [Inject(Id = "PlayerId")] private string _id;
@@ -35,6 +36,8 @@ namespace Kiskovi.Core
         private void OnMove(MoveSignal signal)
         {
             movement = signal.Move;
+            if (movement.magnitude > 0f)
+                TriggerAction.Trigger(OnMoved);
         }
 
         private void FixedUpdate()
