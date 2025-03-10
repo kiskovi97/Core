@@ -17,7 +17,7 @@ namespace Kiskovi.Core
 
         public bool PrevValue => prevValue;
 
-        private void Start()
+        private void Awake()
         {
             prevValue = true;
         }
