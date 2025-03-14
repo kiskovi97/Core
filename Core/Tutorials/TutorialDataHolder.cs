@@ -32,7 +32,7 @@ namespace Kiskovi.Core
                 SetData(defaultValue);
             }
             _manager.onChanged += OnAvailablilityChanged;
-            OnAvailablilityChanged();
+            OnAvailablilityChanged(true);
         }
 
         protected void OnDestroy()
@@ -67,18 +67,22 @@ namespace Kiskovi.Core
                 OnAvailablilityChanged();
             }
         }
-
         private void OnAvailablilityChanged()
+        {
+            OnAvailablilityChanged(false);
+        }
+
+        private void OnAvailablilityChanged(bool instant)
         {
             var isComplete = _manager.IsTutorialComplete(Data);
 
             switch(type)
             {
                 case Type.HideOnCompleted:
-                    objectBase.SetActive(!isComplete);
+                    objectBase.SetActive(!isComplete, instant);
                     break;
                 case Type.ShowOnCompleted:
-                    objectBase.SetActive(isComplete);
+                    objectBase.SetActive(isComplete, instant);
                     break;
             }
         }
