@@ -11,6 +11,7 @@ namespace Kiskovi.Core
         void SetupTutorials(IEnumerable<string> finishedTutorials);
 
         void CompleteTutorial(TutorialReference reference);
+        bool IsTutorialAvailable(TutorialReference reference);
 
         bool IsTutorialComplete(TutorialReference reference);
 
@@ -64,6 +65,11 @@ namespace Kiskovi.Core
         private void SendChange()
         {
             onChanged?.Invoke();
+        }
+
+        public bool IsTutorialAvailable(TutorialReference reference)
+        {
+            return reference.dependencies.All(IsTutorialComplete);
         }
     }
 }

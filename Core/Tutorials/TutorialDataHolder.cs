@@ -75,14 +75,15 @@ namespace Kiskovi.Core
         private void OnAvailablilityChanged(bool instant)
         {
             var isComplete = _manager.IsTutorialComplete(Data);
+            var isAvailable = _manager.IsTutorialAvailable(Data);
 
-            switch(type)
+            switch (type)
             {
                 case Type.HideOnCompleted:
-                    objectBase.SetActive(!isComplete, instant);
+                    objectBase.SetActive(isAvailable && !isComplete, instant);
                     break;
                 case Type.ShowOnCompleted:
-                    objectBase.SetActive(isComplete, instant);
+                    objectBase.SetActive(isAvailable && isComplete, instant);
                     break;
             }
         }
