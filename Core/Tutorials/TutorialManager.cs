@@ -69,7 +69,7 @@ namespace Kiskovi.Core
 
         public bool IsTutorialAvailable(TutorialReference reference)
         {
-            return reference.dependencies.All(IsTutorialComplete);
+            return reference.dependencies == null || reference.dependencies.All(IsTutorialComplete);
         }
     }
 }
