@@ -64,13 +64,19 @@ namespace Kiskovi.Core
 
         public void Open()
         {
-            Debug.Log("Open " + name);
-            StartCoroutine(StartToOpen());
+            if (!isOpen)
+            {
+                Debug.Log("Open " + name);
+                StartCoroutine(StartToOpen());
+            }
         }
 
         public virtual void Close()
         {
-            StartCoroutine(StartToClose());
+            if (isOpen)
+            {
+                StartCoroutine(StartToClose());
+            }
         }
 
         public void GoToBackground(bool blockUI = true)
