@@ -13,6 +13,8 @@ namespace Kiskovi.Core
 
         public GameObject nearObject;
         public GameObject nearestObject;
+        public TriggerAction onTriggerEnter;
+        public TriggerAction onTriggerExit;
 
         public GameObject ClosestObject => interactions.FirstOrDefault()?.gameObject;
 
@@ -21,6 +23,7 @@ namespace Kiskovi.Core
             if (other.gameObject.CompareTag("Player"))
             {
                 players.Add(other.gameObject);
+                TriggerAction.Trigger(onTriggerEnter);
             }
         }
 
@@ -29,6 +32,7 @@ namespace Kiskovi.Core
             if (other.gameObject.CompareTag("Player"))
             {
                 players.Remove(other.gameObject);
+                TriggerAction.Trigger(onTriggerExit);
             }
         }
 
@@ -37,6 +41,7 @@ namespace Kiskovi.Core
             if (collision.gameObject.CompareTag("Player"))
             {
                 players.Add(collision.gameObject);
+                TriggerAction.Trigger(onTriggerEnter);
             }
         }
 
@@ -45,6 +50,7 @@ namespace Kiskovi.Core
             if (other.gameObject.CompareTag("Player"))
             {
                 players.Remove(other.gameObject);
+                TriggerAction.Trigger(onTriggerExit);
             }
         }
 
