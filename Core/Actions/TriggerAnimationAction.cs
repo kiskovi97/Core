@@ -8,7 +8,8 @@ namespace Kiskovi.Core
         public string triggerName;
         public override void Trigger(params object[] parameter)
         {
-            animator.SetTrigger(triggerName);
+            if (animator != null)
+                animator.SetTrigger(triggerName);
         }
     }
 }
