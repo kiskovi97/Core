@@ -7,6 +7,8 @@ using Zenject;
 
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace Kiskovi.Core
 {
@@ -71,11 +73,7 @@ namespace Kiskovi.Core
             {
                 Instance = instance;
                 DontDestroyOnLoad(instance.gameObject);
-#if UNITY_EDITOR
                 loadingScreen = SceneEnum.None;
-#else
-                loadingScreen = SceneManager.GetActiveScene().buildIndex;
-#endif
                 if (Instance.loadingPanel != null)
                     Instance.loadingPanel.SetObjectActive(false);
             }
@@ -117,9 +115,21 @@ namespace Kiskovi.Core
         IEnumerator LoadAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
             yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, 1f);
-            Debug.Log("Load Scene started: " + sceneIndex);            
-            lastScreenLoaded = _sceneProvider.GetScene(sceneIndex);
-            yield return lastScreenLoaded.LoadSceneAsync(LoadSceneMode.Single);
+            Debug.Log("Load Scene started: " + sceneIndex);      
+            var scene = _sceneProvider.GetScene(sceneIndex);
+            if (scene != null)
+            {
+                AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Single);
+                yield return handle;
+
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                    lastScreenLoaded = scene;
+                else
+                    Debug.LogError("There was a problem loading the scene");
+            } else
+            {
+                Debug.LogError("There was a problem loading the scene, because it is null");
+            }
             yield return AfterLoad(LOAD_DEFAULT, 1f);
         }
 
