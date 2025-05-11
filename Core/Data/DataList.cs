@@ -65,8 +65,24 @@ namespace Kiskovi.Core
 
         public void Clear()
         {
+            for(int i = 0;i < list.Count;i++)
+            {
+                if (!list[i].transform.IsChildOf(parentTransform))
+                {
+                    Destroy(list[i].gameObject);
+                    list.RemoveAt(i);
+                    if (separators.Count > i)
+                    {
+                        Destroy(separators[i]);
+                        separators.RemoveAt(i);
+                    }
+                    i--;
+                }
+            }
             foreach (var item in list)
+            {
                 item.gameObject.SetActive(false);
+            }
             foreach (var item in separators)
                 item.gameObject.SetActive(false);
             currentIndex = -1;

@@ -53,8 +53,8 @@ namespace Kiskovi.Core
         public void Dropped(Placement placement, Vector3 offset)
         {
             this.placement = placement;
-            transform.SetParent(placement.transform, true);
-            transform.SetPositionAndRotation(placement.transform.position + offset, placement.transform.rotation);
+            transform.SetParent(placement.target, true);
+            transform.SetPositionAndRotation(placement.target.position + offset, placement.target.rotation);
         }
 
         public void Release()

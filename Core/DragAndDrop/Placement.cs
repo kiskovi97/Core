@@ -7,6 +7,9 @@ namespace Kiskovi.Core
 {
     public abstract class Placement : MonoBehaviour, IDropHandler
     {
+        public Transform dropParent;
+
+        public Transform target => dropParent != null ? dropParent : transform;
         private Stack<Dragable> dragables = new Stack<Dragable>();
         public void OnDrop(PointerEventData eventData)
         {
