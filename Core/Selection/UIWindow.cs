@@ -117,7 +117,6 @@ namespace Kiskovi.Core
             }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(true);
-            OnFront();
             inProgress = this;
             if (animator != null)
             {
@@ -128,6 +127,7 @@ namespace Kiskovi.Core
             {
                 yield return null;
             }
+            OnFront();
             inProgress = null;
             if (blockingObject != null)
                 blockingObject.SetObjectActive(false);
@@ -154,7 +154,6 @@ namespace Kiskovi.Core
 
             TriggerAction.Trigger(onOpen);
             openedWindows = openedWindows.Append(this).OrderBy(item => item.transform.GetSiblingIndex()).ToList();
-            OnFront();
             OnOpened();
 
             inProgress = this;
@@ -167,6 +166,7 @@ namespace Kiskovi.Core
             {
                 yield return null;
             }
+            OnFront();
             inProgress = null;
 
             if (blockingObject != null)

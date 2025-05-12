@@ -10,7 +10,7 @@ namespace Kiskovi.Core
         [Inject] protected GlobalSelectionSystem selectionSystem;
         private bool _prevCanBeSelected;
 
-        public virtual bool CanBeSelected => isActiveAndEnabled;
+        public virtual bool CanBeSelected => isActiveAndEnabled && (parent == null || parent.isInFront);
         public virtual int Priority => 0;
 
         protected virtual void Awake()

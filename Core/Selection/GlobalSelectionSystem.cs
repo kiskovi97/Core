@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
@@ -9,7 +10,12 @@ namespace Kiskovi.Core
 {
     public class SelectionClearSignal { }
 
-    internal class GlobalSelectionSystem : ITickable, IInitializable, IDisposable
+    public interface ISelectionSystem
+    {
+        GameObject CurrentSelectedObj { get; }
+    }
+
+    internal class GlobalSelectionSystem : ITickable, IInitializable, IDisposable, ISelectionSystem
     {
         private Dictionary<UIPanel, List<SelectableBase>> selectables = new Dictionary<UIPanel, List<SelectableBase>>();
         private Dictionary<UIPanel, SelectableBase> cache = new Dictionary<UIPanel, SelectableBase>();
@@ -19,6 +25,7 @@ namespace Kiskovi.Core
 
         private EventSystem eventSystem => EventSystem.current;
         public SelectableBase CurrentSelected { get; private set; }
+        public GameObject CurrentSelectedObj => CurrentSelected != null ? CurrentSelected.gameObject : null;
         public bool CanNavigate => !eventSystem.alreadySelecting;
         public event Action OnChangedEvent;
 
