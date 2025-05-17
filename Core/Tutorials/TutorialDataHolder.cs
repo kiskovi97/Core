@@ -48,12 +48,12 @@ namespace Kiskovi.Core
             {
 
                 if (iconSpriteRenderer != null)
-                    iconSpriteRenderer.sprite = Data.iconSprite;
+                    iconSpriteRenderer.sprite = Data.IconSprite;
 
                 if (iconImage != null) 
-                    iconImage.sprite = Data.iconSprite;
+                    iconImage.sprite = Data.IconSprite;
 
-                var data = GetLocaleData(Data.localizedReference);
+                var data = GetLocaleData(Data.LocalizedString);
 
                 if (titleText != null)
                 {
