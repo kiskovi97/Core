@@ -1,17 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
-
+﻿using UnityEngine.InputSystem;
 using Zenject;
-
-using static Kiskovi.Core.BasicInputActions;
+using UnityEngine;
 
 namespace Kiskovi.Core
 {
-    internal class UISignalSender : IUIInputsActions
+    internal class UISignalSenderExample : InputActionsExample.IUIInputsActions
     {
         private SignalBus _signalBus;
 
-        public UISignalSender(SignalBus signalBus)
+        public UISignalSenderExample(SignalBus signalBus)
         {
             _signalBus = signalBus;
         }

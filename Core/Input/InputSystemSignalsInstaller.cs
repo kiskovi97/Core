@@ -21,17 +21,8 @@ namespace Kiskovi.Core
 
 
             Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();
-            Container.DeclareSignal<ActionHoldSignal>().WithId(null).OptionalSubscriber();
-            Container.DeclareSignal<ActionPressedSignal>().WithId(null).OptionalSubscriber();
-            Container.DeclareSignal<CancelPressedSignal>().WithId(null).OptionalSubscriber();
-
-            Container.DeclareSignal<ToggleMapSignal>().OptionalSubscriber();
-
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
 
-            Container.BindInterfacesAndSelfTo<UISignalSender>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PlayerSignalSender>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<MapSignalSender>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AvailableInputManager>().AsSingle().NonLazy();
 
             Container.Bind<string>().WithId("PlayerId").FromInstance(null);

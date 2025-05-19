@@ -12,9 +12,6 @@ namespace Kiskovi.Core
             string uniqueId = Guid.NewGuid().ToString();
 
             Container.DeclareSignal<MoveSignal>().WithId(uniqueId).OptionalSubscriber();
-            Container.DeclareSignal<ActionHoldSignal>().WithId(uniqueId).OptionalSubscriber();
-            Container.DeclareSignal<ActionPressedSignal>().WithId(uniqueId).OptionalSubscriber();   
-            Container.DeclareSignal<CancelPressedSignal>().WithId(uniqueId).OptionalSubscriber();
 
             Container.Bind<string>().WithId("PlayerId").FromInstance(uniqueId);
         }

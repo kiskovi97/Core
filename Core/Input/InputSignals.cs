@@ -7,6 +7,15 @@ namespace Kiskovi.Core
         Keyboard,
         XboxController
     }
+    public class MoveSignal
+    {
+        public Vector2 Move;
+
+        public MoveSignal(Vector2 move)
+        {
+            Move = move;
+        }
+    }
 
     public class UIInteractions
     {

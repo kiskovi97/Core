@@ -1,5 +1,5 @@
 {
-    "name": "BasicInputActions",
+    "name": "InputActionsExample",
     "maps": [
         {
             "name": "UIInputs",
@@ -424,45 +424,6 @@
             ]
         },
         {
-            "name": "Map",
-            "id": "c09a70bf-7bfa-404b-8589-737ebeaa7bb7",
-            "actions": [
-                {
-                    "name": "ToggleMap",
-                    "type": "Button",
-                    "id": "753334bc-8c49-4a78-9fd9-e670f0bd16ed",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "9b718675-7b1f-4493-a90b-49f022670890",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ToggleMap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e3ab69eb-e5ac-4fdc-8e65-9fa165978b75",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "ToggleMap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "Player",
             "id": "88042b9c-4655-4d0c-958f-97e54d9bbd52",
             "actions": [
@@ -471,33 +432,6 @@
                     "type": "PassThrough",
                     "id": "4aa979c5-2c96-4203-98e2-bcc6faf17e80",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Action",
-                    "type": "Button",
-                    "id": "398c179c-7b31-41a7-8f94-676db21378e8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ActionHold",
-                    "type": "Value",
-                    "id": "8a5d5210-d312-4fa0-9ba1-bbfba8e9d0a3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "c7e109e2-4e9c-497b-a475-e55a178e2dfd",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -569,72 +503,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "25db677c-e9e4-4cbf-b1b7-63fd6acc3e36",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c00ae8c6-6ce0-41f8-8e4e-54b782849105",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c7a41f3a-4a47-41ba-a06c-1fc1f871df69",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ActionHold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "040ef4e3-a553-4fc2-b7e0-6c35e02c3ebd",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ActionHold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d8fc2a01-bf6e-4a25-b488-a66e770e37bf",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "08832780-7689-4a54-a831-f6e4e9820d95",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }
