@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
+using Zenject;
+
 namespace Kiskovi.Core
 {
     
@@ -14,11 +16,14 @@ namespace Kiskovi.Core
         void StartSave();
     }
 
-    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable where T : class, IData, new()
+    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable where T : class, IData, new()
     {
         private ISaveSystem _saveSystem;
 
         protected T Data { get; private set; } = new T();
+
+        protected bool isSaving;
+        protected bool needSaving;
 
         public LocalDatabaseTable(ISaveSystem saveSystem)
         {
@@ -33,7 +38,20 @@ namespace Kiskovi.Core
 
         public virtual async Task SaveToDisk()
         {
-            await _saveSystem.SaveDataAsync(Data);
+            if (isSaving)
+            {
+                needSaving = true;
+                return;
+            }
+            isSaving = true;
+            try
+            {
+                await _saveSystem.SaveDataAsync(Data);
+            } catch(System.Exception e)
+            {
+                Debug.LogException(e);
+            }
+            isSaving = false;
         }
 
         public virtual async Task Clear()
@@ -45,6 +63,15 @@ namespace Kiskovi.Core
         public async void StartSave()
         {
             await SaveToDisk();
+        }
+
+        public void Tick()
+        {
+            if (!isSaving && needSaving)
+            {
+                needSaving = false;
+                StartSave();
+            }
         }
     }
 }
