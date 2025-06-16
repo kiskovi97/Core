@@ -37,7 +37,7 @@ namespace Kiskovi.Core
             if (InputSignals.Scheme == ControlScheme.Keyboard) return;
 
             var getSelectableList = _selectionSystem.GetCurrentLayerSelectables(false);
-            var nextSelected = GetNextSelected(getSelectableList, signal.Delta);
+            var nextSelected = GetNextSelected(getSelectableList, signal.value);
             if (nextSelected != null)
             {
                 _selectionSystem.SetSelectedGameObject(nextSelected);
@@ -49,7 +49,7 @@ namespace Kiskovi.Core
             if (InputSignals.Scheme == ControlScheme.Keyboard) return;
 
             var getSelectableList = _selectionSystem.GetCurrentLayerSelectables(true);
-            var nextSelected = GetNextSelected(getSelectableList, signal.Delta);
+            var nextSelected = GetNextSelected(getSelectableList, signal.value);
             if (nextSelected != null)
             {
                 _selectionSystem.SetSelectedGameObject(nextSelected);

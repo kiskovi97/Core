@@ -25,7 +25,7 @@ namespace Kiskovi.Core
         private void OnModifyValue(UIInteractions.ModifyValueSignal signal)
         {
             if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == slider.gameObject)
-                slider.value += signal.Delta * 0.1f;
+                slider.value += signal.value * 0.1f;
         }
     }
 }

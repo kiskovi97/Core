@@ -28,7 +28,7 @@ namespace Kiskovi.Core
 
         private void OnMove(MoveSignal signal)
         {
-            movement = signal.Move;
+            movement = signal.value;
         }
         private void FixedUpdate()
         {

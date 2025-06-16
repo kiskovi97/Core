@@ -35,7 +35,7 @@ namespace Kiskovi.Core
 
         private void OnMove(MoveSignal signal)
         {
-            movement = signal.Move;
+            movement = signal.value;
             if (movement.magnitude > 0f)
                 TriggerAction.Trigger(OnMoved);
         }

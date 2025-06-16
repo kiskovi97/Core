@@ -2,7 +2,8 @@
     "name": "Kiskovi.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:1cbc47705fbf7bf4caf9c04aadd184d2"
+        "GUID:1cbc47705fbf7bf4caf9c04aadd184d2",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [
         "Editor"

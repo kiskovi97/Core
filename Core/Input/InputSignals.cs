@@ -7,57 +7,35 @@ namespace Kiskovi.Core
         Keyboard,
         XboxController
     }
-    public class MoveSignal
+    public class MoveSignal : InputVector2Signal
     {
-        public Vector2 Move;
-
-        public MoveSignal(Vector2 move)
-        {
-            Move = move;
-        }
+        public MoveSignal(Vector2 move) : base(move) { }
     }
 
     public class UIInteractions
     {
-        public class ExitSignal { }
-        public class AcceptSignal { }
-        public class DeclineSignal { }
-        public class DeleteSignal { }
-        public class Navigate
-        {
-            public Vector2 Delta;
+        public class ExitSignal : InputSimpleSignal { }
 
-            public Navigate(Vector2 delta)
-            {
-                Delta = delta;
-            }
+        public class AcceptSignal : InputSimpleSignal { }
+
+        public class DeclineSignal : InputSimpleSignal { }
+
+        public class DeleteSignal : InputSimpleSignal { }
+        public class Navigate : InputVector2Signal
+        {
+            public Navigate(Vector2 delta) : base(delta) { }
         }
-        public class NavigateUI
+        public class NavigateUI : InputVector2Signal
         {
-            public Vector2 Delta;
-
-            public NavigateUI(Vector2 delta)
-            {
-                Delta = delta;
-            }
+            public NavigateUI(Vector2 delta) : base(delta) { }
         }
-        public class NavigateTabsSignal
+        public class NavigateTabsSignal : InputBooleanSignal
         {
-            public bool forward;
-
-            public NavigateTabsSignal(bool forward)
-            {
-                this.forward = forward;
-            }
+            public NavigateTabsSignal(bool forward) : base(forward) { }
         }
-        public class ModifyValueSignal
+        public class ModifyValueSignal : InputFloatSignal
         {
-            public float Delta;
-
-            public ModifyValueSignal(float delta)
-            {
-                Delta = delta;
-            }
+            public ModifyValueSignal(float value) : base(value) { }
         }
     }
 
