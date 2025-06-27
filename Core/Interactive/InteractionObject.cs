@@ -90,7 +90,7 @@ namespace Kiskovi.Core
                 if (!collider.isTrigger) continue;
 
                 Collider2D[] results = new Collider2D[100];
-                int count = collider.OverlapCollider(contactFilter, results);
+                int count = collider.Overlap(contactFilter, results);
 
                 for (int i = 0; i < count; i++)
                 {
