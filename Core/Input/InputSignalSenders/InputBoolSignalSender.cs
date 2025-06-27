@@ -23,7 +23,7 @@ namespace Kiskovi.Core
         {
             if (CachedType != null && typeof(InputBooleanSignal).IsAssignableFrom(CachedType))
             {
-                var instance = Activator.CreateInstance(CachedType, value);
+                var instance = Activator.CreateInstance(CachedType, args: value);
                 _signalBus.TryFire(instance);
             }
             else
