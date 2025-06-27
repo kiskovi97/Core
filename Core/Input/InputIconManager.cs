@@ -104,7 +104,8 @@ namespace Kiskovi.Core
 
     public interface IInputIconManager
     {
-        public Sprite GetSprite(InputActionReference reference);
+        Sprite GetSprite(InputActionReference reference);
+        string GetString(InputActionReference reference);
     }
 
     [Serializable]
@@ -121,6 +122,34 @@ namespace Kiskovi.Core
         public InputIconManager(InputIconSettings icons)
         {
             _icons = icons;
+        }
+
+        public string GetString(InputActionReference reference)
+        {
+            if (reference == null || reference.action == null)
+            {
+                return null;
+            }
+            var bindings = reference.action.bindings;
+
+            for (int i = 0; i < bindings.Count; i++)
+            {
+                var binding = bindings[i];
+                // Skip if it's not a part of a control scheme
+                if (binding.groups.Contains(InputSignals.SchemeName))
+                {
+                    foreach (var device in InputSystem.devices)
+                    {
+                        var control = InputControlPath.TryFindControl(device, binding.effectivePath);
+                        if(control != null)
+                        {
+                            // Return a user-facing display string
+                            return reference.action.GetBindingDisplayString(i);
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         public Sprite GetSprite(InputActionReference reference)

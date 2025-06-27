@@ -12,6 +12,8 @@ namespace Kiskovi.Core
         public TMP_Text text;
         public SpriteRenderer iconSprite;
         public Image iconImage;
+        public Sprite defaultIconSprite;
+        public TMP_Text inputText;
 
         [Inject] private IInputIconManager iconManager;
 
@@ -27,10 +29,20 @@ namespace Kiskovi.Core
             var icon = iconManager.GetSprite(Data.inputActionReference);
 
             if (iconSprite != null)
-                iconSprite.sprite = icon;
+                iconSprite.sprite = icon != null ? icon : defaultIconSprite;
 
             if (iconImage != null)
-                iconImage.sprite = icon;
+                iconImage.sprite = icon != null ? icon : defaultIconSprite;
+
+
+
+            if (inputText != null)
+            {
+                if (icon != null)
+                    inputText.text = "";
+                else
+                    inputText.text = iconManager.GetString(Data.inputActionReference);
+            }
         }
     }
 }
