@@ -64,13 +64,13 @@ namespace Kiskovi.Core
             if (instance == this)
                 switch (obj.currentControlScheme)
                 {
-                    case "Keyboard":
+                    case InputSignals.KEYBOARD_NAME:
                         if (InputSignals.Scheme != ControlScheme.Keyboard)
                             PauseGameReqest();
                         InputSignals.Scheme = ControlScheme.Keyboard;
                         _signalBus.TryFire(new InputSignals.ControlSchemeChanged(ControlScheme.Keyboard));
                         break;
-                    case "XboxController":
+                    case InputSignals.XBOX_NAME:
                         if (InputSignals.Scheme != ControlScheme.XboxController)
                             PauseGameReqest();
                         InputSignals.Scheme = ControlScheme.XboxController;

@@ -24,6 +24,7 @@ namespace Kiskovi.Core
         public TMP_Text descriptionText;
 
         [Inject] private ITutorialManager _manager;
+        [Inject] private IInputIconManager iconManager;
 
         protected void Start()
         {
@@ -46,22 +47,20 @@ namespace Kiskovi.Core
 
             if (Data != null)
             {
-
+                var icon = Data.GetIcon(iconManager);
                 if (iconSpriteRenderer != null)
-                    iconSpriteRenderer.sprite = Data.IconSprite;
+                    iconSpriteRenderer.sprite = icon;
 
                 if (iconImage != null) 
-                    iconImage.sprite = Data.IconSprite;
-
-                var data = GetLocaleData(Data.LocalizedString);
+                    iconImage.sprite = icon;
 
                 if (titleText != null)
                 {
-                    titleText.text = data["title"].ToString();
+                    titleText.text = GetLocaleData(Data.LocalizedString, "title");
                 }
                 if (descriptionText != null)
                 {
-                    descriptionText.text = data["description"].ToString();
+                    descriptionText.text = GetLocaleData(Data.LocalizedString, "description");
                 }
 
                 OnAvailablilityChanged();

@@ -41,7 +41,15 @@ namespace Kiskovi.Core
 
     public class InputSignals
     {
+        public const string KEYBOARD_NAME = "Keyboard";
+        public const string XBOX_NAME = "XboxController";
+
         public static ControlScheme Scheme = ControlScheme.Keyboard;
+        public static string SchemeName => (Scheme) switch { 
+            ControlScheme.Keyboard => KEYBOARD_NAME, 
+            ControlScheme.XboxController => XBOX_NAME, 
+            _ => KEYBOARD_NAME 
+        };
         public static string translationKey => (Scheme) switch
         {
             ControlScheme.Keyboard => "_keyboard",

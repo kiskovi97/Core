@@ -20,30 +20,22 @@ namespace Kiskovi.Core
         public string key => name;
         public LocalizedString localizedReference;
         public Sprite iconSprite;
-        public Override[] overrides = new Override[0];
+        public InputInfoGroup inputInfoGroup;
+
+        public Sprite GetIcon(IInputIconManager iconManager)
+        {
+            if (iconSprite != null) return iconSprite;
+
+            return iconManager.GetSprite(inputInfoGroup?.inputActionReference);
+        }
 
         public LocalizedString LocalizedString
         {
             get
             {
-                foreach (var over in overrides)
-                {
-                    if (InputSignals.Scheme == over.controlScheme)
-                        return over.localizedReference;
-                }
+                if (localizedReference.isDirty)
+                    return inputInfoGroup?.referenceName;
                 return localizedReference;
-            }
-        }
-        public Sprite IconSprite
-        {
-            get
-            {
-                foreach (var over in overrides)
-                {
-                    if (InputSignals.Scheme == over.controlScheme)
-                        return over.iconSprite;
-                }
-                return iconSprite;
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Kiskovi.Core
 
     public interface IAvailableInputManager
     {
-        IEnumerable<InputInfo> AvailableInputs { get; }
+        IEnumerable<InputInfoGroup> AvailableInputs { get; }
 
         void RegisterInput(InputInfoGroup input, MonoBehaviour reference);
         void DeRegisterInput(InputInfoGroup input, MonoBehaviour reference);
@@ -25,7 +25,7 @@ namespace Kiskovi.Core
     {
         struct InputInfoDependency
         {
-            public InputInfo info;
+            public InputInfoGroup info;
             public MonoBehaviour dependent;
         }
 
@@ -33,7 +33,7 @@ namespace Kiskovi.Core
 
         public event Action OnChanged;
 
-        public IEnumerable<InputInfo> AvailableInputs => _availableInputs.Select(item => item.info).Where(item => item.controlScheme == InputSignals.Scheme).Distinct();
+        public IEnumerable<InputInfoGroup> AvailableInputs => _availableInputs.Select(item => item.info).Distinct();
 
         public AvailableInputManager(SignalBus signalBus)
         {
@@ -47,38 +47,31 @@ namespace Kiskovi.Core
 
         public void DeRegisterInput(InputInfoGroup inputGroup, MonoBehaviour reference)
         {
-            foreach(var input in inputGroup.inputInfos)
+            var dependency = new InputInfoDependency()
             {
-                var dependency = new InputInfoDependency()
-                {
-                    info = input,
-                    dependent = reference
-                };
-                if (_availableInputs.Contains(dependency))
-                {
-                    _availableInputs.Remove(dependency);
+                info = inputGroup,
+                dependent = reference
+            };
+            if (_availableInputs.Contains(dependency))
+            {
+                _availableInputs.Remove(dependency);
 
-                    OnChanged?.Invoke();
-                }
+                OnChanged?.Invoke();
             }
-            
         }
 
         public void RegisterInput(InputInfoGroup inputGroup, MonoBehaviour reference)
         {
-            foreach (var input in inputGroup.inputInfos)
+            var dependency = new InputInfoDependency()
             {
-                var dependency = new InputInfoDependency()
-                {
-                    info = input,
-                    dependent = reference
-                };
-                if (!_availableInputs.Contains(dependency))
-                {
-                    _availableInputs.Add(dependency);
+                info = inputGroup,
+                dependent = reference
+            };
+            if (!_availableInputs.Contains(dependency))
+            {
+                _availableInputs.Add(dependency);
 
-                    OnChanged?.Invoke();
-                }
+                OnChanged?.Invoke();
             }
         }
     }

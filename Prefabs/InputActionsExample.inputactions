@@ -9,7 +9,7 @@
                     "name": "Accept",
                     "type": "Button",
                     "id": "2203b4ec-c076-4934-bc1f-b9e5f1fe1c6d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -105,7 +105,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Accept",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -127,7 +127,7 @@
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Decline",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -138,7 +138,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -149,7 +149,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Delete",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -182,7 +182,7 @@
                     "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -204,7 +204,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Next",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -226,7 +226,7 @@
                     "path": "<Gamepad>/dpad/x",
                     "interactions": "",
                     "processors": "Normalize(min=-1,max=1)",
-                    "groups": "Gamepad",
+                    "groups": "XboxController",
                     "action": "ModifyValue",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -237,7 +237,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "Press",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "NavigateUI",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -339,7 +339,7 @@
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -416,7 +416,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XboxController;Gamepad",
+                    "groups": "XboxController;XboxController",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -525,8 +525,8 @@
             ]
         },
         {
-            "name": "Gamepad",
-            "bindingGroup": "Gamepad",
+            "name": "XboxController",
+            "bindingGroup": "XboxController",
             "devices": [
                 {
                     "devicePath": "<Gamepad>",

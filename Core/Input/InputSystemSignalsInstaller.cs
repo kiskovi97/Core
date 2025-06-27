@@ -1,11 +1,20 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class InputSystemSignalsInstaller : Installer<InputSystemSignalsInstaller>
+    [Serializable]
+    public class InputSettings
     {
+        public InputIconSettings iconSettings;
+    }
+
+    public class InputSystemSignalsInstaller : Installer<InputSettings, InputSystemSignalsInstaller>
+    {
+        [Inject] private InputSettings settings;
+
         public override void InstallBindings()
         {
             Container.DeclareSignal<InputSignals.ControlSchemeChanged>().OptionalSubscriber();
@@ -25,6 +34,7 @@ namespace Kiskovi.Core
             Container.DeclareSignal<BindingChangedSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<AvailableInputManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<InputIconManager>().AsSingle().WithArguments(settings.iconSettings).NonLazy();
 
             Container.Bind<string>().WithId("PlayerId").FromInstance(null);
         }

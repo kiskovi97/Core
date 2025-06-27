@@ -3,6 +3,7 @@ using UnityEngine.Localization;
 
 using Newtonsoft.Json.Linq;
 using Zenject;
+using System;
 
 namespace Kiskovi.Core
 {
@@ -33,10 +34,9 @@ namespace Kiskovi.Core
             Refresh();
         }
 
-        protected JObject GetLocaleData(LocalizedString localizedString)
+        protected string GetLocaleData(LocalizedString localizedString, string key)
         {
-            var jsonString = localizedString.GetLocalizedString();
-            return JObject.Parse(jsonString);
+            return LocalizedObjectText.GetLocaleData(localizedString, key);
         }
     }
 }

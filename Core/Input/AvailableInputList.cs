@@ -2,7 +2,7 @@
 
 namespace Kiskovi.Core
 {
-    internal class AvailableInputList : DataList<InputInfo>
+    internal class AvailableInputList : DataList<InputInfoGroup>
     {
         [Inject] private IAvailableInputManager manager;
 

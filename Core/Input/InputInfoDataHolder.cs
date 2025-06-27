@@ -7,11 +7,13 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    internal class InputInfoDataHolder : LocalizedDataHolder<InputInfo>
+    internal class InputInfoDataHolder : LocalizedDataHolder<InputInfoGroup>
     {
         public TMP_Text text;
         public SpriteRenderer iconSprite;
         public Image iconImage;
+
+        [Inject] private IInputIconManager iconManager;
 
         public override void SetData(IData itemData)
         {
@@ -20,13 +22,15 @@ namespace Kiskovi.Core
             if (Data == null) return;
 
             if (text != null)
-                text.text = Data.referenceName.GetLocalizedString();
+                text.text = GetLocaleData(Data.referenceName, "title");
+
+            var icon = iconManager.GetSprite(Data.inputActionReference);
 
             if (iconSprite != null)
-                iconSprite.sprite = Data.icon;
+                iconSprite.sprite = icon;
 
             if (iconImage != null)
-                iconImage.sprite = Data.icon;
+                iconImage.sprite = icon;
         }
     }
 }
