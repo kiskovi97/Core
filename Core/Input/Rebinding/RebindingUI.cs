@@ -179,8 +179,12 @@ namespace Kiskovi.Core
             var asset = currentMap?.asset;
             if (asset == null) return;
 
+            var changed = false;
+
             foreach (var map in asset.actionMaps)
             {
+                if (map != currentAction.actionMap) continue;
+
                 foreach (var action in map.actions)
                 {
                     if (action == currentAction) continue;
@@ -191,12 +195,15 @@ namespace Kiskovi.Core
 
                         if (binding.effectivePath == oldPath)
                         {
+                            changed = true;
                             // Swap bindings
                             Debug.LogWarning($"Same binding carry over: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
 
                             action.ApplyBindingOverride(i, newPath);
-                        } else if (binding.effectivePath == newPath)
+                        }
+                        else if (binding.effectivePath == newPath)
                         {
+                            changed = true;
                             // Swap bindings
                             Debug.LogWarning($"Swapping binding: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
 
@@ -205,6 +212,9 @@ namespace Kiskovi.Core
                     }
                 }
             }
+
+            if (changed)
+                _signalBus.TryFire(new BindingChangedSignal());
         }
 
         protected void OnEnable()
