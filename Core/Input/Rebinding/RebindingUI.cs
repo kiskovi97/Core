@@ -126,6 +126,9 @@ namespace Kiskovi.Core
             }
 
             action.Disable();
+
+            string originalBindingPath = action.bindings[bindingIndex].effectivePath;
+
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
                 .OnCancel(
@@ -152,6 +155,9 @@ namespace Kiskovi.Core
                         }
 
                         action.Enable();
+
+                        string newBindingPath = action.bindings[bindingIndex].effectivePath;
+                        SwapConflictingBindings(action, bindingIndex, newBindingPath, originalBindingPath);
                     });
 
             // If it's a part binding, show the name of the part in the UI.
@@ -165,6 +171,40 @@ namespace Kiskovi.Core
                 m_BindingText.text = "<Waiting...>";
 
             m_RebindOperation.Start();
+        }
+
+        private void SwapConflictingBindings(InputAction currentAction, int currentBindingIndex, string newPath, string oldPath)
+        {
+            var currentMap = currentAction.actionMap;
+            var asset = currentMap?.asset;
+            if (asset == null) return;
+
+            foreach (var map in asset.actionMaps)
+            {
+                foreach (var action in map.actions)
+                {
+                    if (action == currentAction) continue;
+
+                    for (int i = 0; i < action.bindings.Count; i++)
+                    {
+                        var binding = action.bindings[i];
+
+                        if (binding.effectivePath == oldPath)
+                        {
+                            // Swap bindings
+                            Debug.LogWarning($"Same binding carry over: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
+
+                            action.ApplyBindingOverride(i, newPath);
+                        } else if (binding.effectivePath == newPath)
+                        {
+                            // Swap bindings
+                            Debug.LogWarning($"Swapping binding: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
+
+                            action.ApplyBindingOverride(i, oldPath);
+                        }
+                    }
+                }
+            }
         }
 
         protected void OnEnable()
