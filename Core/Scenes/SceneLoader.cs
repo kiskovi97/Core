@@ -9,6 +9,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using System;
 
 namespace Kiskovi.Core
 {
@@ -17,6 +18,10 @@ namespace Kiskovi.Core
         public SceneEnum scene;
         public bool force = false;
         public float delayTime = 0f;
+    }
+
+    public class ReloadSceneSignal 
+    {
     }
 
     internal class SceneLoader : MonoBehaviour
@@ -56,6 +61,7 @@ namespace Kiskovi.Core
             if (uiBlock != null)
                 uiBlock.SetActive(false);
             _signalBus.Subscribe<SceneLoadRequestSignal>(OnSceneLoadRequest);
+            _signalBus.Subscribe<ReloadSceneSignal>(OnReload);
         }
 
         private void OnDestroy()
@@ -65,6 +71,7 @@ namespace Kiskovi.Core
                 Debug.LogWarning("SceneLoaderDestroyed");
             }
             _signalBus.TryUnsubscribe<SceneLoadRequestSignal>(OnSceneLoadRequest);
+            _signalBus.TryUnsubscribe<ReloadSceneSignal>(OnReload);
         }
 
         private static void SetInstance(SceneLoader instance)
@@ -82,6 +89,11 @@ namespace Kiskovi.Core
                 Destroy(instance.loadingPanel);
                 Destroy(instance);
             }
+        }
+
+        private void OnReload(ReloadSceneSignal signal)
+        {
+            StartCoroutine(ReLoadSceneAsync());
         }
 
         private void OnSceneLoadRequest(SceneLoadRequestSignal signal)
@@ -136,8 +148,10 @@ namespace Kiskovi.Core
         IEnumerator ReLoadSceneAsync()
         {
             yield return BeforeLoad(0f, DE_LOAD_DEFAULT, 1f);
-            //yield return _sceneProvider.GetScene(0).LoadSceneAsync(LoadSceneMode.Single);  // TODO
-            //yield return lastScreenLoaded.LoadSceneAsync(LoadSceneMode.Single);
+            Debug.Log("ReLoad Scene started");
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+
             yield return AfterLoad(LOAD_DEFAULT, 1f);
         }
 
@@ -170,11 +184,6 @@ namespace Kiskovi.Core
             yield return new WaitForSecondsRealtime(animationDelay);
             if (loadingPanel != null)
                 loadingPanel.SetObjectActive(false);
-        }
-
-        public void ReLoadScene()
-        {
-            StartCoroutine(ReLoadSceneAsync());
         }
     }
 }

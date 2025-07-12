@@ -14,6 +14,7 @@ namespace Kiskovi.Core
         public override void InstallBindings()
         {
             Container.DeclareSignal<SceneLoadRequestSignal>().OptionalSubscriber();
+            Container.DeclareSignal<ReloadSceneSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<SceneProvider>().AsSingle().WithArguments(levelList).NonLazy();
         }
