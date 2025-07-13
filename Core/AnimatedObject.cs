@@ -8,12 +8,15 @@ namespace Kiskovi.Core
     {
         [Header("Hide trigger: onHide")]
         [Header("Show trigger: onShow")]
+        [Header("Destroy trigger: onDestroy")]
         [Space]
+        [SerializeField] private float hideTime = 0.5f;
         [SerializeField] private float destroyTime = 0.5f;
         [SerializeField] private List<Animator> animators = new List<Animator>();
         [SerializeField] private bool unscaledTime;
 
         private bool prevValue = false;
+        private bool isDestroying = false;
 
         public bool PrevValue => prevValue;
 
@@ -47,15 +50,37 @@ namespace Kiskovi.Core
             prevValue = active;
         }
 
+        public void Destroy()
+        {
+            if (isDestroying) return;
+            isDestroying = true;
+
+            StopAllCoroutines();
+            StartCoroutine(DestroyAnimation());
+        }
+
+        private IEnumerator DestroyAnimation()
+        {
+            foreach (var animator in animators)
+                if (animator != null && animator.gameObject.activeInHierarchy)
+                    animator.SetTrigger("onDestroy");
+            if (unscaledTime)
+                yield return new WaitForSecondsRealtime(destroyTime);
+            else
+                yield return new WaitForSeconds(destroyTime);
+
+            Destroy(gameObject);
+        }
+
         private IEnumerator SetActiveFalse()
         {
             foreach (var animator in animators)
                 if (animator != null && animator.gameObject.activeInHierarchy)
                     animator.SetTrigger("onHide");
             if (unscaledTime)
-                yield return new WaitForSecondsRealtime(destroyTime);
+                yield return new WaitForSecondsRealtime(hideTime);
             else
-                yield return new WaitForSeconds(destroyTime);
+                yield return new WaitForSeconds(hideTime);
 
             gameObject.SetActive(false);
         }
