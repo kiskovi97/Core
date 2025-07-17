@@ -10,6 +10,7 @@ namespace Kiskovi.Core
     public class InteractionObject : MonoBehaviour
     {
         public ContactFilter2D contactFilter;
+        public Transform center;
 
         private HashSet<InteractableObject> objects = new HashSet<InteractableObject>();
 
@@ -110,7 +111,8 @@ namespace Kiskovi.Core
         private void UpdateNearest()
         {
             var prevNear = nearestObject;
-            nearestObject = objects.Where(item => item != null).OrderBy(item => (item.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+            var currentCenter = center ?? transform;
+            nearestObject = objects.Where(item => item != null).OrderBy(item => (item.transform.position - currentCenter.position).sqrMagnitude).FirstOrDefault();
 
             if (prevNear == nearestObject) return;
 
