@@ -2,7 +2,7 @@
 
 namespace Kiskovi.Core
 {
-    internal class PlayerController2DCenterOffset : MonoBehaviour
+    internal class PlayerControllerCenterOffset : MonoBehaviour
     {
         public PlayerControllerBase playerController2D;
         public float offset = 0.2f;
