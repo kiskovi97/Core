@@ -9,7 +9,6 @@ namespace Kiskovi.Core
 
         public Rigidbody2D rigidBody;
         public float speed = 1.0f;
-        public float smoothTime = 0.08f;
         public TriggerAction OnMoved;
 
         [Inject] private SignalBus signalBus;
@@ -17,7 +16,6 @@ namespace Kiskovi.Core
 
         private Vector2 movement;
         private Vector2 nextPosition;
-        private Vector2 velocity = Vector2.zero;
 
         public override Vector2 Movement => movement.normalized;
 
@@ -44,20 +42,21 @@ namespace Kiskovi.Core
         private void Update()
         {
             nextPosition = GetNextGridCenter(transform.position, movement);
-
-
-            //rigidBody.MovePosition(Vector2.MoveTowards(rigidBody.position, nextPosition, speed * Time.deltaTime));
         }
 
         private void FixedUpdate()
         {
-            Vector2 newPos = Vector2.MoveTowards(
-                transform.position,
-                nextPosition,
-                Time.fixedDeltaTime * speed
-            );
+            var direction = nextPosition - rigidBody.position;
 
-            transform.position = newPos;
+            if (direction.magnitude > 0.01f)
+            {
+                var move = direction.normalized * Mathf.Min(1f, direction.magnitude);
+
+                rigidBody.AddForce(move * speed, ForceMode2D.Force);
+            } else
+            {
+                rigidBody.MovePosition(nextPosition);
+            }
         }
 
         private static Vector2 GetNextGridCenter(Vector2 position, Vector2 direction)
