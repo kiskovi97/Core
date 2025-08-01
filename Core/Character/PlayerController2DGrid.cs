@@ -36,34 +36,39 @@ namespace Kiskovi.Core
         {
             movement = signal.value;
             if (movement.magnitude > 0f)
+            {
                 TriggerAction.Trigger(OnMoved);
+                nextPosition = GetNextGridCenter(transform.position, movement);
+            }
         }
+
+        private Vector3 pos;
 
         private void Update()
         {
-            nextPosition = GetNextGridCenter(transform.position, movement);
+            if (movement.magnitude > 0.1f && (rigidBody.position - nextPosition).magnitude < 0.1f)
+                nextPosition = GetNextGridCenter(transform.position, movement);
+            Debug.DrawLine(transform.position, pos, Color.red, 5f);
+            pos = transform.position;
         }
 
         private void FixedUpdate()
         {
             var direction = nextPosition - rigidBody.position;
-
-            if (direction.magnitude > 0.01f)
+            var position = Vector3.MoveTowards(rigidBody.position, nextPosition, speed * Time.fixedDeltaTime);
+            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
             {
-                var move = direction.normalized * Mathf.Min(1f, direction.magnitude);
-
-                rigidBody.AddForce(move * speed, ForceMode2D.Force);
-            } else
+                position = new Vector3(Mathf.MoveTowards(position.x, nextPosition.x, speed * Time.fixedDeltaTime), position.y, position.z);
+            } else if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
-                rigidBody.MovePosition(nextPosition);
+                position = new Vector3(position.x, Mathf.MoveTowards(position.y, nextPosition.y, speed * Time.fixedDeltaTime), position.z);
             }
+
+            rigidBody.MovePosition(position);
         }
 
-        private static Vector2 GetNextGridCenter(Vector2 position, Vector2 direction)
+        private Vector2 GetNextGridCenter(Vector2 position, Vector2 direction)
         {
-            if (direction == Vector2.zero)
-                return SnapToGridCenter(position);
-
             direction = direction.normalized;
 
             Vector2 current = SnapToGridCenter(position);
