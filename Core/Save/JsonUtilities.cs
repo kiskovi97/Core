@@ -43,7 +43,7 @@ namespace Kiskovi.Core
             T obj = null;
             try
             {
-                var content = await File.ReadAllTextAsync(uri);
+                var content = await File.ReadAllTextAsync(uri).ConfigureAwait(false);
                 if (!string.IsNullOrEmpty(content))
                 {
                     obj = JsonConvert.DeserializeObject<T>(content, settings);
@@ -98,8 +98,11 @@ namespace Kiskovi.Core
                     }
                 }
 
-                string json = JsonConvert.SerializeObject(data, settings);
-                await File.WriteAllTextAsync(uri, json);
+                await Task.Run(async () =>
+                {
+                    string json = JsonConvert.SerializeObject(data, settings);
+                    await File.WriteAllTextAsync(uri, json);
+                }).ConfigureAwait(false);
             }
             catch (Exception exp)
             {

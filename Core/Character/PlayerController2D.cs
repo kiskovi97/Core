@@ -44,7 +44,7 @@ namespace Kiskovi.Core
         {
             if (Time.timeScale < 0.01) return;
             var move = new Vector2(movement.x, movement.y);
-            rigidBody.AddForce(move * speed, ForceMode2D.Force);
+            rigidBody.AddForce(move * speed * rigidBody.linearDamping, ForceMode2D.Force);
             //rigidBody.AddForce(move * speed, ForceMode.Force);
         }
     }
