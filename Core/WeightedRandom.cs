@@ -4,7 +4,7 @@ namespace Kiskovi.Core
 {
     public static class WeightedRandom
     {
-        public static int GetWeightedRandomIndex(int listLength, float favorLowerIndexes = 0.1f)
+        public static int GetWeightedRandomIndex(int listLength, float random = 0.1f)
         {
             if (listLength <= 0)
             {
@@ -12,11 +12,12 @@ namespace Kiskovi.Core
                 return -1;
             }
 
-            favorLowerIndexes = Mathf.Clamp01(favorLowerIndexes);
+            var clampedRandom = Mathf.Clamp01(random);
 
-            var randomness = 0.5f - Mathf.Abs(favorLowerIndexes - 0.5f);
-            var range = listLength * randomness;
-            var center = favorLowerIndexes * listLength;
+            var center = Random.Range(0, listLength * clampedRandom);
+            var range = Random.Range(0, listLength / 2 * clampedRandom);
+
+
             var min = Mathf.Max(0, center - range);
             var max = Mathf.Min(listLength, center + range);
 
