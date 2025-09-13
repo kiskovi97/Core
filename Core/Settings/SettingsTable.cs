@@ -1,9 +1,18 @@
 ﻿namespace Kiskovi.Core
 {
-    public class SettingsData : IData
+    public class SettingsData : ICopyableData<SettingsData>
     {
         public float musicVolume = 1f;
         public float soundVolume = 1f;
+
+        public SettingsData Copy()
+        {
+            return new SettingsData()
+            {
+                musicVolume = musicVolume,
+                soundVolume = soundVolume
+            };
+        }
     }
 
     public interface ISettingsTable

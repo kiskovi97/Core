@@ -16,7 +16,7 @@ namespace Kiskovi.Core
         void StartSave();
     }
 
-    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable where T : class, IData, new()
+    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable where T : class, ICopyableData<T>, new()
     {
         private ISaveSystem _saveSystem;
 
@@ -46,7 +46,8 @@ namespace Kiskovi.Core
             isSaving = true;
             try
             {
-                await _saveSystem.SaveDataAsync(Data);
+                var data = Data.Copy();
+                await _saveSystem.SaveDataAsync(data);
             } catch(System.Exception e)
             {
                 Debug.LogException(e);
