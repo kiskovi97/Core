@@ -63,7 +63,7 @@
                     "name": "Prev",
                     "type": "Button",
                     "id": "c6dee54b-dd8a-49cc-8020-86e1fd79cf1d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -72,7 +72,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "6b64309d-3afa-4140-88ff-e8e322fbf5fe",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -200,6 +200,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c0ba2340-8d2f-4720-ac02-a87725d80f00",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Prev",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "446f7e9c-bec3-4f20-9bd1-1d4c59fe99d3",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
@@ -216,6 +227,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98e7f6d3-a8a3-4607-8d12-0b1ab33ef643",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Next",
                     "isComposite": false,
                     "isPartOfComposite": false
