@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Unity.Collections;
@@ -11,6 +12,7 @@ namespace Kiskovi.Core
     {
         public ContactFilter2D contactFilter;
         public Transform center;
+        public Func<InteractableObject, bool> customFilter = (interactableObject) => true;
 
         private HashSet<InteractableObject> objects = new HashSet<InteractableObject>();
 
@@ -79,9 +81,6 @@ namespace Kiskovi.Core
 
         public void RecalculateObjects()
         {
-            //gameObject.SetActive(false);
-            //gameObject.SetActive(true);
-
             objects.Clear();
 
             Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
@@ -112,7 +111,10 @@ namespace Kiskovi.Core
         {
             var prevNear = nearestObject;
             var currentCenter = center ?? transform;
-            nearestObject = objects.Where(item => item != null).OrderBy(item => (item.transform.position - currentCenter.position).sqrMagnitude).FirstOrDefault();
+            nearestObject = objects
+                .Where(Filter)
+                .OrderBy(item => (item.transform.position - currentCenter.position).sqrMagnitude)
+                .FirstOrDefault();
 
             if (prevNear == nearestObject) return;
 
@@ -125,6 +127,16 @@ namespace Kiskovi.Core
             {
                 nearestObject.AddNearest(this);
             }
+        }
+
+        private bool Filter(InteractableObject obj)
+        {
+            if (obj == null) return false;
+
+            if (customFilter != null && !customFilter.Invoke(obj))
+                return false;
+
+            return true;
         }
 
         public void RequestRefresh()
