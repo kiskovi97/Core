@@ -36,9 +36,7 @@ namespace Kiskovi.Core
             {
                 StopAllCoroutines();
                 gameObject.SetActive(true);
-                foreach (var animator in animators)
-                    if (animator != null && animator.gameObject.activeInHierarchy)
-                        animator.SetTrigger("onShow");
+                SetTrigger("onShow");
             }
             else if (prevValue != active)
             {
@@ -61,9 +59,7 @@ namespace Kiskovi.Core
 
         private IEnumerator DestroyAnimation()
         {
-            foreach (var animator in animators)
-                if (animator != null && animator.gameObject.activeInHierarchy)
-                    animator.SetTrigger("onDestroy");
+            SetTrigger("onDestroy");
             if (unscaledTime)
                 yield return new WaitForSecondsRealtime(destroyTime);
             else
@@ -74,15 +70,28 @@ namespace Kiskovi.Core
 
         private IEnumerator SetActiveFalse()
         {
-            foreach (var animator in animators)
-                if (animator != null && animator.gameObject.activeInHierarchy)
-                    animator.SetTrigger("onHide");
+            SetTrigger("onHide");
             if (unscaledTime)
                 yield return new WaitForSecondsRealtime(hideTime);
             else
                 yield return new WaitForSeconds(hideTime);
 
             gameObject.SetActive(false);
+        }
+
+        private void SetTrigger(string trigger)
+        {
+            foreach (var animator in animators)
+                if (animator != null && animator.gameObject.activeInHierarchy)
+                {
+                    animator.SetTrigger(trigger);
+                    if (trigger != "onDestroy")
+                        animator.ResetTrigger("onDestroy");
+                    if (trigger != "onHide")
+                        animator.ResetTrigger("onHide");
+                    if (trigger != "onShow")
+                        animator.ResetTrigger("onShow");
+                }
         }
     }
 }
