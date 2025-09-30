@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -15,6 +16,9 @@ namespace Kiskovi.Core
         [SerializeField] private List<Animator> animators = new List<Animator>();
         [SerializeField] private bool unscaledTime;
 
+        public TriggerAction onHide;
+        public TriggerAction onShow;
+
         private bool prevValue = false;
         private bool isDestroying = false;
 
@@ -23,6 +27,11 @@ namespace Kiskovi.Core
         private void Awake()
         {
             prevValue = true;
+        }
+
+        protected void OnEnable()
+        {
+            TriggerAction.Trigger(onShow);
         }
 
         public void SetActive(bool active, bool instant = false)
@@ -59,6 +68,7 @@ namespace Kiskovi.Core
 
         private IEnumerator DestroyAnimation()
         {
+            TriggerAction.Trigger(onHide);
             SetTrigger("onDestroy");
             if (unscaledTime)
                 yield return new WaitForSecondsRealtime(destroyTime);
@@ -70,6 +80,7 @@ namespace Kiskovi.Core
 
         private IEnumerator SetActiveFalse()
         {
+            TriggerAction.Trigger(onHide);
             SetTrigger("onHide");
             if (unscaledTime)
                 yield return new WaitForSecondsRealtime(hideTime);
