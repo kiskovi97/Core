@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
@@ -95,12 +96,13 @@ namespace Kiskovi.Core
             foreach (var animator in animators)
                 if (animator != null && animator.gameObject.activeInHierarchy)
                 {
-                    animator.SetTrigger(trigger);
-                    if (trigger != "onDestroy")
+                    if (animator.parameters.Any(item => item.name == trigger));
+                        animator.SetTrigger(trigger);
+                    if (trigger != "onDestroy" && animator.parameters.Any(item => item.name == "onDestroy"))
                         animator.ResetTrigger("onDestroy");
-                    if (trigger != "onHide")
+                    if (trigger != "onHide" && animator.parameters.Any(item => item.name == "onHide"))
                         animator.ResetTrigger("onHide");
-                    if (trigger != "onShow")
+                    if (trigger != "onShow" && animator.parameters.Any(item => item.name == "onShow"))
                         animator.ResetTrigger("onShow");
                 }
         }

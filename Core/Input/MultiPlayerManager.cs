@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using Cinemachine;
+using Unity.Cinemachine;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
