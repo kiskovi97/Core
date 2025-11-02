@@ -9,6 +9,8 @@ namespace Kiskovi.Core
     {
         [SerializeField] private Button acceptButton;
         [SerializeField] private Button cancelButton;
+        [SerializeField] private TriggerAction onAccept;
+        [SerializeField] private TriggerAction onDecline;
         private UIPanel parent;
 
         [Inject] private SignalBus signalBus;
@@ -34,12 +36,14 @@ namespace Kiskovi.Core
         {
             if (acceptButton != null && acceptButton.isActiveAndEnabled && acceptButton.interactable && (parent == null || parent.isInFront))
                 acceptButton.onClick.Invoke();
+            TriggerAction.Trigger(onAccept);
         }
 
         public void OnDecline()
         {
             if (cancelButton != null && cancelButton.isActiveAndEnabled && cancelButton.interactable && (parent == null || parent.isInFront))
                 cancelButton.onClick.Invoke();
+            TriggerAction.Trigger(onDecline);
         }
     }
 }
