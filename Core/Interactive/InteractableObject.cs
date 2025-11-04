@@ -32,7 +32,8 @@ namespace Kiskovi.Core
             if (other.gameObject.CompareTag("Player"))
             {
                 players.Remove(other.gameObject);
-                TriggerAction.Trigger(onTriggerExit);
+                if(players.Count == 0)
+                    TriggerAction.Trigger(onTriggerExit);
             }
         }
 
