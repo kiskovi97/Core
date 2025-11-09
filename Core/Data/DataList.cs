@@ -19,6 +19,8 @@ namespace Kiskovi.Core
         private List<DataHolder<T>> list = new List<DataHolder<T>>();
         private List<GameObject> separators = new List<GameObject>();
 
+        public IEnumerable<T> Items => list.Select(item => item.Data);
+
         private int currentIndex = -1;
 
         public int CurrentIndex => currentIndex;
