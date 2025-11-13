@@ -55,6 +55,17 @@ namespace Kiskovi.Core
             }
         }
 
+        protected void Awake()
+        {
+            players.Clear();
+            interactions.Clear();
+
+            if (nearObject != null)
+                nearObject.SetActive(false);
+            if (nearestObject != null)
+                nearestObject.SetActive(false);
+        }
+
         private void OnDisable()
         {
             players.Clear();
