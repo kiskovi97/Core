@@ -27,6 +27,7 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.ExitSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.DeleteSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.ModifyValueSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.SkipSignal>().OptionalSubscriber();
 
 
             Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();

@@ -37,6 +37,8 @@ namespace Kiskovi.Core
         {
             public ModifyValueSignal(float value) : base(value) { }
         }
+
+        public class SkipSignal : InputSimpleSignal { }
     }
 
     public class InputSignals

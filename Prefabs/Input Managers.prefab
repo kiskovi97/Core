@@ -491,8 +491,85 @@ Transform:
   - {fileID: 6581836012820664921}
   - {fileID: 5794488192349329654}
   - {fileID: 296906918670535734}
+  - {fileID: 1170276127735393313}
   m_Father: {fileID: 1883625891932502355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7167245721873132417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1170276127735393313}
+  - component: {fileID: 5189419206661917796}
+  - component: {fileID: 7949816268367100553}
+  - component: {fileID: 6730338608283672554}
+  m_Layer: 0
+  m_Name: SkipSignal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1170276127735393313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167245721873132417}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6833536361924626417}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5189419206661917796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167245721873132417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a13c64ddf3ba04cab8cbad4a295f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionReference: {fileID: -205497672380882017, guid: 9825f3bf5dcde2541b1d01712e42aceb, type: 3}
+  inputActionSignalTypeName: Kiskovi.Core.UIInteractions+SkipSignal
+--- !u!114 &7949816268367100553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167245721873132417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a13c64ddf3ba04cab8cbad4a295f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionReference: {fileID: -310670247998185900, guid: 9825f3bf5dcde2541b1d01712e42aceb, type: 3}
+  inputActionSignalTypeName: Kiskovi.Core.UIInteractions+SkipSignal
+--- !u!114 &6730338608283672554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167245721873132417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a13c64ddf3ba04cab8cbad4a295f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionReference: {fileID: -3595547408357519379, guid: 9825f3bf5dcde2541b1d01712e42aceb, type: 3}
+  inputActionSignalTypeName: Kiskovi.Core.UIInteractions+SkipSignal
 --- !u!1 &8170750988921341273
 GameObject:
   m_ObjectHideFlags: 0
