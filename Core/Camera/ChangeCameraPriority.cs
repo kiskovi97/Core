@@ -4,7 +4,7 @@ namespace Kiskovi.Core
 {
     internal class ChangeCameraPriority : TriggerAction
     {
-        public CinemachineVirtualCamera virtualCamera;
+        public CinemachineCamera virtualCamera;
         public int priority;
 
         public override void Trigger(params object[] parameter)
