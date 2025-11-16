@@ -34,9 +34,11 @@ namespace Kiskovi.Core
             Refresh();
         }
 
-        protected string GetLocaleData(LocalizedString localizedString, string key)
+        public string GetLocalizedString(LocalizedString value)
         {
-            return LocalizedObjectText.GetLocaleData(localizedString, key);
+            if (value.IsEmpty) return "";
+
+            return value.GetLocalizedString();
         }
     }
 }

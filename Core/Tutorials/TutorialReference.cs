@@ -18,7 +18,7 @@ namespace Kiskovi.Core
     {
         public TutorialReference[] dependencies = new TutorialReference[0];
         public string key => name;
-        public LocalizedString localizedReference;
+        public LocalizedString title;
         public Sprite iconSprite;
         public InputInfoGroup inputInfoGroup;
 
@@ -29,13 +29,13 @@ namespace Kiskovi.Core
             return iconManager.GetSprite(inputInfoGroup?.inputActionReference);
         }
 
-        public LocalizedString LocalizedString
+        public LocalizedString TitleString
         {
             get
             {
-                if (localizedReference.isDirty)
-                    return inputInfoGroup?.referenceName;
-                return localizedReference;
+                if (title.isDirty)
+                    return inputInfoGroup?.title;
+                return title;
             }
         }
     }

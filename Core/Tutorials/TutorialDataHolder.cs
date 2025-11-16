@@ -22,7 +22,6 @@ namespace Kiskovi.Core
         public Image iconImage;
         public Sprite defaultIconSprite;
         public TMP_Text titleText;
-        public TMP_Text descriptionText;
         public TMP_Text inputText;
 
         [Inject] private ITutorialManager _manager;
@@ -58,11 +57,7 @@ namespace Kiskovi.Core
 
                 if (titleText != null)
                 {
-                    titleText.text = GetLocaleData(Data.LocalizedString, "title");
-                }
-                if (descriptionText != null)
-                {
-                    descriptionText.text = GetLocaleData(Data.LocalizedString, "description");
+                    titleText.text = GetLocalizedString(Data.TitleString);
                 }
 
                 if (inputText != null)

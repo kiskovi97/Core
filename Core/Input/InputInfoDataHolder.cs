@@ -24,7 +24,7 @@ namespace Kiskovi.Core
             if (Data == null) return;
 
             if (text != null)
-                text.text = GetLocaleData(Data.referenceName, "title");
+                text.text = GetLocalizedString(Data.title);
 
             var icon = iconManager.GetSprite(Data.inputActionReference);
 
