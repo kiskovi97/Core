@@ -180,7 +180,6 @@ namespace Kiskovi.Core
 
         public void Tick()
         {
-            if (InputSignals.Scheme == ControlScheme.Keyboard) return;
             if (onChangedRequest)
             {
                 onChangedRequest = false;

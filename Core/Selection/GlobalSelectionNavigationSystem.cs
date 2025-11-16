@@ -34,8 +34,6 @@ namespace Kiskovi.Core
 
         private void OnNavigateUI(UIInteractions.NavigateUI signal)
         {
-            if (InputSignals.Scheme == ControlScheme.Keyboard) return;
-
             var getSelectableList = _selectionSystem.GetCurrentLayerSelectables(false);
             var nextSelected = GetNextSelected(getSelectableList, signal.value);
             if (nextSelected != null)
@@ -46,8 +44,6 @@ namespace Kiskovi.Core
 
         private void OnNavigate(UIInteractions.Navigate signal)
         {
-            if (InputSignals.Scheme == ControlScheme.Keyboard) return;
-
             var getSelectableList = _selectionSystem.GetCurrentLayerSelectables(true);
             var nextSelected = GetNextSelected(getSelectableList, signal.value);
             if (nextSelected != null)

@@ -177,6 +177,17 @@
                 },
                 {
                     "name": "",
+                    "id": "6a817b0f-07db-44f7-868f-ddb8023bf5e4",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d8da73f3-44dc-40bc-be06-a4a4938a126e",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -273,6 +284,61 @@
                     "action": "NavigateUI",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "1c919817-c2ce-4dd7-bc86-e4e8bb393449",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateUI",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "dcbe5046-5a5e-4963-ae73-32fb76bf023c",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "NavigateUI",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "9f0b8970-7dac-4d7d-bd66-7db4c6c34a8e",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "NavigateUI",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "460693c7-a5cb-426e-a8a9-fc1c3ae0988a",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "NavigateUI",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "285c8384-492d-4edd-b235-bb0d2d29b796",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "NavigateUI",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -381,7 +447,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "9330023f-64d4-4f16-b9b4-2947c15f6291",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -390,7 +456,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "de8764e1-cec6-4157-8542-810fb50a7ca8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

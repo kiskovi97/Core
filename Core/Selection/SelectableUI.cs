@@ -81,8 +81,8 @@ namespace Kiskovi.Core
             if (isHoverEnabled &&
                 (isHovering
                 || (selectable is Toggle toggle && toggle.isOn && isToggleCounted)
-                || (EventSystem.current.currentSelectedGameObject == selectable.gameObject && InputSignals.Scheme != ControlScheme.Keyboard)
-                || (isControllerAlwaysVisible && InputSignals.Scheme != ControlScheme.Keyboard))
+                || (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+                || isControllerAlwaysVisible)
                 && (!isInteractableCounted || selectable.interactable))
                 OnHover();
             else
@@ -122,7 +122,7 @@ namespace Kiskovi.Core
             if (hoverObject != null)
                 hoverObject.SetActive(isHoverEnabled);
             if (onlyHoverObject != null)
-                onlyHoverObject.SetActive(isHoverEnabled && (isHovering || (isControllerAlwaysVisible && InputSignals.Scheme != ControlScheme.Keyboard)));
+                onlyHoverObject.SetActive(isHoverEnabled && (isHovering || isControllerAlwaysVisible)); // && InputSignals.Scheme != ControlScheme.Keyboard
             if (notHoverObject != null)
                 notHoverObject.SetActive(!isHoverEnabled);
             if (onlyHoverObject != null)
