@@ -28,6 +28,8 @@ namespace Kiskovi.Core
     {
         [SerializeField] private GameObject loadingPanel;
         [SerializeField] private Animator animator;
+        [SerializeField] private float beforeLoadAnimationTime = 1f;
+        [SerializeField] private float afterLoadAnimationTime = 1f;
         [SerializeField] private Image backgroundImage;
         [SerializeField] private GameObject uiBlock;
         [SerializeField] private TriggerAction onSceneChange;
@@ -117,16 +119,16 @@ namespace Kiskovi.Core
 
         IEnumerator LoadWithotAnimationAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
-            yield return BeforeLoad(delayTime, DE_LOAD_NONE, 1f);
+            yield return BeforeLoad(delayTime, DE_LOAD_NONE, beforeLoadAnimationTime);
             Debug.Log("Load Scene started: " + sceneIndex);
             lastScreenLoaded = _sceneProvider.GetScene(sceneIndex);
             yield return lastScreenLoaded.LoadSceneAsync(LoadSceneMode.Single);
-            yield return AfterLoad(LOAD_NONE, 0.1f);
+            yield return AfterLoad(LOAD_NONE, afterLoadAnimationTime);
         }
 
         IEnumerator LoadAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
-            yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, 1f);
+            yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, beforeLoadAnimationTime);
             Debug.Log("Load Scene started: " + sceneIndex);      
             var scene = _sceneProvider.GetScene(sceneIndex);
             if (scene != null)
@@ -142,17 +144,17 @@ namespace Kiskovi.Core
             {
                 Debug.LogError("There was a problem loading the scene, because it is null");
             }
-            yield return AfterLoad(LOAD_DEFAULT, 1f);
+            yield return AfterLoad(LOAD_DEFAULT, afterLoadAnimationTime);
         }
 
         IEnumerator ReLoadSceneAsync()
         {
-            yield return BeforeLoad(0f, DE_LOAD_DEFAULT, 1f);
+            yield return BeforeLoad(0f, DE_LOAD_DEFAULT, beforeLoadAnimationTime);
             Debug.Log("ReLoad Scene started");
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
 
-            yield return AfterLoad(LOAD_DEFAULT, 1f);
+            yield return AfterLoad(LOAD_DEFAULT, afterLoadAnimationTime);
         }
 
         IEnumerator BeforeLoad(float delayTime, string deloadTriggerName, float animationTime)
@@ -161,8 +163,6 @@ namespace Kiskovi.Core
                 uiBlock.SetActive(true);
             if (loadingPanel != null)
                 loadingPanel.SetObjectActive(true);
-            if (animator != null)
-                animator.SetTrigger("Idle");
             yield return new WaitForSecondsRealtime(delayTime);
             if (animator != null)
                 animator.SetTrigger(deloadTriggerName);
@@ -171,6 +171,8 @@ namespace Kiskovi.Core
 
             yield return new WaitForSecondsRealtime(animationTime);
             _timeManager.SetStableTimePausePanel(true);
+            if (animator != null)
+                animator.ResetTrigger(deloadTriggerName);
         }
 
         IEnumerator AfterLoad(string loadTrigger, float animationDelay)
@@ -184,6 +186,8 @@ namespace Kiskovi.Core
             yield return new WaitForSecondsRealtime(animationDelay);
             if (loadingPanel != null)
                 loadingPanel.SetObjectActive(false);
+            if (animator != null)
+                animator.ResetTrigger(loadTrigger);
         }
     }
 }
