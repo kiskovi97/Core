@@ -11,13 +11,14 @@ namespace Kiskovi.Core
         public DialogSpeaker speaker;
         public GameObject dialogObj;
         public TMP_Text dialogText;
+        public float speed = 1f;
 
         [Inject] private IDialogSystem _dialogSystem;
 
         private void SetDialog(LocalizedString localizedString, float progress)
         {
             var text = localizedString.GetLocalizedString();
-            int charCount = Mathf.FloorToInt(text.Length * progress);
+            int charCount = Mathf.FloorToInt(text.Length * progress * speed);
 
             dialogText.text = text;
             dialogText.maxVisibleCharacters = charCount;
