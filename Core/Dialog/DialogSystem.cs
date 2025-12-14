@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 using Zenject;
 
 namespace Kiskovi.Core
@@ -10,7 +11,8 @@ namespace Kiskovi.Core
         DialogLine? CurrentDialogLine { get; }
         float LineProgress { get; }
         void StartDialog(DialogData dialog, bool restart = false);
-        void EndDialog();
+        void EndDialog(bool triggerEnding = false);
+        void SkipNextLine();
     }
 
     internal class DialogSystem : ITickable, IDialogSystem
@@ -18,6 +20,8 @@ namespace Kiskovi.Core
         public static readonly float SECOND_PER_CHARACTER = 0.1f;
         public static readonly float WAIT_TIME_AFTER_END = 1f;
         public static readonly float MIN_TIMER = 1f;
+
+        private SignalBus _signalBus;
 
         private DialogData _currentDialog;
         private int _dialogIndex = 0;
@@ -45,6 +49,11 @@ namespace Kiskovi.Core
             }
         }
 
+        public DialogSystem(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+        }
+
         public void StartDialog(DialogData dialog, bool restart = false)
         {
             if (!restart && _currentDialog == dialog) return;
@@ -56,17 +65,37 @@ namespace Kiskovi.Core
             if (line != null)
             {
                 _dialogTimer = CalculateDuration(line.Value);
-            } else
+            }
+            else
             {
                 _dialogTimer = 0f;
             }
         }
 
-        public void EndDialog()
+        public void EndDialog(bool triggerEnding)
         {
+            if (triggerEnding && _currentDialog != null)
+            {
+                switch (_currentDialog.endDialogEvent)
+                {
+                    case EndDialogEvent.EndGame:
+                        _signalBus.TryFire(new SceneLoadRequestSignal()
+                        {
+                            scene = SceneEnum.Start_Menu,
+                            force = false,
+                            delayTime = 0f,
+                        });
+                        break;
+                }
+            }
             _currentDialog = null;
             _dialogIndex = 0;
             _dialogTimer = 0f;
+        }
+
+        public void SkipNextLine()
+        {
+            _dialogTimer = -WAIT_TIME_AFTER_END;
         }
 
         public void Tick()
@@ -83,7 +112,7 @@ namespace Kiskovi.Core
                 }
                 else
                 {
-                    EndDialog();
+                    EndDialog(true);
                 }
             }
             else

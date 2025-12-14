@@ -10,6 +10,13 @@ namespace Kiskovi.Core
         MainCharacter,
         NPC,
     }
+
+    public enum EndDialogEvent
+    {
+        None,
+        EndGame,
+    }
+
     [System.Serializable]
     public struct DialogLine
     {
@@ -21,5 +28,6 @@ namespace Kiskovi.Core
     public class DialogData : ScriptableObject, IData
     {
         public List<DialogLine> Lines = new List<DialogLine>();
+        public EndDialogEvent endDialogEvent = EndDialogEvent.None;
     }
 }
