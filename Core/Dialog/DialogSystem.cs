@@ -52,6 +52,8 @@ namespace Kiskovi.Core
         public DialogSystem(SignalBus signalBus)
         {
             _signalBus = signalBus;
+            _signalBus.Subscribe<UIInteractions.AcceptSignal>(SkipNextLine);
+            _signalBus.Subscribe<UIInteractions.DeclineSignal>(SkipNextLine);
         }
 
         public void StartDialog(DialogData dialog, bool restart = false)
