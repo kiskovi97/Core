@@ -64,6 +64,34 @@ namespace Kiskovi.Core
                 separator.gameObject.SetActive(true);
             }
         }
+        public void UpdateList(IEnumerable<T> values)
+        {
+            var valueArray = values.ToArray();
+            var index = 0;
+            while(index < valueArray.Length && index < list.Count)
+            {
+                list[index].SetData(valueArray[index]);
+                index++;
+            }
+
+            if (valueArray.Length < list.Count)
+            {
+                while (index < list.Count)
+                {
+                    list[index].gameObject.SetActive(false);
+                    if (separators.Count > index - 1 && index - 1 >= 0)
+                        separators[index - 1].gameObject.SetActive(false);
+                    index++;
+                }
+            } else
+            {
+                while (index < valueArray.Length)
+                {
+                    AddItem(valueArray[index]);
+                    index++;
+                }
+            }
+        }
 
         public void Clear()
         {

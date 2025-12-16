@@ -19,11 +19,7 @@ namespace Kiskovi.Core
 
         private void Manager_OnChanged()
         {
-            Clear();
-            foreach(var item in manager.AvailableInputs)
-            {
-                AddItem(item);
-            }
+            UpdateList(manager.AvailableInputs);
         }
     }
 }

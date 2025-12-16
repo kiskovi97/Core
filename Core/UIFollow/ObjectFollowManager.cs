@@ -39,11 +39,7 @@ namespace Kiskovi.Core
 
         private void RecalculateTargets()
         {
-            Clear();
-            foreach (var target in targets.Values)
-            {
-                AddItem(target);
-            }
+            UpdateList(targets.Values);
         }
     }
 }
