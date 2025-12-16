@@ -71,11 +71,13 @@ namespace Kiskovi.Core
             while(index < valueArray.Length && index < list.Count)
             {
                 list[index].SetData(valueArray[index]);
+                list[index].gameObject.SetActive(true);
                 index++;
             }
 
             if (valueArray.Length < list.Count)
             {
+                currentIndex = index;
                 while (index < list.Count)
                 {
                     list[index].gameObject.SetActive(false);
