@@ -175,7 +175,7 @@ namespace Kiskovi.Core
 
         private IEnumerator StartToClose()
         {
-            if (openedWindows.Count == 0)
+            if (openedWindows.Count == 0 || inProgress == this)
                 yield break;
             OnBackground();
 
