@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Zenject;
 
 namespace Kiskovi.Core
 {
@@ -11,11 +13,29 @@ namespace Kiskovi.Core
         public Transform originalParent;
         public CanvasGroup canvasGroup;
         public bool removeParentWhenDrag;
+        public bool resetPositionOnRelease = true;
         public float alphaOnDrag = 0.9f;
+        public float dragSpeed = 300f;
         protected Placement placement;
+
         private Vector3 startPosition;
+        private Vector2 direction;
 
         public virtual bool IsDragable => true;
+
+        [Inject] private SignalBus _signalBus;
+        [Inject] private ISelectionSystem selectionSystem;
+
+        private void OnEnable()
+        {
+            _signalBus.Subscribe<UIInteractions.DragUI>(OnDragUI);
+        }
+
+        private void OnDisable()
+        {
+
+            _signalBus.Unsubscribe<UIInteractions.DragUI>(OnDragUI);
+        }
 
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
@@ -42,7 +62,10 @@ namespace Kiskovi.Core
             if (placement == null)
             {
                 rectTransform.SetParent(rectTransformParent);
-                rectTransform.localPosition = startPosition;
+                if (resetPositionOnRelease)
+                {
+                    rectTransform.localPosition = startPosition;
+                }
             }
             rectTransform.localScale = Vector3.one;
             rectTransform.localRotation = Quaternion.identity;
@@ -67,9 +90,24 @@ namespace Kiskovi.Core
             canvasGroup.blocksRaycasts = true;
         }
 
+        private void OnDragUI(UIInteractions.DragUI signal)
+        {
+            direction = signal.value;
+        }
+
+        private void Update()
+        {
+            if (selectionSystem.CurrentSelectedObj != gameObject) return;
+
+            if (direction != Vector2.zero)
+            {
+                rectTransform.anchoredPosition += direction * dragSpeed * Time.unscaledDeltaTime;
+            }
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
-
+            selectionSystem.SetSelected(gameObject);
         }
     }
 }

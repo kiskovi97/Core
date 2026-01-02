@@ -13,6 +13,8 @@ namespace Kiskovi.Core
     public interface ISelectionSystem
     {
         GameObject CurrentSelectedObj { get; }
+
+        void SetSelected(GameObject gameObject);
     }
 
     internal class GlobalSelectionSystem : ITickable, IInitializable, IDisposable, ISelectionSystem
@@ -50,6 +52,11 @@ namespace Kiskovi.Core
         {
             _signalBus.TryUnsubscribe<InputSignals.ControlSchemeChanged>(OnControlSchemeChanged);
             _signalBus.TryUnsubscribe<SelectionClearSignal>(OnClear);
+        }
+
+        public void SetSelected(GameObject gameObject)
+        {
+            SetSelectedGameObject(gameObject.GetComponent<SelectableBase>());
         }
 
         private void OnClear()

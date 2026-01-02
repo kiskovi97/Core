@@ -21,6 +21,7 @@ namespace Kiskovi.Core
 
             Container.DeclareSignal<UIInteractions.Navigate>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.NavigateUI>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.DragUI>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.NavigateTabsSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.AcceptSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.DeclineSignal>().OptionalSubscriber();

@@ -20,6 +20,7 @@ namespace Kiskovi.Core
         private List<GameObject> separators = new List<GameObject>();
 
         public IEnumerable<T> Items => list.Select(item => item.Data);
+        public IEnumerable<DataHolder<T>> ItemObjects => list;
 
         private int currentIndex = -1;
 
@@ -145,6 +146,11 @@ namespace Kiskovi.Core
                 return element;
             }
             return null;
+        }
+
+        public DataHolder<T> GetItemObject(T data)
+        {
+            return list.FirstOrDefault(item => item.Data == data);
         }
 
         protected virtual DataHolder<T> CreateNewObject()

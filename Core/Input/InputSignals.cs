@@ -29,6 +29,10 @@ namespace Kiskovi.Core
         {
             public NavigateUI(Vector2 delta) : base(delta) { }
         }
+        public class DragUI : InputVector2Signal
+        {
+            public DragUI(Vector2 delta) : base(delta) { }
+        }
         public class NavigateTabsSignal : InputBooleanSignal
         {
             public NavigateTabsSignal(bool forward) : base(forward) { }
