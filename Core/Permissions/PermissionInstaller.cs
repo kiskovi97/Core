@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Kiskovi.Core
@@ -11,12 +12,14 @@ namespace Kiskovi.Core
 
         public bool IsPermissionType(PermissionType type)
         {
-            switch(type)
+            switch (type)
             {
                 case PermissionType.Demo:
                     return isDemo;
                 case PermissionType.Convention:
                     return isConvention;
+                case PermissionType.Editor:
+                    return Application.isEditor;
                 default:
                     return false;
             }
@@ -27,6 +30,7 @@ namespace Kiskovi.Core
     {
         Demo,
         Convention,
+        Editor,
     }
 
     public interface IPermissionSettings
