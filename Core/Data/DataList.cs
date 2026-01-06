@@ -12,7 +12,7 @@ namespace Kiskovi.Core
         [SerializeField] private DataHolder<T> prefab;
         [SerializeField] private GameObject separator;
         [SerializeField] private int preLoadedItemCount = 3;
-        [SerializeField] private Transform parentTransform;
+        [SerializeField] protected Transform parentTransform;
 
         [Inject] private DiContainer container;
 
