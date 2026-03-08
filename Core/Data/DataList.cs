@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,6 +27,8 @@ namespace Kiskovi.Core
 
         public int CurrentIndex => currentIndex;
 
+        public event Action onChanged;
+
         private void Awake()
         {
             if (prefab != null && prefab.transform.IsChildOf(parentTransform)) prefab.gameObject.SetActive(false);
@@ -40,6 +43,8 @@ namespace Kiskovi.Core
                     separators.Add(separator);
                 }
             }
+            
+            onChanged?.Invoke();
         }
 
         public virtual void AddItem(T itemData)
@@ -64,6 +69,7 @@ namespace Kiskovi.Core
                 var separator = separators[currentIndex - 1];
                 separator.gameObject.SetActive(true);
             }
+            onChanged?.Invoke();
         }
         public void UpdateList(IEnumerable<T> values)
         {
@@ -94,6 +100,8 @@ namespace Kiskovi.Core
                     index++;
                 }
             }
+            
+            onChanged?.Invoke();
         }
 
         public void Clear()
@@ -119,6 +127,8 @@ namespace Kiskovi.Core
             foreach (var item in separators)
                 item.gameObject.SetActive(false);
             currentIndex = -1;
+            
+            onChanged?.Invoke();
         }
 
         public void Refresh()
@@ -126,6 +136,8 @@ namespace Kiskovi.Core
             list = list.Where(item => item.IsAvailable).ToList();
             foreach (var item in list)
                 item.Refresh();
+                
+            onChanged?.Invoke();
         }
 
         public T GetItem(int index)
