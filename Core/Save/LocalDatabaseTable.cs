@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Kiskovi.Core
         Task SaveToDisk();
 
         void StartSave();
+
+        event Action onDataChanged;
     }
 
     public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable where T : class, ICopyableData<T>, new()
@@ -25,6 +28,8 @@ namespace Kiskovi.Core
         protected bool isSaving;
         protected bool needSaving;
 
+        public event Action onDataChanged;
+
         public LocalDatabaseTable(ISaveSystem saveSystem)
         {
             _saveSystem = saveSystem;
@@ -34,6 +39,7 @@ namespace Kiskovi.Core
         protected virtual void LoadFromDisk()
         {
             Data = _saveSystem.GetDataSync<T>();
+            onDataChanged?.Invoke();
         }
 
         public virtual async Task SaveToDisk()
@@ -53,6 +59,7 @@ namespace Kiskovi.Core
                 Debug.LogException(e);
             }
             isSaving = false;
+            onDataChanged?.Invoke();
         }
 
         public virtual async Task Clear()

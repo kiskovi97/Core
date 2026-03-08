@@ -95,7 +95,7 @@ namespace Kiskovi.Core
             foreach (var animator in animators)
                 if (animator != null && animator.gameObject.activeInHierarchy)
                 {
-                    if (animator.parameters.Any(item => item.name == trigger));
+                    if (animator.parameters.Any(item => item.name == trigger))
                         animator.SetTrigger(trigger);
                     if (trigger != "onDestroy" && animator.parameters.Any(item => item.name == "onDestroy"))
                         animator.ResetTrigger("onDestroy");
