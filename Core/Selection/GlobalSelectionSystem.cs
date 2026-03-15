@@ -15,6 +15,10 @@ namespace Kiskovi.Core
         GameObject CurrentSelectedObj { get; }
 
         void SetSelected(GameObject gameObject);
+
+        void BlockSelection();
+
+        void ResumeSelection();
     }
 
     internal class GlobalSelectionSystem : ITickable, IInitializable, IDisposable, ISelectionSystem
@@ -28,10 +32,11 @@ namespace Kiskovi.Core
         private EventSystem eventSystem => EventSystem.current;
         public SelectableBase CurrentSelected { get; private set; }
         public GameObject CurrentSelectedObj => CurrentSelected != null ? CurrentSelected.gameObject : null;
-        public bool CanNavigate => !eventSystem.alreadySelecting;
+        public bool CanNavigate => !eventSystem.alreadySelecting && !blockSelection;
         public event Action OnChangedEvent;
 
         private bool onChangedRequest = false;
+        private bool blockSelection = false;
 
         public GlobalSelectionSystem(SignalBus signalBus)
         {
@@ -40,6 +45,11 @@ namespace Kiskovi.Core
 
             OnChanged();
         }
+
+        
+        public void BlockSelection() => blockSelection = true;
+
+        public void ResumeSelection() => blockSelection = false;
 
         public void Initialize()
         {
