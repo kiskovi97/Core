@@ -33,7 +33,7 @@ namespace Kiskovi.Core
         {
             if (prefab != null && prefab.transform.IsChildOf(parentTransform)) prefab.gameObject.SetActive(false);
             if (separator != null && separator.transform.IsChildOf(parentTransform)) separator.gameObject.SetActive(false);
-            for (int i = 0; i < preLoadedItemCount; i++)
+            for (int i = list.Count; i < preLoadedItemCount; i++)
             {
                 var newItem = CreateNewObject();
                 list.Add(newItem);
@@ -43,11 +43,37 @@ namespace Kiskovi.Core
                     separators.Add(separator);
                 }
             }
-            
+
             onChanged?.Invoke();
         }
 
         public virtual void AddItem(T itemData)
+        {
+            _AddItem(itemData);
+
+            onChanged?.Invoke();
+        }
+        public void UpdateList(IEnumerable<T> values)
+        {
+            currentIndex = -1;
+            var valueArray = values.ToArray();
+            for (int index = 0; index < valueArray.Length; index++)
+            {
+                _AddItem(valueArray[index]);
+            }
+
+            var leftoverIndex = valueArray.Length;
+
+            while (leftoverIndex < list.Count)
+            {
+                list[leftoverIndex].gameObject.SetActive(false);
+                leftoverIndex++;
+            }
+
+            onChanged?.Invoke();
+        }
+
+        private void _AddItem(T itemData)
         {
             list = list.Where(item => item.IsAvailable).ToList();
             currentIndex++;
@@ -69,44 +95,11 @@ namespace Kiskovi.Core
                 var separator = separators[currentIndex - 1];
                 separator.gameObject.SetActive(true);
             }
-            onChanged?.Invoke();
-        }
-        public void UpdateList(IEnumerable<T> values)
-        {
-            var valueArray = values.ToArray();
-            var index = 0;
-            while(index < valueArray.Length && index < list.Count)
-            {
-                list[index].SetData(valueArray[index]);
-                list[index].gameObject.SetActive(true);
-                index++;
-            }
-
-            if (valueArray.Length < list.Count)
-            {
-                currentIndex = index;
-                while (index < list.Count)
-                {
-                    list[index].gameObject.SetActive(false);
-                    if (separators.Count > index - 1 && index - 1 >= 0)
-                        separators[index - 1].gameObject.SetActive(false);
-                    index++;
-                }
-            } else
-            {
-                while (index < valueArray.Length)
-                {
-                    AddItem(valueArray[index]);
-                    index++;
-                }
-            }
-            
-            onChanged?.Invoke();
         }
 
         public void Clear()
         {
-            for(int i = 0;i < list.Count;i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 if (!list[i].transform.IsChildOf(parentTransform))
                 {
@@ -127,7 +120,7 @@ namespace Kiskovi.Core
             foreach (var item in separators)
                 item.gameObject.SetActive(false);
             currentIndex = -1;
-            
+
             onChanged?.Invoke();
         }
 
@@ -136,7 +129,7 @@ namespace Kiskovi.Core
             list = list.Where(item => item.IsAvailable).ToList();
             foreach (var item in list)
                 item.Refresh();
-                
+
             onChanged?.Invoke();
         }
 

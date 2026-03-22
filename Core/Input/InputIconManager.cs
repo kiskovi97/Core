@@ -14,7 +14,10 @@ namespace Kiskovi.Core
         public Sprite D;
         public Sprite E;
         public Sprite Q;
+        public Sprite M;
+        public Sprite C;
         public Sprite Space;
+        public Sprite Backspace;
         public Sprite Enter;
         public Sprite Ctrl;
         public Sprite Shift;
@@ -34,7 +37,10 @@ namespace Kiskovi.Core
                 case "d": return D;
                 case "e": return E;
                 case "q": return Q;
+                case "m": return M;
+                case "c": return C;
                 case "space": return Space;
+                case "backspace": return Backspace;
                 case "enter": return Enter;
                 case "control": return Ctrl;
                 case "shift": return Shift;
@@ -97,7 +103,7 @@ namespace Kiskovi.Core
                 case "leftStickPress": return leftStickPress;
                 case "rightStickPress": return rightStickPress;
             }
-            Debug.LogWarning(controlPath +" has no icon");
+            Debug.LogWarning(controlPath + " has no icon");
             return null;
         }
     }
@@ -141,7 +147,7 @@ namespace Kiskovi.Core
                     foreach (var device in InputSystem.devices)
                     {
                         var control = InputControlPath.TryFindControl(device, binding.effectivePath);
-                        if(control != null)
+                        if (control != null)
                         {
                             // Return a user-facing display string
                             return reference.action.GetBindingDisplayString(i);
