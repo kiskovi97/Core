@@ -66,7 +66,8 @@ namespace Kiskovi.Core
 
             while (leftoverIndex < list.Count)
             {
-                list[leftoverIndex].gameObject.SetActive(false);
+                if (list[leftoverIndex] != null)
+                    list[leftoverIndex].gameObject.SetActive(false);
                 leftoverIndex++;
             }
 
