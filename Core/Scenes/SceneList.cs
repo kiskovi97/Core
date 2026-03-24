@@ -1,5 +1,4 @@
 using System;
-
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -17,7 +16,6 @@ namespace Kiskovi.Core
     [Serializable]
     public class SceneList
     {
-
         [AssetReferenceUILabelRestriction("scene")]
         public AssetReference START_MENU;
 
@@ -34,10 +32,14 @@ namespace Kiskovi.Core
         {
             switch (scene)
             {
-                case SceneEnum.Start_Menu: return START_MENU;
-                case SceneEnum.Hub: return HUB;
-                case SceneEnum.Level: return LEVEL;
-                case SceneEnum.Tutorial_Level: return TUTORIAL;
+                case SceneEnum.Start_Menu:
+                    return START_MENU;
+                case SceneEnum.Hub:
+                    return HUB;
+                case SceneEnum.Level:
+                    return LEVEL;
+                case SceneEnum.Tutorial_Level:
+                    return TUTORIAL;
             }
             return null;
         }

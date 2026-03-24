@@ -1,6 +1,6 @@
-﻿using UnityEngine.Localization;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 
 namespace Kiskovi.Core
 {

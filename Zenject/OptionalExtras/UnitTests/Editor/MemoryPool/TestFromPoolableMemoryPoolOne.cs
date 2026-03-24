@@ -58,15 +58,15 @@ namespace Zenject.Tests.Bindings
                 _data = data;
             }
 
-            public class Factory : PlaceholderFactory<string, Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<string, Foo> { }
         }
 
         [Test]
         public void Test1()
         {
-            Container.BindFactory<string, Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2).WithArguments("blurg"));
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2).WithArguments("blurg"));
 
             var factory = Container.Resolve<Foo.Factory>();
 

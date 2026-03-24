@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -18,6 +16,7 @@ namespace Kiskovi.Core
             this.value = value;
         }
     }
+
     public class InputFloatSignal : InputActionSignal
     {
         public float value;
@@ -27,6 +26,7 @@ namespace Kiskovi.Core
             this.value = value;
         }
     }
+
     public class InputVector2Signal : InputActionSignal
     {
         public Vector2 value;
@@ -36,13 +36,13 @@ namespace Kiskovi.Core
             this.value = value;
         }
     }
+
     public class InputSimpleSignal : InputActionSignal { }
 
     public class InputActionSignal { }
 
     public static class InputActionSignalTypeCache
     {
-
         private static Dictionary<string, Type> _signalTypesByName;
 
         public static IEnumerable<string> GetTypes(bool regenerate)
@@ -54,9 +54,11 @@ namespace Kiskovi.Core
 
         private static void EnsureSignalTypes(bool regenerate = false)
         {
-            if (_signalTypesByName != null && !regenerate) return;
+            if (_signalTypesByName != null && !regenerate)
+                return;
 
-            _signalTypesByName = AppDomain.CurrentDomain.GetAssemblies()
+            _signalTypesByName = AppDomain
+                .CurrentDomain.GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .Where(t => typeof(InputActionSignal).IsAssignableFrom(t) && !t.IsAbstract)
                 .ToDictionary(t => t.FullName, t => t);
@@ -70,12 +72,12 @@ namespace Kiskovi.Core
         }
     }
 
-
     public abstract class InputSignalSender : MonoBehaviour
     {
         public InputActionReference actionReference;
 
-        [HideInInspector] public string inputActionSignalTypeName;
+        [HideInInspector]
+        public string inputActionSignalTypeName;
 
         private Type _cachedType;
         protected Type CachedType
@@ -88,11 +90,13 @@ namespace Kiskovi.Core
             }
         }
 
-        [Inject] protected SignalBus _signalBus;
+        [Inject]
+        protected SignalBus _signalBus;
 
         private void OnEnable()
         {
-            if (actionReference == null) return;
+            if (actionReference == null)
+                return;
 
             actionReference.action.Enable();
             Subscirbe();
@@ -100,7 +104,8 @@ namespace Kiskovi.Core
 
         private void OnDisable()
         {
-            if (actionReference == null) return;
+            if (actionReference == null)
+                return;
 
             UnSubscirbe();
         }
@@ -108,6 +113,5 @@ namespace Kiskovi.Core
         protected abstract void Subscirbe();
 
         protected abstract void UnSubscirbe();
-            
     }
 }

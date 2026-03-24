@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
@@ -34,7 +33,9 @@ namespace Kiskovi.Core
 
         static void LocaleSelected(int index)
         {
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[
+                index
+            ];
         }
     }
 }

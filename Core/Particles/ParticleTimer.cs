@@ -15,14 +15,16 @@ namespace Kiskovi.Core
 
         private void Update()
         {
-            if (_particleSystem == null) return;
+            if (_particleSystem == null)
+                return;
 
             if (time > 0)
             {
                 time -= Time.deltaTime;
                 if (!_particleSystem.isPlaying)
                     _particleSystem.Play();
-            } else
+            }
+            else
             {
                 if (_particleSystem.isPlaying)
                     _particleSystem.Stop();

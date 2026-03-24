@@ -1,10 +1,7 @@
 using System.Linq;
-
 using UnityEditor;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 
 namespace Kiskovi.Core
 {
@@ -15,7 +12,9 @@ namespace Kiskovi.Core
         {
             m_ActionProperty = serializedObject.FindProperty("m_Action");
             m_BindingIdProperty = serializedObject.FindProperty("m_BindingId");
-            m_DisplayStringOptionsProperty = serializedObject.FindProperty("m_DisplayStringOptions");
+            m_DisplayStringOptionsProperty = serializedObject.FindProperty(
+                "m_DisplayStringOptions"
+            );
             m_BindingTextProperty = serializedObject.FindProperty("m_BindingText");
 
             RefreshBindingOptions();
@@ -31,7 +30,11 @@ namespace Kiskovi.Core
             {
                 EditorGUILayout.PropertyField(m_ActionProperty);
 
-                var newSelectedBinding = EditorGUILayout.Popup(m_BindingLabel, m_SelectedBindingOption, m_BindingOptions);
+                var newSelectedBinding = EditorGUILayout.Popup(
+                    m_BindingLabel,
+                    m_SelectedBindingOption,
+                    m_BindingOptions
+                );
                 if (newSelectedBinding != m_SelectedBindingOption)
                 {
                     var bindingId = m_BindingOptionValues[newSelectedBinding];
@@ -39,8 +42,10 @@ namespace Kiskovi.Core
                     m_SelectedBindingOption = newSelectedBinding;
                 }
 
-                var optionsOld = (InputBinding.DisplayStringOptions)m_DisplayStringOptionsProperty.intValue;
-                var optionsNew = (InputBinding.DisplayStringOptions)EditorGUILayout.EnumFlagsField(m_DisplayOptionsLabel, optionsOld);
+                var optionsOld = (InputBinding.DisplayStringOptions)
+                    m_DisplayStringOptionsProperty.intValue;
+                var optionsNew = (InputBinding.DisplayStringOptions)
+                    EditorGUILayout.EnumFlagsField(m_DisplayOptionsLabel, optionsOld);
                 if (optionsOld != optionsNew)
                     m_DisplayStringOptionsProperty.intValue = (int)optionsNew;
             }
@@ -91,7 +96,8 @@ namespace Kiskovi.Core
                 // there are two bindings with the display string "A", the user can see that one is for the keyboard
                 // and the other for the gamepad.
                 var displayOptions =
-                    InputBinding.DisplayStringOptions.DontUseShortDisplayNames | InputBinding.DisplayStringOptions.IgnoreBindingOverrides;
+                    InputBinding.DisplayStringOptions.DontUseShortDisplayNames
+                    | InputBinding.DisplayStringOptions.IgnoreBindingOverrides;
                 if (!haveBindingGroups)
                     displayOptions |= InputBinding.DisplayStringOptions.DontOmitDevice;
 
@@ -100,7 +106,8 @@ namespace Kiskovi.Core
 
                 // If binding is part of a composite, include the part name.
                 if (binding.isPartOfComposite)
-                    displayString = $"{ObjectNames.NicifyVariableName(binding.name)}: {displayString}";
+                    displayString =
+                        $"{ObjectNames.NicifyVariableName(binding.name)}: {displayString}";
 
                 // Some composites use '/' as a separator. When used in popup, this will lead to to submenus. Prevent
                 // by instead using a backlash.
@@ -112,9 +119,16 @@ namespace Kiskovi.Core
                     var asset = action.actionMap?.asset;
                     if (asset != null)
                     {
-                        var controlSchemes = string.Join(", ",
-                            binding.groups.Split(InputBinding.Separator)
-                                .Select(x => asset.controlSchemes.FirstOrDefault(c => c.bindingGroup == x).name));
+                        var controlSchemes = string.Join(
+                            ", ",
+                            binding
+                                .groups.Split(InputBinding.Separator)
+                                .Select(x =>
+                                    asset
+                                        .controlSchemes.FirstOrDefault(c => c.bindingGroup == x)
+                                        .name
+                                )
+                        );
 
                         displayString = $"{displayString} ({controlSchemes})";
                     }

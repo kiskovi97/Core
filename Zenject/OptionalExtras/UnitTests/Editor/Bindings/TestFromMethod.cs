@@ -67,19 +67,19 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestCached2()
         {
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromMethod(ctx => new Foo()).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Foo), typeof(IFoo))
+                .To<Foo>()
+                .FromMethod(ctx => new Foo())
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>(), Container.Resolve<Foo>());
             Assert.IsEqual(Container.Resolve<Foo>(), Container.Resolve<IFoo>());
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class Foo : IFoo
-        {
-        }
+        class Foo : IFoo { }
     }
 }
-

@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
+using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
-using System.IO;
 
 namespace Kiskovi.Core
 {
@@ -18,7 +18,8 @@ namespace Kiskovi.Core
             Converters = { new ColorJsonConverter() },
         };
 
-        public static async Task<T> LoadJSONAsync<T>(string uri) where T : class
+        public static async Task<T> LoadJSONAsync<T>(string uri)
+            where T : class
         {
             if (string.IsNullOrEmpty(uri) || !File.Exists(uri))
             {
@@ -28,7 +29,8 @@ namespace Kiskovi.Core
             return await ReadFileToJSONAsync<T>(uri);
         }
 
-        public static T LoadJSONSync<T>(string uri) where T : class
+        public static T LoadJSONSync<T>(string uri)
+            where T : class
         {
             if (string.IsNullOrEmpty(uri) || !File.Exists(uri))
             {
@@ -38,7 +40,8 @@ namespace Kiskovi.Core
             return ReadFileToJSONSync<T>(uri);
         }
 
-        private static async Task<T> ReadFileToJSONAsync<T>(string uri) where T : class
+        private static async Task<T> ReadFileToJSONAsync<T>(string uri)
+            where T : class
         {
             T obj = null;
             try
@@ -53,13 +56,12 @@ namespace Kiskovi.Core
             {
                 Debug.LogWarning(exp);
             }
-            finally
-            {
-            }
+            finally { }
             return obj;
         }
 
-        private static T ReadFileToJSONSync<T>(string uri) where T : class
+        private static T ReadFileToJSONSync<T>(string uri)
+            where T : class
         {
             T obj = null;
             try
@@ -74,13 +76,11 @@ namespace Kiskovi.Core
             {
                 Debug.LogWarning(exp);
             }
-            finally
-            {
-            }
+            finally { }
             return obj;
         }
 
-        public async static Task SaveJSONAsync(string uri, object data)
+        public static async Task SaveJSONAsync(string uri, object data)
         {
             if (data == null)
             {
@@ -99,18 +99,17 @@ namespace Kiskovi.Core
                 }
 
                 await Task.Run(async () =>
-                {
-                    string json = JsonConvert.SerializeObject(data, settings);
-                    await File.WriteAllTextAsync(uri, json);
-                }).ConfigureAwait(false);
+                    {
+                        string json = JsonConvert.SerializeObject(data, settings);
+                        await File.WriteAllTextAsync(uri, json);
+                    })
+                    .ConfigureAwait(false);
             }
             catch (Exception exp)
             {
                 Debug.LogWarning(exp);
             }
-            finally
-            {
-            }
+            finally { }
         }
 
         public static void SaveJSONSync(string uri, object data)
@@ -138,9 +137,7 @@ namespace Kiskovi.Core
             {
                 Debug.LogWarning(exp);
             }
-            finally
-            {
-            }
+            finally { }
         }
     }
 }

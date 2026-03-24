@@ -5,11 +5,13 @@ namespace Kiskovi.Core
     public enum ControlScheme
     {
         Keyboard,
-        XboxController
+        XboxController,
     }
+
     public class MoveSignal : InputVector2Signal
     {
-        public MoveSignal(Vector2 move) : base(move) { }
+        public MoveSignal(Vector2 move)
+            : base(move) { }
     }
 
     public class UIInteractions
@@ -21,25 +23,35 @@ namespace Kiskovi.Core
         public class DeclineSignal : InputSimpleSignal { }
 
         public class DeleteSignal : InputSimpleSignal { }
+
         public class Navigate : InputVector2Signal
         {
-            public Navigate(Vector2 delta) : base(delta) { }
+            public Navigate(Vector2 delta)
+                : base(delta) { }
         }
+
         public class NavigateUI : InputVector2Signal
         {
-            public NavigateUI(Vector2 delta) : base(delta) { }
+            public NavigateUI(Vector2 delta)
+                : base(delta) { }
         }
+
         public class DragUI : InputVector2Signal
         {
-            public DragUI(Vector2 delta) : base(delta) { }
+            public DragUI(Vector2 delta)
+                : base(delta) { }
         }
+
         public class NavigateTabsSignal : InputBooleanSignal
         {
-            public NavigateTabsSignal(bool forward) : base(forward) { }
+            public NavigateTabsSignal(bool forward)
+                : base(forward) { }
         }
+
         public class ModifyValueSignal : InputFloatSignal
         {
-            public ModifyValueSignal(float value) : base(value) { }
+            public ModifyValueSignal(float value)
+                : base(value) { }
         }
 
         public class SkipSignal : InputSimpleSignal { }
@@ -51,21 +63,25 @@ namespace Kiskovi.Core
         public const string XBOX_NAME = "XboxController";
 
         public static ControlScheme Scheme = ControlScheme.Keyboard;
-        public static string SchemeName => (Scheme) switch { 
-            ControlScheme.Keyboard => KEYBOARD_NAME, 
-            ControlScheme.XboxController => XBOX_NAME, 
-            _ => KEYBOARD_NAME 
-        };
-        public static string translationKey => (Scheme) switch
-        {
-            ControlScheme.Keyboard => "_keyboard",
-            ControlScheme.XboxController => "_xbox",
-            _ => "_keyboard",
-        };
+        public static string SchemeName =>
+            (Scheme) switch
+            {
+                ControlScheme.Keyboard => KEYBOARD_NAME,
+                ControlScheme.XboxController => XBOX_NAME,
+                _ => KEYBOARD_NAME,
+            };
+        public static string translationKey =>
+            (Scheme) switch
+            {
+                ControlScheme.Keyboard => "_keyboard",
+                ControlScheme.XboxController => "_xbox",
+                _ => "_keyboard",
+            };
 
         public class ControlSchemeChanged
         {
             public ControlScheme Scheme;
+
             public ControlSchemeChanged(ControlScheme scheme)
             {
                 Scheme = scheme;

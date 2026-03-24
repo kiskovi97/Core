@@ -7,11 +7,7 @@
 
         public SettingsData Copy()
         {
-            return new SettingsData()
-            {
-                musicVolume = musicVolume,
-                soundVolume = soundVolume
-            };
+            return new SettingsData() { musicVolume = musicVolume, soundVolume = soundVolume };
         }
     }
 
@@ -23,10 +19,18 @@
 
     internal class SettingsTable : LocalDatabaseTable<SettingsData>, ISettingsTable
     {
-        public float MusicVolume { get => Data.musicVolume; set => Data.musicVolume = value; }
-        public float SoundVolume { get => Data.soundVolume; set => Data.soundVolume = value; }
+        public float MusicVolume
+        {
+            get => Data.musicVolume;
+            set => Data.musicVolume = value;
+        }
+        public float SoundVolume
+        {
+            get => Data.soundVolume;
+            set => Data.soundVolume = value;
+        }
 
-        public SettingsTable(ISaveSystem saveSystem) : base(saveSystem)
-        { }
+        public SettingsTable(ISaveSystem saveSystem)
+            : base(saveSystem) { }
     }
 }

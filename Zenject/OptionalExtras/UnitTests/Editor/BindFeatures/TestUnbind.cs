@@ -6,17 +6,11 @@ namespace Zenject.Tests.BindFeatures
     [TestFixture]
     public class TestUnbind : ZenjectUnitTestFixture
     {
-        interface ITest
-        {
-        }
+        interface ITest { }
 
-        interface ITest2
-        {
-        }
+        interface ITest2 { }
 
-        class Test2 : ITest, ITest2
-        {
-        }
+        class Test2 : ITest, ITest2 { }
 
         [Test]
         public void Run()

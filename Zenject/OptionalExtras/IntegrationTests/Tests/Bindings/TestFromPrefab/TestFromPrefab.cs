@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -51,7 +50,12 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestSingle()
         {
             PreInstall();
-            Container.Bind(typeof(IFoo), typeof(Foo)).To<Foo>().FromComponentInNewPrefab(FooPrefab).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(Foo))
+                .To<Foo>()
+                .FromComponentInNewPrefab(FooPrefab)
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -64,8 +68,12 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestCached1()
         {
             PreInstall();
-            Container.Bind(typeof(Foo), typeof(Bar)).FromComponentInNewPrefab(FooPrefab)
-                .WithGameObjectName("Foo").AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Foo), typeof(Bar))
+                .FromComponentInNewPrefab(FooPrefab)
+                .WithGameObjectName("Foo")
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -81,7 +89,11 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // They have required arguments
-            Container.Bind(typeof(Gorp), typeof(Qux)).FromComponentInNewPrefab(GorpAndQuxPrefab).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Gorp), typeof(Qux))
+                .FromComponentInNewPrefab(GorpAndQuxPrefab)
+                .AsSingle()
+                .NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -91,9 +103,13 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArgumentsFail2()
         {
             PreInstall();
-            Container.Bind<Gorp>()
-                .FromComponentInNewPrefab(GorpAndQuxPrefab).WithGameObjectName("Gorp").AsSingle()
-                .WithArguments(5, "test1").NonLazy();
+            Container
+                .Bind<Gorp>()
+                .FromComponentInNewPrefab(GorpAndQuxPrefab)
+                .WithGameObjectName("Gorp")
+                .AsSingle()
+                .WithArguments(5, "test1")
+                .NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -103,9 +119,13 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArgumentsSuccess()
         {
             PreInstall();
-            Container.Bind<Gorp>().FromComponentInNewPrefab(GorpPrefab)
-                .WithGameObjectName("Gorp").AsSingle()
-                .WithArguments("test1").NonLazy();
+            Container
+                .Bind<Gorp>()
+                .FromComponentInNewPrefab(GorpPrefab)
+                .WithGameObjectName("Gorp")
+                .AsSingle()
+                .WithArguments("test1")
+                .NonLazy();
 
             PostInstall();
 
@@ -150,7 +170,12 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // Should ignore the Norf2 component on it
-            Container.Bind<INorf>().To<Norf>().FromComponentsInNewPrefab(NorfPrefab).AsCached().NonLazy();
+            Container
+                .Bind<INorf>()
+                .To<Norf>()
+                .FromComponentsInNewPrefab(NorfPrefab)
+                .AsCached()
+                .NonLazy();
 
             PostInstall();
 
@@ -186,7 +211,11 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // Jim and Bob both depend on each other
-            Container.Bind(typeof(Jim), typeof(Bob)).FromComponentInNewPrefab(JimAndBobPrefab).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Jim), typeof(Bob))
+                .FromComponentInNewPrefab(JimAndBobPrefab)
+                .AsSingle()
+                .NonLazy();
             Container.BindInterfacesTo<JimAndBobRunner>().AsSingle().NonLazy();
 
             PostInstall();
@@ -219,4 +248,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

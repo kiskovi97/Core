@@ -7,7 +7,8 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestSubContainers4 : ZenjectUnitTestFixture
     {
-        readonly Dictionary<object, DiContainer> _subContainers = new Dictionary<object, DiContainer>();
+        readonly Dictionary<object, DiContainer> _subContainers =
+            new Dictionary<object, DiContainer>();
 
         [Test]
         public void RunTest()
@@ -28,10 +29,16 @@ namespace Zenject.Tests.Other
 
         void SetupContainer()
         {
-            Container.Bind<RotorController>().FromMethod(SubContainerResolve<RotorController>).AsTransient()
+            Container
+                .Bind<RotorController>()
+                .FromMethod(SubContainerResolve<RotorController>)
+                .AsTransient()
                 .WhenInjectedInto<RotorView>();
 
-            Container.Bind<RotorModel>().FromMethod(SubContainerResolve<RotorModel>).AsTransient()
+            Container
+                .Bind<RotorModel>()
+                .FromMethod(SubContainerResolve<RotorModel>)
+                .AsTransient()
                 .WhenInjectedInto<RotorView>();
 
             Container.Bind<RotorView>().AsTransient();
@@ -74,9 +81,6 @@ namespace Zenject.Tests.Other
             public RotorModel Model;
         }
 
-        public class RotorModel
-        {
-        }
+        public class RotorModel { }
     }
 }
-

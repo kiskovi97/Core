@@ -1,16 +1,16 @@
-﻿using UnityEngine.EventSystems;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 using Zenject;
 
 namespace Kiskovi.Core
-{ 
+{
     internal class GamepadSlider : MonoBehaviour
     {
         public Slider slider;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         private void OnEnable()
         {
@@ -24,7 +24,10 @@ namespace Kiskovi.Core
 
         private void OnModifyValue(UIInteractions.ModifyValueSignal signal)
         {
-            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == slider.gameObject)
+            if (
+                EventSystem.current != null
+                && EventSystem.current.currentSelectedGameObject == slider.gameObject
+            )
                 slider.value += signal.value * 0.1f;
         }
     }

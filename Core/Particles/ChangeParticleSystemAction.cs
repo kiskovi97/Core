@@ -6,6 +6,7 @@ namespace Kiskovi.Core
     {
         public ParticleSystem myParticleSystem;
         public ParticleSystemChange change;
+
         public enum ParticleSystemChange
         {
             Play,
@@ -14,7 +15,7 @@ namespace Kiskovi.Core
 
         public override void Trigger(params object[] parameter)
         {
-            switch(change)
+            switch (change)
             {
                 case ParticleSystemChange.Play:
                     myParticleSystem.Play();
@@ -24,6 +25,5 @@ namespace Kiskovi.Core
                     break;
             }
         }
-
     }
 }

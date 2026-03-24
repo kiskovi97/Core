@@ -72,7 +72,10 @@ namespace Zenject.Tests.Bindings
 
             Assert.Throws(() => Container.InstantiateComponentOnNewGameObject<Gorp>());
 
-            var gorp = Container.InstantiateComponentOnNewGameObject<Gorp>("sdf", new object[] { "zxcv" });
+            var gorp = Container.InstantiateComponentOnNewGameObject<Gorp>(
+                "sdf",
+                new object[] { "zxcv" }
+            );
 
             Assert.IsEqual(gorp.Arg, "zxcv");
             yield break;
@@ -98,7 +101,10 @@ namespace Zenject.Tests.Bindings
 
             Assert.Throws(() => Container.InstantiatePrefab(GorpPrefab));
 
-            var gorp = Container.InstantiatePrefabForComponent<Gorp>(GorpPrefab, new object[] { "asdf" });
+            var gorp = Container.InstantiatePrefabForComponent<Gorp>(
+                GorpPrefab,
+                new object[] { "asdf" }
+            );
 
             Assert.IsEqual(gorp.Arg, "asdf");
             yield break;
@@ -111,7 +117,10 @@ namespace Zenject.Tests.Bindings
 
             Assert.Throws(() => Container.InstantiatePrefabResource(ResourcePrefix + "Gorp"));
 
-            var gorp = Container.InstantiatePrefabResourceForComponent<Gorp>(ResourcePrefix + "Gorp", new object[] { "asdf" });
+            var gorp = Container.InstantiatePrefabResourceForComponent<Gorp>(
+                ResourcePrefix + "Gorp",
+                new object[] { "asdf" }
+            );
 
             Assert.IsEqual(gorp.Arg, "asdf");
             yield break;
@@ -122,7 +131,10 @@ namespace Zenject.Tests.Bindings
         {
             SkipInstall();
 
-            var camera = Container.InstantiatePrefabForComponent<Camera>(CameraPrefab, new object[0]);
+            var camera = Container.InstantiatePrefabForComponent<Camera>(
+                CameraPrefab,
+                new object[0]
+            );
             Assert.IsNotNull(camera);
             yield break;
         }
@@ -132,7 +144,12 @@ namespace Zenject.Tests.Bindings
         {
             SkipInstall();
 
-            Assert.Throws(() => Container.InstantiatePrefabForComponent<Camera>(CameraPrefab, new object[] { "sdf" }));
+            Assert.Throws(() =>
+                Container.InstantiatePrefabForComponent<Camera>(
+                    CameraPrefab,
+                    new object[] { "sdf" }
+                )
+            );
             yield break;
         }
 
@@ -151,9 +168,14 @@ namespace Zenject.Tests.Bindings
         {
             SkipInstall();
 
-            Assert.Throws(() => Container.InstantiateScriptableObjectResource<Gorp2>(ResourcePrefix + "Gorp2"));
+            Assert.Throws(() =>
+                Container.InstantiateScriptableObjectResource<Gorp2>(ResourcePrefix + "Gorp2")
+            );
 
-            var gorp = Container.InstantiateScriptableObjectResource<Gorp2>(ResourcePrefix + "Gorp2", new object[] { "asdf" });
+            var gorp = Container.InstantiateScriptableObjectResource<Gorp2>(
+                ResourcePrefix + "Gorp2",
+                new object[] { "asdf" }
+            );
 
             Assert.IsEqual(gorp.Arg, "asdf");
             yield break;
@@ -208,7 +230,9 @@ namespace Zenject.Tests.Bindings
 
             var go = GameObject.Instantiate(CameraPrefab);
 
-            Assert.Throws(() => Container.InjectGameObjectForComponent<Camera>(go, new object[] { "sdf" }));
+            Assert.Throws(() =>
+                Container.InjectGameObjectForComponent<Camera>(go, new object[] { "sdf" })
+            );
             yield break;
         }
 
@@ -252,7 +276,13 @@ namespace Zenject.Tests.Bindings
             parentGameObject.transform.position = new Vector3(100, 100, 100);
             var parentTransform = parentGameObject.transform;
 
-            var go = (Foo)Container.InstantiatePrefabForComponentExplicit(typeof(Foo), FooPrefab, new List<TypeValuePair>(), new GameObjectCreationParameters { ParentTransform = parentTransform });
+            var go = (Foo)
+                Container.InstantiatePrefabForComponentExplicit(
+                    typeof(Foo),
+                    FooPrefab,
+                    new List<TypeValuePair>(),
+                    new GameObjectCreationParameters { ParentTransform = parentTransform }
+                );
 
             var foo = go.GetComponentInChildren<Foo>();
 
@@ -270,12 +300,18 @@ namespace Zenject.Tests.Bindings
             parentGameObject.transform.rotation = Quaternion.Euler(10, 10, 10);
             var parentTransform = parentGameObject.transform;
 
-            var go = (Foo)Container.InstantiatePrefabForComponentExplicit(typeof(Foo), FooPrefab, new List<TypeValuePair>(), new GameObjectCreationParameters
-            {
-                ParentTransform = parentTransform,
-                Position = new Vector3(50, 50, 50),
-                Rotation = Quaternion.Euler(20, 20, 20)
-            });
+            var go = (Foo)
+                Container.InstantiatePrefabForComponentExplicit(
+                    typeof(Foo),
+                    FooPrefab,
+                    new List<TypeValuePair>(),
+                    new GameObjectCreationParameters
+                    {
+                        ParentTransform = parentTransform,
+                        Position = new Vector3(50, 50, 50),
+                        Rotation = Quaternion.Euler(20, 20, 20),
+                    }
+                );
 
             var foo = go.GetComponentInChildren<Foo>();
 
@@ -293,11 +329,7 @@ namespace Zenject.Tests.Bindings
 
         public class Qux
         {
-            public static bool WasInjected
-            {
-                get;
-                set;
-            }
+            public static bool WasInjected { get; set; }
 
             [Inject]
             public void Construct()

@@ -6,30 +6,18 @@ namespace Zenject.Tests.BindFeatures
     [TestFixture]
     public class TestMultipleContractTypes2 : ZenjectUnitTestFixture
     {
-        public class Bar
-        {
-        }
+        public class Bar { }
 
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
-        public interface IQux
-        {
-        }
+        public interface IQux { }
 
-        public class Foo : IQux, IFoo
-        {
-        }
+        public class Foo : IQux, IFoo { }
 
         [Test]
         public void Test1()
         {
-            var types = new[]
-            {
-                typeof(Bar),
-                typeof(Foo)
-            };
+            var types = new[] { typeof(Bar), typeof(Foo) };
 
             Container.Bind(types).AsSingle().NonLazy();
 
@@ -85,6 +73,3 @@ namespace Zenject.Tests.BindFeatures
         }
     }
 }
-
-
-

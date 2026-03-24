@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 using Zenject;
 
 namespace Kiskovi.Core
 {
-
     internal class GlobalSelectionNavigationSystem : IInitializable, IDisposable
     {
         private GlobalSelectionSystem _selectionSystem;
 
         private SignalBus _signalBus;
 
-        public GlobalSelectionNavigationSystem(GlobalSelectionSystem selectionSystem, SignalBus signalBus)
+        public GlobalSelectionNavigationSystem(
+            GlobalSelectionSystem selectionSystem,
+            SignalBus signalBus
+        )
         {
             _selectionSystem = selectionSystem;
             _signalBus = signalBus;
@@ -52,16 +53,22 @@ namespace Kiskovi.Core
             }
         }
 
-        private SelectableBase GetNextSelected(IEnumerable<SelectableBase> selectables, Vector2 goalDir)
+        private SelectableBase GetNextSelected(
+            IEnumerable<SelectableBase> selectables,
+            Vector2 goalDir
+        )
         {
-            if (!_selectionSystem.CanNavigate) return null;
+            if (!_selectionSystem.CanNavigate)
+                return null;
             var selected = _selectionSystem.CurrentSelected;
-            if (selected == null) return selectables.FirstOrDefault();
+            if (selected == null)
+                return selectables.FirstOrDefault();
 
             SelectableBase nextSelected = null;
             foreach (var selection in selectables)
             {
-                if (selected == selection) continue;
+                if (selected == selection)
+                    continue;
 
                 var dir = selection.transform.position - selected.transform.position;
 
@@ -95,7 +102,8 @@ namespace Kiskovi.Core
 
         private static float GetValue(Vector2 goalDir, Vector3 dir)
         {
-            return Vector2.Dot(goalDir, dir) * (Mathf.Round(Vector2.Angle(goalDir, dir) / 45f) / 4f);
+            return Vector2.Dot(goalDir, dir)
+                * (Mathf.Round(Vector2.Angle(goalDir, dir) / 45f) / 4f);
         }
     }
 }

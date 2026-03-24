@@ -6,22 +6,16 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsIdentifier : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-        }
+        class Test0 { }
 
         class Test1
         {
-            public Test1(
-                [Inject(Id ="foo")]
-                Test0 name1)
-            {
-            }
+            public Test1([Inject(Id = "foo")] Test0 name1) { }
         }
 
         class Test2
         {
-            [Inject(Id ="foo")]
+            [Inject(Id = "foo")]
             public Test0 name2 = null;
         }
 
@@ -32,7 +26,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().AsTransient().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test1>(); });
+                delegate
+                {
+                    Container.Resolve<Test1>();
+                }
+            );
         }
 
         [Test]
@@ -44,7 +42,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().AsTransient().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test2>(); });
+                delegate
+                {
+                    Container.Resolve<Test2>();
+                }
+            );
         }
 
         [Test]
@@ -76,17 +78,10 @@ namespace Zenject.Tests.Conditions
 
         class Test3
         {
-            public Test3(
-                [Inject(Id ="TestValue2")]
-                Test0 test0)
-            {
-            }
+            public Test3([Inject(Id = "TestValue2")] Test0 test0) { }
         }
 
-        class Test4
-        {
-
-        }
+        class Test4 { }
 
         [Test]
         public void TestFailConstructorInjectionEnum()
@@ -99,7 +94,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().WithId("TestValue1").FromInstance(new Test0()).NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test3>(); });
+                delegate
+                {
+                    Container.Resolve<Test3>();
+                }
+            );
         }
 
         [Test]
@@ -127,7 +126,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().WithId("TestValue1").FromInstance(new Test0()).NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test3>(); });
+                delegate
+                {
+                    Container.Resolve<Test3>();
+                }
+            );
         }
 
         [Test]

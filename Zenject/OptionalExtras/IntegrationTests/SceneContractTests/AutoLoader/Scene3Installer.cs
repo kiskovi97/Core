@@ -2,15 +2,11 @@ using ModestTree;
 
 namespace Zenject.Tests.AutoLoadSceneTests
 {
-    public class Qux
-    {
-    }
+    public class Qux { }
 
     public class Bar
     {
-        public Bar(Qux qux)
-        {
-        }
+        public Bar(Qux qux) { }
     }
 
     public class Foo

@@ -54,14 +54,23 @@ namespace Zenject.Tests.AutoInjecter
         public IEnumerator TestInstantiatePrefabWithSearchContainerSourceInGameObjectContext()
         {
             PreInstall();
-            Container.Bind<Gorp>().FromSubContainerResolve().ByNewContextPrefab(GetPrefab("GorpContext")).AsSingle();
+            Container
+                .Bind<Gorp>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefab(GetPrefab("GorpContext"))
+                .AsSingle();
             PostInstall();
             yield return null;
 
             var gorp = Container.Resolve<Gorp>();
 
-            var qux = GameObject.Instantiate(
-                GetPrefab("QuxSearch"), Vector3.zero, Quaternion.identity, gorp.transform)
+            var qux = GameObject
+                .Instantiate(
+                    GetPrefab("QuxSearch"),
+                    Vector3.zero,
+                    Quaternion.identity,
+                    gorp.transform
+                )
                 .GetComponentInChildren<Qux>();
 
             Assert.IsEqual(qux.Container, gorp.Container);
@@ -86,8 +95,13 @@ namespace Zenject.Tests.AutoInjecter
             SkipInstall();
             yield return null;
 
-            var qux = GameObject.Instantiate(
-                GetPrefab("QuxSearch"), Vector3.zero, Quaternion.identity, ProjectContext.Instance.transform)
+            var qux = GameObject
+                .Instantiate(
+                    GetPrefab("QuxSearch"),
+                    Vector3.zero,
+                    Quaternion.identity,
+                    ProjectContext.Instance.transform
+                )
                 .GetComponentInChildren<Qux>();
 
             Assert.IsEqual(qux.Container, ProjectContext.Instance.Container);
@@ -122,12 +136,16 @@ namespace Zenject.Tests.AutoInjecter
             SkipInstall();
             yield return null;
 
-            var qux = GameObject.Instantiate(
-                GetPrefab("QuxScene"), Vector3.zero, Quaternion.identity,
-                ProjectContext.Instance.transform).GetComponentInChildren<Qux>();
+            var qux = GameObject
+                .Instantiate(
+                    GetPrefab("QuxScene"),
+                    Vector3.zero,
+                    Quaternion.identity,
+                    ProjectContext.Instance.transform
+                )
+                .GetComponentInChildren<Qux>();
 
             Assert.IsEqual(qux.Container, ProjectContext.Instance.Container);
         }
     }
 }
-

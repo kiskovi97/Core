@@ -2,11 +2,7 @@
 
 namespace Zenject.Tests.Bindings.FromPrefab
 {
-    public interface IFoo
-    {
-    }
+    public interface IFoo { }
 
-    public class Foo : MonoBehaviour, IFoo
-    {
-    }
+    public class Foo : MonoBehaviour, IFoo { }
 }

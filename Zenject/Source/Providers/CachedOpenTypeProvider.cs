@@ -71,19 +71,19 @@ namespace Zenject
         {
             List<object> result = null;
 
-            for (int i = 0; i < _cachedInstances.Count; i++) 
+            for (int i = 0; i < _cachedInstances.Count; i++)
             {
                 var instanceList = _cachedInstances[i];
 
                 bool matchesAll = true;
 
-                for (int k = 0; k < instanceList.Count; k++) 
+                for (int k = 0; k < instanceList.Count; k++)
                 {
                     var instance = instanceList[k];
 
-                    if (instance == null) 
+                    if (instance == null)
                     {
-                        if (memberType.IsValueType()) 
+                        if (memberType.IsValueType())
                         {
                             matchesAll = false;
                             break;
@@ -92,14 +92,14 @@ namespace Zenject
                         continue;
                     }
 
-                    if (!instance.GetType().DerivesFromOrEqual(memberType)) 
+                    if (!instance.GetType().DerivesFromOrEqual(memberType))
                     {
                         matchesAll = false;
                         break;
                     }
                 }
 
-                if (matchesAll) 
+                if (matchesAll)
                 {
                     Assert.IsNull(result); // Is there any case where this is hit?
                     result = instanceList;
@@ -110,7 +110,11 @@ namespace Zenject
         }
 
         public void GetAllInstancesWithInjectSplit(
-            InjectContext context, List<TypeValuePair> args, out Action injectAction, List<object> buffer)
+            InjectContext context,
+            List<TypeValuePair> args,
+            out Action injectAction,
+            List<object> buffer
+        )
         {
             Assert.IsNotNull(context);
 
@@ -135,15 +139,17 @@ namespace Zenject
                     var instanceType = _creator.GetInstanceType(context);
                     throw Assert.CreateException(
                         "Found circular dependency when creating type '{0}'. Object graph:\n {1}{2}\n",
-                        instanceType, context.GetObjectGraphString(), instanceType);
+                        instanceType,
+                        context.GetObjectGraphString(),
+                        instanceType
+                    );
                 }
 
                 _isCreatingInstance = true;
 #endif
 
                 instances = new List<object>();
-                _creator.GetAllInstancesWithInjectSplit(
-                    context, args, out injectAction, instances);
+                _creator.GetAllInstancesWithInjectSplit(context, args, out injectAction, instances);
                 Assert.IsNotNull(instances);
 
                 _cachedInstances.Add(instances);
@@ -155,4 +161,3 @@ namespace Zenject
         }
     }
 }
-

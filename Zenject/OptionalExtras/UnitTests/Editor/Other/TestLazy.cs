@@ -59,9 +59,7 @@ namespace Zenject.Tests.Bindings.Singletons
                 InstanceCount++;
             }
 
-            public void DoIt()
-            {
-            }
+            public void DoIt() { }
         }
 
         public class Foo
@@ -91,4 +89,3 @@ namespace Zenject.Tests.Bindings.Singletons
         }
     }
 }
-

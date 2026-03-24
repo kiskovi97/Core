@@ -7,17 +7,11 @@ namespace Zenject.Tests.BindFeatures
     [TestFixture]
     public class TestMultipleContractTypes : ZenjectUnitTestFixture
     {
-        class Test1
-        {
-        }
+        class Test1 { }
 
-        class Test2 : Test1
-        {
-        }
+        class Test2 : Test1 { }
 
-        class Test3 : Test1
-        {
-        }
+        class Test3 : Test1 { }
 
         class TestImpl1
         {
@@ -59,4 +53,3 @@ namespace Zenject.Tests.BindFeatures
         }
     }
 }
-

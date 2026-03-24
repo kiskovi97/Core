@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace Kiskovi.Core
 {
@@ -10,13 +10,23 @@ namespace Kiskovi.Core
         [Header("show trigger: open")]
         [Header("show trigger: close")]
         [Space]
+        [SerializeField]
+        private Animator animator;
 
-        [SerializeField] private Animator animator;
-        [SerializeField] protected GameObject[] windowObjects;
-        [SerializeField] private GameObject blockingObject;
-        [SerializeField] private TriggerAction onOpen;
-        [SerializeField] private TriggerAction onClose;
-        [SerializeField] private float closeAnimationTime = 0.2f;
+        [SerializeField]
+        protected GameObject[] windowObjects;
+
+        [SerializeField]
+        private GameObject blockingObject;
+
+        [SerializeField]
+        private TriggerAction onOpen;
+
+        [SerializeField]
+        private TriggerAction onClose;
+
+        [SerializeField]
+        private float closeAnimationTime = 0.2f;
 
         private static List<UIWindow> openedWindows = new List<UIWindow>();
 
@@ -26,7 +36,10 @@ namespace Kiskovi.Core
 
         public static bool IsWindowOpen => openedWindows.Count > 0;
 
-        public bool isOpen => windowObjects != null && windowObjects.Length > 0 && windowObjects.Any(item => item.activeInHierarchy);
+        public bool isOpen =>
+            windowObjects != null
+            && windowObjects.Length > 0
+            && windowObjects.Any(item => item.activeInHierarchy);
 
         private static UIWindow inProgress = null;
 
@@ -49,7 +62,8 @@ namespace Kiskovi.Core
 
         public static void CloseLast()
         {
-            if (inProgress != null) return;
+            if (inProgress != null)
+                return;
             if (openedWindows.Count > 0)
             {
                 var window = openedWindows.LastOrDefault();
@@ -153,7 +167,10 @@ namespace Kiskovi.Core
                 blockingObject.SetObjectActive(true);
 
             TriggerAction.Trigger(onOpen);
-            openedWindows = openedWindows.Append(this).OrderBy(item => item.transform.GetSiblingIndex()).ToList();
+            openedWindows = openedWindows
+                .Append(this)
+                .OrderBy(item => item.transform.GetSiblingIndex())
+                .ToList();
             OnOpened();
 
             inProgress = this;

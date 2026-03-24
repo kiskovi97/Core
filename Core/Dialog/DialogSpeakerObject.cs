@@ -13,7 +13,8 @@ namespace Kiskovi.Core
         public TMP_Text dialogText;
         public float speed = 1f;
 
-        [Inject] private IDialogSystem _dialogSystem;
+        [Inject]
+        private IDialogSystem _dialogSystem;
 
         private void SetDialog(LocalizedString localizedString, float progress)
         {

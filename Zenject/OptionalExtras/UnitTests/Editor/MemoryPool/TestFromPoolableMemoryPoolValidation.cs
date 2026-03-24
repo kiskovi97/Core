@@ -1,4 +1,3 @@
-
 using System;
 using NUnit.Framework;
 using Assert = ModestTree.Assert;
@@ -8,17 +7,13 @@ namespace Zenject.Tests.Bindings
     [TestFixture]
     public class TestFromPoolableMemoryPoolValidation
     {
-        public class Bar
-        {
-        }
+        public class Bar { }
 
         public class Foo : IPoolable<IMemoryPool>, IDisposable
         {
             IMemoryPool _pool;
 
-            public Foo(Bar bar)
-            {
-            }
+            public Foo(Bar bar) { }
 
             public IMemoryPool Pool
             {
@@ -46,9 +41,7 @@ namespace Zenject.Tests.Bindings
                 _pool = pool;
             }
 
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
 
         [Test]
@@ -56,26 +49,32 @@ namespace Zenject.Tests.Bindings
         {
             var container = new DiContainer(true);
             container.Settings = new ZenjectSettings(
-                ValidationErrorResponses.Throw, RootResolveMethods.All);
+                ValidationErrorResponses.Throw,
+                RootResolveMethods.All
+            );
 
-            container.BindFactory<Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2));
+            container
+                .BindFactory<Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2));
 
             Assert.Throws(() => container.ResolveRoots());
         }
-
 
         [Test]
         public void TestSuccess()
         {
             var container = new DiContainer(true);
             container.Settings = new ZenjectSettings(
-                ValidationErrorResponses.Throw, RootResolveMethods.All);
+                ValidationErrorResponses.Throw,
+                RootResolveMethods.All
+            );
 
             container.Bind<Bar>().AsSingle();
-            container.BindFactory<Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2));
+            container
+                .BindFactory<Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2));
 
             container.ResolveRoots();
         }
     }
 }
-

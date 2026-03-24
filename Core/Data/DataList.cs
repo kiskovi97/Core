@@ -1,21 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class DataList<T> : MonoBehaviour where T : class, IData
+    public class DataList<T> : MonoBehaviour
+        where T : class, IData
     {
-        [SerializeField] private DataHolder<T> prefab;
-        [SerializeField] private GameObject separator;
-        [SerializeField] private int preLoadedItemCount = 3;
-        [SerializeField] protected Transform parentTransform;
+        [SerializeField]
+        private DataHolder<T> prefab;
 
-        [Inject] private DiContainer container;
+        [SerializeField]
+        private GameObject separator;
+
+        [SerializeField]
+        private int preLoadedItemCount = 3;
+
+        [SerializeField]
+        protected Transform parentTransform;
+
+        [Inject]
+        private DiContainer container;
 
         private List<DataHolder<T>> list = new List<DataHolder<T>>();
         private List<GameObject> separators = new List<GameObject>();
@@ -31,8 +38,10 @@ namespace Kiskovi.Core
 
         private void Awake()
         {
-            if (prefab != null && prefab.transform.IsChildOf(parentTransform)) prefab.gameObject.SetActive(false);
-            if (separator != null && separator.transform.IsChildOf(parentTransform)) separator.gameObject.SetActive(false);
+            if (prefab != null && prefab.transform.IsChildOf(parentTransform))
+                prefab.gameObject.SetActive(false);
+            if (separator != null && separator.transform.IsChildOf(parentTransform))
+                separator.gameObject.SetActive(false);
             for (int i = list.Count; i < preLoadedItemCount; i++)
             {
                 var newItem = CreateNewObject();
@@ -53,6 +62,7 @@ namespace Kiskovi.Core
 
             onChanged?.Invoke();
         }
+
         public void UpdateList(IEnumerable<T> values)
         {
             currentIndex = -1;

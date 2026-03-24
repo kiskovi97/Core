@@ -45,7 +45,9 @@ namespace Zenject.Tests.Factories
         {
             PreInstall();
 
-            Container.BindFactory<Object, string, Foo2, Foo2.Factory>().FromFactory<PrefabFactory<string, Foo2>>();
+            Container
+                .BindFactory<Object, string, Foo2, Foo2.Factory>()
+                .FromFactory<PrefabFactory<string, Foo2>>();
             Container.Bind<IInitializable>().To<Runner2>().AsSingle().WithArguments(Foo2Prefab);
 
             PostInstall();
@@ -57,8 +59,14 @@ namespace Zenject.Tests.Factories
         {
             PreInstall();
 
-            Container.BindFactory<string, Foo, Foo.Factory2>().FromFactory<PrefabResourceFactory<Foo>>();
-            Container.Bind<IInitializable>().To<Runner3>().AsSingle().WithArguments(FooPrefabResourcePath);
+            Container
+                .BindFactory<string, Foo, Foo.Factory2>()
+                .FromFactory<PrefabResourceFactory<Foo>>();
+            Container
+                .Bind<IInitializable>()
+                .To<Runner3>()
+                .AsSingle()
+                .WithArguments(FooPrefabResourcePath);
 
             PostInstall();
             yield break;
@@ -69,8 +77,14 @@ namespace Zenject.Tests.Factories
         {
             PreInstall();
 
-            Container.BindFactory<string, string, Foo2, Foo2.Factory2>().FromFactory<PrefabResourceFactory<string, Foo2>>();
-            Container.Bind<IInitializable>().To<Runner4>().AsSingle().WithArguments(Foo2PrefabResourcePath);
+            Container
+                .BindFactory<string, string, Foo2, Foo2.Factory2>()
+                .FromFactory<PrefabResourceFactory<string, Foo2>>();
+            Container
+                .Bind<IInitializable>()
+                .To<Runner4>()
+                .AsSingle()
+                .WithArguments(Foo2PrefabResourcePath);
 
             PostInstall();
             yield break;
@@ -81,9 +95,7 @@ namespace Zenject.Tests.Factories
             readonly GameObject _prefab;
             readonly Foo.Factory _fooFactory;
 
-            public Runner(
-                Foo.Factory fooFactory,
-                GameObject prefab)
+            public Runner(Foo.Factory fooFactory, GameObject prefab)
             {
                 _prefab = prefab;
                 _fooFactory = fooFactory;
@@ -102,9 +114,7 @@ namespace Zenject.Tests.Factories
             readonly GameObject _prefab;
             readonly Foo2.Factory _fooFactory;
 
-            public Runner2(
-                Foo2.Factory fooFactory,
-                GameObject prefab)
+            public Runner2(Foo2.Factory fooFactory, GameObject prefab)
             {
                 _prefab = prefab;
                 _fooFactory = fooFactory;
@@ -123,9 +133,7 @@ namespace Zenject.Tests.Factories
             readonly string _prefabPath;
             readonly Foo.Factory2 _fooFactory;
 
-            public Runner3(
-                Foo.Factory2 fooFactory,
-                string prefabPath)
+            public Runner3(Foo.Factory2 fooFactory, string prefabPath)
             {
                 _prefabPath = prefabPath;
                 _fooFactory = fooFactory;
@@ -143,9 +151,7 @@ namespace Zenject.Tests.Factories
             readonly string _prefabPath;
             readonly Foo2.Factory2 _fooFactory;
 
-            public Runner4(
-                Foo2.Factory2 fooFactory,
-                string prefabPath)
+            public Runner4(Foo2.Factory2 fooFactory, string prefabPath)
             {
                 _prefabPath = prefabPath;
                 _fooFactory = fooFactory;

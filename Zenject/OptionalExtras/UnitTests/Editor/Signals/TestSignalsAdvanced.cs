@@ -229,9 +229,7 @@ namespace Zenject.Tests.Signals
             Assert.IsEqual(callCount, 2);
         }
 
-        public class FooSignal
-        {
-        }
+        public class FooSignal { }
 
         public class BarSignal
         {
@@ -239,4 +237,3 @@ namespace Zenject.Tests.Signals
         }
     }
 }
-

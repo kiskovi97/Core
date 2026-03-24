@@ -4,9 +4,7 @@ using Assert = ModestTree.Assert;
 
 namespace Zenject.Tests.Signals
 {
-    public class FooSignal
-    {
-    }
+    public class FooSignal { }
 
     [TestFixture]
     public class TestSignalRuntimeDeclaration : ZenjectUnitTestFixture

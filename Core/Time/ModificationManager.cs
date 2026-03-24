@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 using Zenject;
 
@@ -40,9 +39,7 @@ namespace Kiskovi.Core
             modification = timeDefault;
         }
 
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         public virtual void Tick()
         {
@@ -60,7 +57,11 @@ namespace Kiskovi.Core
             }
             if (modification != goalModification)
             {
-                modification = Mathf.MoveTowards(modification, goalModification, Time.unscaledDeltaTime * 3f);
+                modification = Mathf.MoveTowards(
+                    modification,
+                    goalModification,
+                    Time.unscaledDeltaTime * 3f
+                );
             }
         }
     }

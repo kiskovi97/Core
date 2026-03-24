@@ -11,7 +11,10 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestSelf()
         {
-            Container.BindFactory<Foo, Foo.Factory>().FromIFactory(b => b.To<CustomFooFactory>().AsCached()).NonLazy();
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .FromIFactory(b => b.To<CustomFooFactory>().AsCached())
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo.Factory>().Create(), StaticFoo);
         }
@@ -19,8 +22,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestConcrete()
         {
-            Container.BindFactory<IFoo, IFooFactory>()
-                .To<Foo>().FromIFactory(b => b.To<CustomFooFactory>().AsCached()).NonLazy();
+            Container
+                .BindFactory<IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromIFactory(b => b.To<CustomFooFactory>().AsCached())
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<IFooFactory>().Create(), StaticFoo);
         }
@@ -28,8 +34,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestFactoryValidation()
         {
-            Container.BindFactory<IFoo, IFooFactory>()
-                .To<Foo>().FromIFactory(b => b.To<CustomFooFactoryWithValidate>().AsCached()).NonLazy();
+            Container
+                .BindFactory<IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromIFactory(b => b.To<CustomFooFactoryWithValidate>().AsCached())
+                .NonLazy();
 
             Container.Resolve<IFooFactory>().Create();
         }
@@ -55,21 +64,13 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class IFooFactory : PlaceholderFactory<IFoo>
-        {
-        }
+        class IFooFactory : PlaceholderFactory<IFoo> { }
 
         class Foo : IFoo
         {
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
     }
 }
-
-

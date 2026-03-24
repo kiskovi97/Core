@@ -1,20 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-
-using System;
 
 namespace Kiskovi.Core
 {
     internal class Tabulators : MonoBehaviour
     {
-        [SerializeField] private Button leftButton;
-        [SerializeField] private Button rightButton;
-        [SerializeField] private GameObject[] panels;
-        [SerializeField] private TabulatorButton[] buttons;
+        [SerializeField]
+        private Button leftButton;
+
+        [SerializeField]
+        private Button rightButton;
+
+        [SerializeField]
+        private GameObject[] panels;
+
+        [SerializeField]
+        private TabulatorButton[] buttons;
         private int currentIndex = 0;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         // Start is called before the first frame update
         void Start()
@@ -47,7 +54,8 @@ namespace Kiskovi.Core
         internal void SetIndex(TabulatorButton button)
         {
             var index = Array.IndexOf(buttons, button);
-            if (index < 0) return;
+            if (index < 0)
+                return;
 
             ChangeIndex(index);
         }
@@ -58,11 +66,13 @@ namespace Kiskovi.Core
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                if (buttons[i] != null) buttons[i].SetActive(i == currentIndex);
+                if (buttons[i] != null)
+                    buttons[i].SetActive(i == currentIndex);
             }
             for (int i = 0; i < panels.Length; i++)
             {
-                if (panels[i] != null) panels[i].SetActive(i == currentIndex);
+                if (panels[i] != null)
+                    panels[i].SetActive(i == currentIndex);
             }
 
             if (leftButton != null)

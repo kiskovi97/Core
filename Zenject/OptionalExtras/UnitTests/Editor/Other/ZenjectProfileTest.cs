@@ -7,55 +7,35 @@ namespace Zenject.Tests.Other
     {
         class Test0
         {
-            public void DoStuff()
-            {
-            }
+            public void DoStuff() { }
 
-            public void DoStuff1()
-            {
-            }
+            public void DoStuff1() { }
         }
 
         class Test1
         {
             [Inject]
-            public Test0 TestB
-            {
-                set;
-                get;
-            }
+            public Test0 TestB { set; get; }
 
             [Inject]
             public Test0 _testC = null;
 
-            public Test1(Test0 test1, Test0 test2, Test0 test3, Test0 test4)
-            {
-            }
+            public Test1(Test0 test1, Test0 test2, Test0 test3, Test0 test4) { }
 
-            public void DoStuff()
-            {
-            }
+            public void DoStuff() { }
 
-            public void DoStuff1()
-            {
-            }
+            public void DoStuff1() { }
         }
 
         class Test2
         {
             [Inject]
-            public Test1 TestB
-            {
-                set;
-                get;
-            }
+            public Test1 TestB { set; get; }
 
             [Inject]
             public Test1 _testC = null;
 
-            public Test2(Test1 test1, Test1 test2, Test1 test3, Test1 test4)
-            {
-            }
+            public Test2(Test1 test1, Test1 test2, Test1 test3, Test1 test4) { }
         }
 
         [Test]
@@ -73,9 +53,9 @@ namespace Zenject.Tests.Other
 
             //for (int i = 0; i < 1000; i++)
             //{
-                //var test0 = container.Resolve<Test2>();
-                //var test1 = container.Resolve<Test2>();
-                //var test2 = container.Resolve<Test2>();
+            //var test0 = container.Resolve<Test2>();
+            //var test1 = container.Resolve<Test2>();
+            //var test2 = container.Resolve<Test2>();
             //}
 
             //stopwatch.Stop();
@@ -86,5 +66,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-
-

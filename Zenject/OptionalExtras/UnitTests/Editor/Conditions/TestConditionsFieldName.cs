@@ -6,23 +6,16 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsFieldName : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-
-        }
+        class Test0 { }
 
         class Test1
         {
-            public Test1(Test0 name1)
-            {
-            }
+            public Test1(Test0 name1) { }
         }
 
         class Test2
         {
-            public Test2(Test0 name2)
-            {
-            }
+            public Test2(Test0 name2) { }
         }
 
         public override void Setup()
@@ -37,7 +30,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test2>().AsSingle().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test2>(); });
+                delegate
+                {
+                    Container.Resolve<Test2>();
+                }
+            );
         }
 
         [Test]
@@ -51,5 +48,3 @@ namespace Zenject.Tests.Conditions
         }
     }
 }
-
-

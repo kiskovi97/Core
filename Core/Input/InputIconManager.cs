@@ -1,5 +1,4 @@
 ﻿using System;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,29 +24,47 @@ namespace Kiskovi.Core
         public Sprite RightClick;
         public Sprite MiddleClick;
         public Sprite MiddleScroll;
+
         public Sprite GetSprite(string controlPath)
         {
             // From the input system, we get the path of the control on device. So we can just
             // map from that to the sprites we have for gamepads.
             switch (controlPath)
             {
-                case "a": return A;
-                case "w": return W;
-                case "s": return S;
-                case "d": return D;
-                case "e": return E;
-                case "q": return Q;
-                case "m": return M;
-                case "c": return C;
-                case "space": return Space;
-                case "backspace": return Backspace;
-                case "enter": return Enter;
-                case "control": return Ctrl;
-                case "shift": return Shift;
-                case "leftButton": return LeftClick;
-                case "rightButton": return RightClick;
-                case "middleButton": return MiddleClick;
-                case "scroll": return MiddleScroll;
+                case "a":
+                    return A;
+                case "w":
+                    return W;
+                case "s":
+                    return S;
+                case "d":
+                    return D;
+                case "e":
+                    return E;
+                case "q":
+                    return Q;
+                case "m":
+                    return M;
+                case "c":
+                    return C;
+                case "space":
+                    return Space;
+                case "backspace":
+                    return Backspace;
+                case "enter":
+                    return Enter;
+                case "control":
+                    return Ctrl;
+                case "shift":
+                    return Shift;
+                case "leftButton":
+                    return LeftClick;
+                case "rightButton":
+                    return RightClick;
+                case "middleButton":
+                    return MiddleClick;
+                case "scroll":
+                    return MiddleScroll;
             }
             Debug.LogWarning(controlPath + " has no icon");
             return null;
@@ -83,25 +100,44 @@ namespace Kiskovi.Core
             // map from that to the sprites we have for gamepads.
             switch (controlPath)
             {
-                case "buttonSouth": return buttonSouth;
-                case "buttonNorth": return buttonNorth;
-                case "buttonEast": return buttonEast;
-                case "buttonWest": return buttonWest;
-                case "start": return startButton;
-                case "select": return selectButton;
-                case "leftTrigger": return leftTrigger;
-                case "rightTrigger": return rightTrigger;
-                case "leftShoulder": return leftShoulder;
-                case "rightShoulder": return rightShoulder;
-                case "dpad": return dpad;
-                case "dpad/up": return dpadUp;
-                case "dpad/down": return dpadDown;
-                case "dpad/left": return dpadLeft;
-                case "dpad/right": return dpadRight;
-                case "leftStick": return leftStick;
-                case "rightStick": return rightStick;
-                case "leftStickPress": return leftStickPress;
-                case "rightStickPress": return rightStickPress;
+                case "buttonSouth":
+                    return buttonSouth;
+                case "buttonNorth":
+                    return buttonNorth;
+                case "buttonEast":
+                    return buttonEast;
+                case "buttonWest":
+                    return buttonWest;
+                case "start":
+                    return startButton;
+                case "select":
+                    return selectButton;
+                case "leftTrigger":
+                    return leftTrigger;
+                case "rightTrigger":
+                    return rightTrigger;
+                case "leftShoulder":
+                    return leftShoulder;
+                case "rightShoulder":
+                    return rightShoulder;
+                case "dpad":
+                    return dpad;
+                case "dpad/up":
+                    return dpadUp;
+                case "dpad/down":
+                    return dpadDown;
+                case "dpad/left":
+                    return dpadLeft;
+                case "dpad/right":
+                    return dpadRight;
+                case "leftStick":
+                    return leftStick;
+                case "rightStick":
+                    return rightStick;
+                case "leftStickPress":
+                    return leftStickPress;
+                case "rightStickPress":
+                    return rightStickPress;
             }
             Debug.LogWarning(controlPath + " has no icon");
             return null;
@@ -146,7 +182,10 @@ namespace Kiskovi.Core
                 {
                     foreach (var device in InputSystem.devices)
                     {
-                        var control = InputControlPath.TryFindControl(device, binding.effectivePath);
+                        var control = InputControlPath.TryFindControl(
+                            device,
+                            binding.effectivePath
+                        );
                         if (control != null)
                         {
                             // Return a user-facing display string
@@ -172,11 +211,16 @@ namespace Kiskovi.Core
                 {
                     foreach (var device in InputSystem.devices)
                     {
-                        var control = InputControlPath.TryFindControl(device, binding.effectivePath);
+                        var control = InputControlPath.TryFindControl(
+                            device,
+                            binding.effectivePath
+                        );
                         if (control != null)
                         {
                             // Get the control path part (e.g., "buttonSouth")
-                            var shortPath = control.path.Substring(control.path.LastIndexOf('/') + 1);
+                            var shortPath = control.path.Substring(
+                                control.path.LastIndexOf('/') + 1
+                            );
 
                             switch (InputSignals.Scheme)
                             {

@@ -59,7 +59,9 @@ namespace Zenject.Tests.Bindings
             var subContainer = Container.CreateSubContainer();
             subContainer.Bind<Foo>().AsCached();
 
-            subContainer.Bind<Bar>().FromResolveAllGetter<Foo>(null, x => x.Bar, InjectSources.Local);
+            subContainer
+                .Bind<Bar>()
+                .FromResolveAllGetter<Foo>(null, x => x.Bar, InjectSources.Local);
 
             Assert.IsEqual(subContainer.ResolveAll<Bar>().Count, 1);
         }
@@ -92,13 +94,9 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(subContainer.ResolveAll<Bar>().Count, 1);
         }
 
-        interface IBar
-        {
-        }
+        interface IBar { }
 
-        class Bar : IBar
-        {
-        }
+        class Bar : IBar { }
 
         class Foo
         {
@@ -107,11 +105,7 @@ namespace Zenject.Tests.Bindings
                 Bar = new Bar();
             }
 
-            public Bar Bar
-            {
-                get; private set;
-            }
+            public Bar Bar { get; private set; }
         }
     }
 }
-

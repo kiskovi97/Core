@@ -2,9 +2,7 @@ using ModestTree;
 
 namespace Zenject.Tests.DecoratorTests
 {
-    public class Bar
-    {
-    }
+    public class Bar { }
 
     public class Foo
     {

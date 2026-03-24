@@ -1,5 +1,4 @@
 using UnityEditor;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -23,8 +22,6 @@ namespace Kiskovi.Core
             {
                 triggerAction.Trigger();
             }
-
-
         }
     }
 }

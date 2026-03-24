@@ -6,9 +6,7 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestConstructorInjectionOptional : ZenjectUnitTestFixture
     {
-        class Test1
-        {
-        }
+        class Test1 { }
 
         class Test2
         {
@@ -59,5 +57,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-
-

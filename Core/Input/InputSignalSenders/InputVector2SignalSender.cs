@@ -1,5 +1,4 @@
 ﻿using System;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,7 +35,8 @@ namespace Kiskovi.Core
         {
             var value = context.ReadValue<Vector2>();
 
-            if (onlyGreaterThenZero && value.magnitude == 0) return;
+            if (onlyGreaterThenZero && value.magnitude == 0)
+                return;
 
             if (normalized)
                 value = value.normalized;

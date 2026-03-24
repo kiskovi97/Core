@@ -4,7 +4,8 @@ namespace Kiskovi.Core
 {
     internal class AvailableInputList : DataList<InputInfoGroup>
     {
-        [Inject] private IAvailableInputManager manager;
+        [Inject]
+        private IAvailableInputManager manager;
 
         private void OnEnable()
         {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Unity.Collections;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -16,7 +14,8 @@ namespace Kiskovi.Core
 
         private HashSet<InteractableObject> objects = new HashSet<InteractableObject>();
 
-        [ReadOnly] public InteractableObject nearestObject;
+        [ReadOnly]
+        public InteractableObject nearestObject;
 
         private int refresh;
 
@@ -59,6 +58,7 @@ namespace Kiskovi.Core
             }
             UpdateNearest();
         }
+
         private void OnDisable()
         {
             objects.Clear();
@@ -87,14 +87,16 @@ namespace Kiskovi.Core
 
             foreach (var collider in colliders)
             {
-                if (!collider.isTrigger) continue;
+                if (!collider.isTrigger)
+                    continue;
 
                 Collider2D[] results = new Collider2D[100];
                 int count = collider.Overlap(contactFilter, results);
 
                 for (int i = 0; i < count; i++)
                 {
-                    if (colliders.Contains(results[i])) continue;
+                    if (colliders.Contains(results[i]))
+                        continue;
 
                     var interactable = results[i].gameObject.GetComponent<InteractableObject>();
                     if (interactable != null && !objects.Contains(interactable))
@@ -116,7 +118,8 @@ namespace Kiskovi.Core
                 .OrderBy(item => (item.transform.position - currentCenter.position).sqrMagnitude)
                 .FirstOrDefault();
 
-            if (prevNear == nearestObject) return;
+            if (prevNear == nearestObject)
+                return;
 
             if (prevNear != null)
             {
@@ -131,7 +134,8 @@ namespace Kiskovi.Core
 
         private bool Filter(InteractableObject obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+                return false;
 
             if (customFilter != null && !customFilter.Invoke(obj))
                 return false;

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using ModestTree;
@@ -201,13 +200,9 @@ namespace Zenject.Tests.Bindings
             yield break;
         }
 
-        public class Root : MonoBehaviour
-        {
-        }
+        public class Root : MonoBehaviour { }
 
-        public class Child : MonoBehaviour
-        {
-        }
+        public class Child : MonoBehaviour { }
 
         public class Grandchild : MonoBehaviour
         {
@@ -234,4 +229,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

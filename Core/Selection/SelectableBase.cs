@@ -7,10 +7,12 @@ namespace Kiskovi.Core
     {
         public UIPanel parent;
 
-        [Inject] protected GlobalSelectionSystem selectionSystem;
+        [Inject]
+        protected GlobalSelectionSystem selectionSystem;
         private bool _prevCanBeSelected;
 
-        public virtual bool CanBeSelected => isActiveAndEnabled && (parent == null || parent.isInFront);
+        public virtual bool CanBeSelected =>
+            isActiveAndEnabled && (parent == null || parent.isInFront);
         public virtual int Priority => 0;
 
         protected virtual void Awake()
@@ -24,6 +26,7 @@ namespace Kiskovi.Core
         {
             selectionSystem.UpdateByInstance(this);
         }
+
         protected virtual void Update()
         {
             if (_prevCanBeSelected != CanBeSelected)

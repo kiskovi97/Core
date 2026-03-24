@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,13 +10,15 @@ namespace Kiskovi.Core
 
         public Transform target => dropParent != null ? dropParent : transform;
         private Stack<Dragable> dragables = new Stack<Dragable>();
+
         public void OnDrop(PointerEventData eventData)
         {
             if (eventData.pointerDrag != null)
             {
                 var dragable = eventData.pointerDrag.GetComponent<Dragable>();
 
-                if (dragable == null || !IsAccaptable(dragable)) return;
+                if (dragable == null || !IsAccaptable(dragable))
+                    return;
 
                 dragable.Dropped(this, GetOffset());
 

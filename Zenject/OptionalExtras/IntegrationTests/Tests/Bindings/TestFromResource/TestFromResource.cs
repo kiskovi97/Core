@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using ModestTree;
 using UnityEngine;
@@ -18,7 +17,12 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             Container.Bind<Texture>().FromResource(ResourcePath);
 
-            Container.Bind<Runner>().FromNewComponentOnNewGameObject().AsSingle().WithArguments(1).NonLazy();
+            Container
+                .Bind<Runner>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle()
+                .WithArguments(1)
+                .NonLazy();
 
             PostInstall();
             yield break;
@@ -32,7 +36,12 @@ namespace Zenject.Tests.Bindings
             Container.Bind<Texture>().FromResource(ResourcePath);
             Container.Bind<Texture>().To<Texture>().FromResource(ResourcePath);
 
-            Container.Bind<Runner>().FromNewComponentOnNewGameObject().AsSingle().WithArguments(3).NonLazy();
+            Container
+                .Bind<Runner>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle()
+                .WithArguments(3)
+                .NonLazy();
 
             PostInstall();
             yield break;
@@ -44,7 +53,12 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             Container.Bind<Texture>().FromResource(ResourcePath).AsSingle();
 
-            Container.Bind<Runner>().FromNewComponentOnNewGameObject().AsSingle().WithArguments(1).NonLazy();
+            Container
+                .Bind<Runner>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle()
+                .WithArguments(1)
+                .NonLazy();
 
             PostInstall();
             yield break;
@@ -54,9 +68,18 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestSingle()
         {
             PreInstall();
-            Container.Bind(typeof(Texture), typeof(Texture)).To<Texture>().FromResource(ResourcePath).AsSingle();
+            Container
+                .Bind(typeof(Texture), typeof(Texture))
+                .To<Texture>()
+                .FromResource(ResourcePath)
+                .AsSingle();
 
-            Container.Bind<Runner>().FromNewComponentOnNewGameObject().AsSingle().WithArguments(2).NonLazy();
+            Container
+                .Bind<Runner>()
+                .FromNewComponentOnNewGameObject()
+                .AsSingle()
+                .WithArguments(2)
+                .NonLazy();
 
             PostInstall();
             yield break;
@@ -103,4 +126,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

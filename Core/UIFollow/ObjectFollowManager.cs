@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -13,14 +12,16 @@ namespace Kiskovi.Core
 
     internal class ObjectFollowManager : DataList<FollowTargetData>, IObjectFollowManager
     {
-        private Dictionary<Transform, FollowTargetData> targets = new Dictionary<Transform, FollowTargetData>();
+        private Dictionary<Transform, FollowTargetData> targets =
+            new Dictionary<Transform, FollowTargetData>();
 
         public void SubscribeTarget(FollowTargetData target)
         {
             if (targets.ContainsKey(target.goal))
             {
                 targets[target.goal] = target;
-            } else
+            }
+            else
             {
                 targets.Add(target.goal, target);
             }

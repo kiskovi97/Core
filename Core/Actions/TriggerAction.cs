@@ -17,9 +17,6 @@ namespace Kiskovi.Core
             }
         }
 
-        public virtual void Trigger(params object[] parameter)
-        {
-
-        }
+        public virtual void Trigger(params object[] parameter) { }
     }
 }

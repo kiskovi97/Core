@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -23,15 +22,18 @@ namespace Kiskovi.Core
 
     internal class GlobalSelectionSystem : ITickable, IInitializable, IDisposable, ISelectionSystem
     {
-        private Dictionary<UIPanel, List<SelectableBase>> selectables = new Dictionary<UIPanel, List<SelectableBase>>();
-        private Dictionary<UIPanel, SelectableBase> cache = new Dictionary<UIPanel, SelectableBase>();
+        private Dictionary<UIPanel, List<SelectableBase>> selectables =
+            new Dictionary<UIPanel, List<SelectableBase>>();
+        private Dictionary<UIPanel, SelectableBase> cache =
+            new Dictionary<UIPanel, SelectableBase>();
         private List<SelectableBase> worldSelectables = new List<SelectableBase>();
 
         private SignalBus _signalBus;
 
         private EventSystem eventSystem => EventSystem.current;
         public SelectableBase CurrentSelected { get; private set; }
-        public GameObject CurrentSelectedObj => CurrentSelected != null ? CurrentSelected.gameObject : null;
+        public GameObject CurrentSelectedObj =>
+            CurrentSelected != null ? CurrentSelected.gameObject : null;
         public bool CanNavigate => !eventSystem.alreadySelecting && !blockSelection;
         public event Action OnChangedEvent;
 
@@ -46,7 +48,6 @@ namespace Kiskovi.Core
             OnChanged();
         }
 
-        
         public void BlockSelection() => blockSelection = true;
 
         public void ResumeSelection() => blockSelection = false;
@@ -98,20 +99,30 @@ namespace Kiskovi.Core
             OnChangedEvent?.Invoke();
         }
 
-        private void SetKeyboardWorkflow()
-        {
-        }
+        private void SetKeyboardWorkflow() { }
 
         private void SetControllerWorkflow()
         {
             var list = GetCurrentLayerSelectables();
             var highestPriority = list.Any() ? list.Max(item => item.Priority) : 0;
 
-            if (CurrentSelected != null && CurrentSelected.CanBeSelected && list.Contains(CurrentSelected) && CurrentSelected.Priority >= highestPriority)
+            if (
+                CurrentSelected != null
+                && CurrentSelected.CanBeSelected
+                && list.Contains(CurrentSelected)
+                && CurrentSelected.Priority >= highestPriority
+            )
                 return;
 
             var first = list.FirstOrDefault();
-            if (first != null && first.parent != null && cache.TryGetValue(first.parent, out var cached) && cached != null && cached.CanBeSelected && cached.Priority >= first.Priority)
+            if (
+                first != null
+                && first.parent != null
+                && cache.TryGetValue(first.parent, out var cached)
+                && cached != null
+                && cached.CanBeSelected
+                && cached.Priority >= first.Priority
+            )
             {
                 SetSelectedGameObject(cached);
             }
@@ -149,15 +160,24 @@ namespace Kiskovi.Core
 
             foreach (var panel in selectables.Keys)
             {
-                if (panel.isInFront && panel.isOpened && (!panel.isUINavigationBlocked || includeNonUI))
+                if (
+                    panel.isInFront
+                    && panel.isOpened
+                    && (!panel.isUINavigationBlocked || includeNonUI)
+                )
                 {
-                    return selectables[panel].Where(item => item.CanBeSelected).OrderByDescending(item => item.Priority);
+                    return selectables[panel]
+                        .Where(item => item.CanBeSelected)
+                        .OrderByDescending(item => item.Priority);
                 }
             }
 
-            if (UIWindow.IsWindowOpen || !includeNonUI) return new List<SelectableBase>();
+            if (UIWindow.IsWindowOpen || !includeNonUI)
+                return new List<SelectableBase>();
 
-            return worldSelectables.Where(item => item.CanBeSelected).OrderByDescending(item => item.Priority);
+            return worldSelectables
+                .Where(item => item.CanBeSelected)
+                .OrderByDescending(item => item.Priority);
         }
 
         public void Register(UIPanel panel, SelectableBase selectable)
@@ -221,7 +241,8 @@ namespace Kiskovi.Core
 
         internal void UpdateByInstance(SelectableBase instance)
         {
-            if (instance == null) return;
+            if (instance == null)
+                return;
             if (CurrentSelected == instance)
             {
                 if (!instance.CanBeSelected)
@@ -229,7 +250,11 @@ namespace Kiskovi.Core
             }
             else if (instance.CanBeSelected)
             {
-                if (CurrentSelected == null || !CurrentSelected.CanBeSelected || instance.Priority > CurrentSelected.Priority)
+                if (
+                    CurrentSelected == null
+                    || !CurrentSelected.CanBeSelected
+                    || instance.Priority > CurrentSelected.Priority
+                )
                     OnChanged();
             }
         }

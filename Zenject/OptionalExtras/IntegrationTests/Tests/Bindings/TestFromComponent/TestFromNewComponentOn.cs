@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +66,12 @@ namespace Zenject.Tests.Bindings
 
             Container.BindInstance(gameObject).WithId("Foo");
 
-            Container.Bind(typeof(IFoo), typeof(Foo)).To<Foo>().FromNewComponentOn(gameObject).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(Foo))
+                .To<Foo>()
+                .FromNewComponentOn(gameObject)
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -100,8 +104,12 @@ namespace Zenject.Tests.Bindings
 
             Container.BindInstance(gameObject).WithId("Foo");
 
-            Container.Bind(typeof(IFoo), typeof(Foo)).To<Foo>()
-                .FromNewComponentOn(gameObject).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(Foo))
+                .To<Foo>()
+                .FromNewComponentOn(gameObject)
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -117,9 +125,12 @@ namespace Zenject.Tests.Bindings
 
             Container.BindInstance(gameObject).WithId("Foo");
 
-            Container.Bind(typeof(IFoo), typeof(IBar))
+            Container
+                .Bind(typeof(IFoo), typeof(IBar))
                 .To(new List<Type> { typeof(Foo), typeof(Bar) })
-                .FromNewComponentOn(gameObject).AsCached().NonLazy();
+                .FromNewComponentOn(gameObject)
+                .AsCached()
+                .NonLazy();
 
             PostInstall();
 
@@ -128,25 +139,14 @@ namespace Zenject.Tests.Bindings
             yield break;
         }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public interface IFoo2
-        {
-        }
+        public interface IFoo2 { }
 
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
-        public class Foo : MonoBehaviour, IFoo, IBar, IFoo2
-        {
-        }
+        public class Foo : MonoBehaviour, IFoo, IBar, IFoo2 { }
 
-        public class Bar : MonoBehaviour, IFoo, IBar, IFoo2
-        {
-        }
+        public class Bar : MonoBehaviour, IFoo, IBar, IFoo2 { }
     }
 }
-

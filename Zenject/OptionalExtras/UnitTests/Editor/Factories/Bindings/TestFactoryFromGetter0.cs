@@ -18,9 +18,7 @@ namespace Zenject.Tests.Bindings
 
         class Bar
         {
-            public class Factory : PlaceholderFactory<Bar>
-            {
-            }
+            public class Factory : PlaceholderFactory<Bar> { }
         }
 
         class Foo
@@ -30,12 +28,7 @@ namespace Zenject.Tests.Bindings
                 Bar = new Bar();
             }
 
-            public Bar Bar
-            {
-                get;
-                private set;
-            }
+            public Bar Bar { get; private set; }
         }
     }
 }
-

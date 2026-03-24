@@ -22,7 +22,8 @@ namespace Kiskovi.Core
         public override void SetData(IData itemData)
         {
             base.SetData(itemData);
-            if (Data == null) return;
+            if (Data == null)
+                return;
             iconImage.sprite = Data.icon;
             baseObj.SetActive(false);
         }
@@ -35,8 +36,13 @@ namespace Kiskovi.Core
 
         private void Update()
         {
-            if (Data == null) return;
-            if (Data.goal == null || Data.goal.gameObject == null || !Data.goal.gameObject.activeInHierarchy)
+            if (Data == null)
+                return;
+            if (
+                Data.goal == null
+                || Data.goal.gameObject == null
+                || !Data.goal.gameObject.activeInHierarchy
+            )
             {
                 baseObj.SetActive(false);
                 return;
@@ -49,13 +55,22 @@ namespace Kiskovi.Core
                 var tY = rectTransform.sizeDelta.y / CanvasRect.sizeDelta.y / 2f;
                 var tX = rectTransform.sizeDelta.x / CanvasRect.sizeDelta.x / 2f;
                 var color = iconImage.color;
-                color.a = ViewportPosition.y < 0f || ViewportPosition.y > 1f ||
-                    ViewportPosition.x < 0f || ViewportPosition.x > 1f
-                    ? 1f
-                    : 0.5f;
+                color.a =
+                    ViewportPosition.y < 0f
+                    || ViewportPosition.y > 1f
+                    || ViewportPosition.x < 0f
+                    || ViewportPosition.x > 1f
+                        ? 1f
+                        : 0.5f;
                 if (!Data.canSeenAllTheTime)
-                    if (!(ViewportPosition.y < 0f || ViewportPosition.y > 1f ||
-                    ViewportPosition.x < 0f || ViewportPosition.x > 1f))
+                    if (
+                        !(
+                            ViewportPosition.y < 0f
+                            || ViewportPosition.y > 1f
+                            || ViewportPosition.x < 0f
+                            || ViewportPosition.x > 1f
+                        )
+                    )
                         baseObj.SetActive(false);
                 iconImage.color = color;
                 ViewportPosition.y = Mathf.Clamp(ViewportPosition.y, 0f + tY, 1f - tY);
@@ -63,7 +78,8 @@ namespace Kiskovi.Core
 
                 var WorldObject_ScreenPosition = new Vector2(
                     ViewportPosition.x * CanvasRect.sizeDelta.x - CanvasRect.sizeDelta.x * 0.5f,
-                    ViewportPosition.y * CanvasRect.sizeDelta.y - CanvasRect.sizeDelta.y * 0.5f);
+                    ViewportPosition.y * CanvasRect.sizeDelta.y - CanvasRect.sizeDelta.y * 0.5f
+                );
 
                 rectTransform.anchoredPosition = WorldObject_ScreenPosition;
             }

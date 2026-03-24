@@ -6,23 +6,17 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestIdentifierTypes : ZenjectUnitTestFixture
     {
-        class Foo
-        {
-        }
+        class Foo { }
 
         enum Things
         {
             Thing1,
-            Thing2
+            Thing2,
         }
 
         class Test0
         {
-            public Test0(
-                [Inject(Id = "asdf")]
-                Foo foo)
-            {
-            }
+            public Test0([Inject(Id = "asdf")] Foo foo) { }
         }
 
         [Test]
@@ -45,11 +39,7 @@ namespace Zenject.Tests.Conditions
 
         class Test1
         {
-            public Test1(
-                [Inject(Id = 5)]
-                Foo foo)
-            {
-            }
+            public Test1([Inject(Id = 5)] Foo foo) { }
         }
 
         [Test]
@@ -81,11 +71,7 @@ namespace Zenject.Tests.Conditions
 
         class Test2
         {
-            public Test2(
-                [Inject(Id = Things.Thing1)]
-                Foo foo)
-            {
-            }
+            public Test2([Inject(Id = Things.Thing1)] Foo foo) { }
         }
 
         [Test]
@@ -116,4 +102,3 @@ namespace Zenject.Tests.Conditions
         }
     }
 }
-

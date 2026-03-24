@@ -18,10 +18,13 @@ namespace Zenject.Tests.Other
             _container.Bind<TaskUpdater<ITickable>>().FromInstance(new TickablesTaskUpdater());
         }
 
-        public void BindTickable<TTickable>(int priority) where TTickable : ITickable
+        public void BindTickable<TTickable>(int priority)
+            where TTickable : ITickable
         {
             _container.BindInterfacesAndSelfTo<TTickable>().AsSingle();
-            _container.Bind<ValuePair<Type, int>>().FromInstance(ValuePair.New(typeof(TTickable), priority));
+            _container
+                .Bind<ValuePair<Type, int>>()
+                .FromInstance(ValuePair.New(typeof(TTickable), priority));
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace Zenject.Tests.Other
 
         class Tickable1 : ITickable
         {
-            public event Action TickCalled = delegate {};
+            public event Action TickCalled = delegate { };
 
             public void Tick()
             {
@@ -79,7 +82,7 @@ namespace Zenject.Tests.Other
 
         class Tickable2 : ITickable
         {
-            public event Action TickCalled = delegate {};
+            public event Action TickCalled = delegate { };
 
             public void Tick()
             {
@@ -89,7 +92,7 @@ namespace Zenject.Tests.Other
 
         class Tickable3 : ITickable
         {
-            public event Action TickCalled = delegate {};
+            public event Action TickCalled = delegate { };
 
             public void Tick()
             {

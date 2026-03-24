@@ -6,17 +6,11 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestPostInjectCall : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-        }
+        class Test0 { }
 
-        class Test1
-        {
-        }
+        class Test1 { }
 
-        class Test2
-        {
-        }
+        class Test2 { }
 
         class Test3
         {
@@ -77,9 +71,7 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        public class SimpleDerived : SimpleBase
-        {
-        }
+        public class SimpleDerived : SimpleBase { }
 
         [Test]
         public void TestPrivateBaseClassPostInject()
@@ -127,9 +119,7 @@ namespace Zenject.Tests.Injection
 
         static int _initOrder;
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
         class FooBase : IFoo
         {
@@ -190,4 +180,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-

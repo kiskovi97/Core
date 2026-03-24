@@ -1,44 +1,51 @@
+using System;
 using System.Collections;
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-using Zenject;
-
 using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class SceneLoadRequestSignal 
-    { 
+    public class SceneLoadRequestSignal
+    {
         public SceneEnum scene;
         public bool force = false;
         public float delayTime = 0f;
     }
 
-    public class ReloadSceneSignal 
-    {
-    }
+    public class ReloadSceneSignal { }
 
     internal class SceneLoader : MonoBehaviour
     {
-        [SerializeField] private GameObject loadingPanel;
-        [SerializeField] private Animator animator;
-        [SerializeField] private float beforeLoadAnimationTime = 1f;
-        [SerializeField] private float afterLoadAnimationTime = 1f;
-        [SerializeField] private Image backgroundImage;
-        [SerializeField] private GameObject uiBlock;
-        [SerializeField] private TriggerAction onSceneChange;
+        [SerializeField]
+        private GameObject loadingPanel;
+
+        [SerializeField]
+        private Animator animator;
+
+        [SerializeField]
+        private float beforeLoadAnimationTime = 1f;
+
+        [SerializeField]
+        private float afterLoadAnimationTime = 1f;
+
+        [SerializeField]
+        private Image backgroundImage;
+
+        [SerializeField]
+        private GameObject uiBlock;
+
+        [SerializeField]
+        private TriggerAction onSceneChange;
 
         private static readonly string DE_LOAD_DEFAULT = "deLoad";
         private static readonly string DE_LOAD_NONE = "deLoad_none";
         private static readonly string LOAD_DEFAULT = "Load";
         private static readonly string LOAD_NONE = "Load_none";
-
 
         private static AssetReference lastScreenLoaded;
         private static SceneEnum loadingScreen = 0;
@@ -50,7 +57,11 @@ namespace Kiskovi.Core
         private ITimeManager _timeManager;
 
         [Inject]
-        internal void Initialize(SceneProvider sceneProvider, SignalBus signalBus, ITimeManager timeManager) //ITimeManager timeManager, 
+        internal void Initialize(
+            SceneProvider sceneProvider,
+            SignalBus signalBus,
+            ITimeManager timeManager
+        ) //ITimeManager timeManager,
         {
             _timeManager = timeManager;
             _sceneProvider = sceneProvider;
@@ -110,7 +121,6 @@ namespace Kiskovi.Core
             _LoadScene(signal.scene, signal.delayTime);
         }
 
-
         private void _LoadScene(SceneEnum sceneIndex, float delayTime)
         {
             ObjectsVisibilityManager.Clear();
@@ -129,18 +139,22 @@ namespace Kiskovi.Core
         IEnumerator LoadAsyncronosly(SceneEnum sceneIndex, float delayTime)
         {
             yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, beforeLoadAnimationTime);
-            Debug.Log("Load Scene started: " + sceneIndex);      
+            Debug.Log("Load Scene started: " + sceneIndex);
             var scene = _sceneProvider.GetScene(sceneIndex);
             if (scene != null)
             {
-                AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Single);
+                AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(
+                    scene,
+                    LoadSceneMode.Single
+                );
                 yield return handle;
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                     lastScreenLoaded = scene;
                 else
                     Debug.LogError("There was a problem loading the scene");
-            } else
+            }
+            else
             {
                 Debug.LogError("There was a problem loading the scene, because it is null");
             }

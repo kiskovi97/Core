@@ -7,9 +7,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestResolve : ZenjectUnitTestFixture
     {
-        class Foo
-        {
-        }
+        class Foo { }
 
         [Test]
         public void TestResolveAmbiguousBindings1()
@@ -23,7 +21,6 @@ namespace Zenject.Tests.Other
 
             Assert.IsEqual(Container.Resolve<Foo>(), f2);
         }
-
 
         [Test]
         public void TestResolveAmbiguousBindings2()
@@ -66,6 +63,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-
-
-

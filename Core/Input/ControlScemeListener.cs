@@ -1,7 +1,7 @@
-﻿using UnityEngine.InputSystem;
+﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
-using System;
 
 namespace Kiskovi.Core
 {
@@ -13,7 +13,8 @@ namespace Kiskovi.Core
 
         public PlayerInput playerInput;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         private void Awake()
         {
@@ -68,17 +69,23 @@ namespace Kiskovi.Core
                         if (InputSignals.Scheme != ControlScheme.Keyboard)
                             PauseGameReqest();
                         InputSignals.Scheme = ControlScheme.Keyboard;
-                        _signalBus.TryFire(new InputSignals.ControlSchemeChanged(ControlScheme.Keyboard));
+                        _signalBus.TryFire(
+                            new InputSignals.ControlSchemeChanged(ControlScheme.Keyboard)
+                        );
                         break;
                     case InputSignals.XBOX_NAME:
                         if (InputSignals.Scheme != ControlScheme.XboxController)
                             PauseGameReqest();
                         InputSignals.Scheme = ControlScheme.XboxController;
-                        _signalBus.TryFire(new InputSignals.ControlSchemeChanged(ControlScheme.XboxController));
+                        _signalBus.TryFire(
+                            new InputSignals.ControlSchemeChanged(ControlScheme.XboxController)
+                        );
                         break;
                     default:
                         InputSignals.Scheme = ControlScheme.XboxController;
-                        _signalBus.TryFire(new InputSignals.ControlSchemeChanged(ControlScheme.XboxController));
+                        _signalBus.TryFire(
+                            new InputSignals.ControlSchemeChanged(ControlScheme.XboxController)
+                        );
                         break;
                 }
         }

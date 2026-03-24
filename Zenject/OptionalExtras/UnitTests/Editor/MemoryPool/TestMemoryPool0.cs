@@ -328,17 +328,12 @@ namespace Zenject.Tests.Bindings
 
         class Bar
         {
-            public class Pool : MemoryPool<Bar>
-            {
-            }
+            public class Pool : MemoryPool<Bar> { }
         }
 
         class Foo
         {
-            public int ResetCount
-            {
-                get; private set;
-            }
+            public int ResetCount { get; private set; }
 
             public class Pool : MemoryPool<Foo>
             {
@@ -352,8 +347,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestSubContainers()
         {
-            Container.BindMemoryPool<Qux, Qux.Pool>()
-                .FromSubContainerResolve().ByMethod(InstallQux).NonLazy();
+            Container
+                .BindMemoryPool<Qux, Qux.Pool>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallQux)
+                .NonLazy();
 
             var pool = Container.Resolve<Qux.Pool>();
             var qux = pool.Spawn();
@@ -366,9 +364,7 @@ namespace Zenject.Tests.Bindings
 
         class Qux
         {
-            public class Pool : MemoryPool<Qux>
-            {
-            }
+            public class Pool : MemoryPool<Qux> { }
         }
 
         [Test]
@@ -381,4 +377,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

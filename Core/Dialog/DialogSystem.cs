@@ -32,8 +32,10 @@ namespace Kiskovi.Core
         {
             get
             {
-                if (!isDialogActive) return null;
-                if (_dialogIndex >= _currentDialog.Lines.Count) return null;
+                if (!isDialogActive)
+                    return null;
+                if (_dialogIndex >= _currentDialog.Lines.Count)
+                    return null;
                 return _currentDialog.Lines[_dialogIndex];
             }
         }
@@ -43,7 +45,8 @@ namespace Kiskovi.Core
             get
             {
                 var line = CurrentDialogLine;
-                if (line == null) return 0f;
+                if (line == null)
+                    return 0f;
                 var duration = CalculateDuration(line.Value);
                 return Mathf.Max(0, duration - _dialogTimer) / duration;
             }
@@ -58,7 +61,8 @@ namespace Kiskovi.Core
 
         public void StartDialog(DialogData dialog, bool restart = false)
         {
-            if (!restart && _currentDialog == dialog) return;
+            if (!restart && _currentDialog == dialog)
+                return;
 
             _currentDialog = dialog;
             _dialogIndex = 0;
@@ -81,12 +85,14 @@ namespace Kiskovi.Core
                 switch (_currentDialog.endDialogEvent)
                 {
                     case EndDialogEvent.EndGame:
-                        _signalBus.TryFire(new SceneLoadRequestSignal()
-                        {
-                            scene = SceneEnum.Start_Menu,
-                            force = false,
-                            delayTime = 0f,
-                        });
+                        _signalBus.TryFire(
+                            new SceneLoadRequestSignal()
+                            {
+                                scene = SceneEnum.Start_Menu,
+                                force = false,
+                                delayTime = 0f,
+                            }
+                        );
                         break;
                 }
             }
@@ -102,7 +108,8 @@ namespace Kiskovi.Core
 
         public void Tick()
         {
-            if (_currentDialog == null) return;
+            if (_currentDialog == null)
+                return;
 
             if (_dialogTimer <= -WAIT_TIME_AFTER_END)
             {

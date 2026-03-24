@@ -135,9 +135,7 @@ namespace Zenject.Tests.Injection
 
         class Test7
         {
-            public Test7(Test7 other)
-            {
-            }
+            public Test7(Test7 other) { }
         }
 
         [Test]
@@ -151,5 +149,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-
-

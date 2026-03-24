@@ -6,6 +6,7 @@ namespace Kiskovi.Core
     {
         public Animator animator;
         public string triggerName;
+
         public override void Trigger(params object[] parameter)
         {
             if (animator != null)

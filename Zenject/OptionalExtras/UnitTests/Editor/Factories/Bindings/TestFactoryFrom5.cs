@@ -11,7 +11,10 @@ namespace Zenject.Tests.Bindings
         {
             Container.BindFactory<string, int, string, float, int, Foo, Foo.Factory>().NonLazy();
 
-            Assert.IsEqual(Container.Resolve<Foo.Factory>().Create("asdf", 2, "a", 4.2f, 6).P1, "asdf");
+            Assert.IsEqual(
+                Container.Resolve<Foo.Factory>().Create("asdf", 2, "a", 4.2f, 6).P1,
+                "asdf"
+            );
         }
 
         [Test]
@@ -19,13 +22,19 @@ namespace Zenject.Tests.Bindings
         {
             Container.BindFactory<string, int, string, float, int, Foo, Foo.Factory>().NonLazy();
 
-            Assert.IsEqual(Container.Resolve<Foo.Factory>().Create("asdf", 2, "a", 4.2f, 6).P1, "asdf");
+            Assert.IsEqual(
+                Container.Resolve<Foo.Factory>().Create("asdf", 2, "a", 4.2f, 6).P1,
+                "asdf"
+            );
         }
 
         [Test]
         public void TestConcrete()
         {
-            Container.BindFactory<string, int, string, float, int, IFoo, IFooFactory>().To<Foo>().NonLazy();
+            Container
+                .BindFactory<string, int, string, float, int, IFoo, IFooFactory>()
+                .To<Foo>()
+                .NonLazy();
 
             var ifoo = Container.Resolve<IFooFactory>().Create("asdf", 2, "a", 4.2f, 6);
 
@@ -33,13 +42,9 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(((Foo)ifoo).P1, "asdf");
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class IFooFactory : PlaceholderFactory<string, int, string, float, int, IFoo>
-        {
-        }
+        class IFooFactory : PlaceholderFactory<string, int, string, float, int, IFoo> { }
 
         class Foo : IFoo
         {
@@ -48,17 +53,9 @@ namespace Zenject.Tests.Bindings
                 P1 = p1;
             }
 
-            public string P1
-            {
-                get;
-                private set;
-            }
+            public string P1 { get; private set; }
 
-            public class Factory : PlaceholderFactory<string, int, string, float, int, Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<string, int, string, float, int, Foo> { }
         }
     }
 }
-
-

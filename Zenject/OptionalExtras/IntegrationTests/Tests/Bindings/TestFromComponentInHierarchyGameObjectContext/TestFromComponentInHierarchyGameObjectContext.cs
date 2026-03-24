@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
@@ -30,8 +29,12 @@ namespace Zenject.Tests.Bindings.FromComponentInHierarchyGameObjectContext
         {
             PreInstall();
 
-            Container.Bind<Foo>().FromSubContainerResolve()
-                .ByNewContextPrefab(FooPrefab).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefab(FooPrefab)
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -43,4 +46,3 @@ namespace Zenject.Tests.Bindings.FromComponentInHierarchyGameObjectContext
         }
     }
 }
-

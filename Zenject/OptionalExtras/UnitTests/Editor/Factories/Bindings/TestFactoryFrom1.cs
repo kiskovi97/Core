@@ -25,13 +25,9 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(((Foo)ifoo).Value, "asdf");
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class IFooFactory : PlaceholderFactory<string, IFoo>
-        {
-        }
+        class IFooFactory : PlaceholderFactory<string, IFoo> { }
 
         class Foo : IFoo
         {
@@ -40,16 +36,9 @@ namespace Zenject.Tests.Bindings
                 Value = value;
             }
 
-            public string Value
-            {
-                get;
-                private set;
-            }
+            public string Value { get; private set; }
 
-            public class Factory : PlaceholderFactory<string, Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<string, Foo> { }
         }
     }
 }
-

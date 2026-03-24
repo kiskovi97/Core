@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
-
-    internal class SignalTrigger<T> : MonoBehaviour where T : class
+    internal class SignalTrigger<T> : MonoBehaviour
+        where T : class
     {
+        [Inject]
+        private SignalBus _signalBus;
 
-        [Inject] private SignalBus _signalBus;
-        [Inject(Id = "PlayerId")] private string _id;
+        [Inject(Id = "PlayerId")]
+        private string _id;
 
         public TriggerAction onPressed;
 

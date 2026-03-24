@@ -1,4 +1,3 @@
-
 using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
@@ -15,7 +14,11 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // Validation should detect that it doesn't exist
-            Container.Bind<Foo>().FromNewScriptableObjectResource(PathPrefix + "asdfasdfas").AsTransient().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromNewScriptableObjectResource(PathPrefix + "asdfasdfas")
+                .AsTransient()
+                .NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -47,7 +50,11 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             Foo.InstanceCount = 0;
 
-            Container.Bind(typeof(IFoo), typeof(Foo)).To<Foo>().FromNewScriptableObjectResource(PathPrefix + "Foo").AsSingle();
+            Container
+                .Bind(typeof(IFoo), typeof(Foo))
+                .To<Foo>()
+                .FromNewScriptableObjectResource(PathPrefix + "Foo")
+                .AsSingle();
 
             PostInstall();
 
@@ -62,8 +69,12 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             Foo.InstanceCount = 0;
 
-            Container.Bind<IFoo>().To<Foo>()
-                .FromNewScriptableObjectResource(PathPrefix + "Foo").AsSingle().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromNewScriptableObjectResource(PathPrefix + "Foo")
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -76,8 +87,11 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArgumentsFail()
         {
             PreInstall();
-            Container.Bind<Bob>()
-                .FromNewScriptableObjectResource(PathPrefix + "Bob").AsSingle().NonLazy();
+            Container
+                .Bind<Bob>()
+                .FromNewScriptableObjectResource(PathPrefix + "Bob")
+                .AsSingle()
+                .NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -87,9 +101,12 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArguments()
         {
             PreInstall();
-            Container.Bind<Bob>()
-                .FromNewScriptableObjectResource(PathPrefix + "Bob").AsSingle()
-                .WithArguments("test1").NonLazy();
+            Container
+                .Bind<Bob>()
+                .FromNewScriptableObjectResource(PathPrefix + "Bob")
+                .AsSingle()
+                .WithArguments("test1")
+                .NonLazy();
 
             PostInstall();
 
@@ -98,4 +115,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

@@ -6,17 +6,11 @@ namespace Zenject.Tests.BindFeatures
     [TestFixture]
     public class TestIfNotBound : ZenjectUnitTestFixture
     {
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        public class Foo1 : IFoo
-        {
-        }
+        public class Foo1 : IFoo { }
 
-        public class Foo2 : IFoo
-        {
-        }
+        public class Foo2 : IFoo { }
 
         [Test]
         public void Test1()
@@ -38,4 +32,3 @@ namespace Zenject.Tests.BindFeatures
         }
     }
 }
-

@@ -7,13 +7,9 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsParents : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-        }
+        class Test0 { }
 
-        interface ITest1
-        {
-        }
+        interface ITest1 { }
 
         class Test1 : ITest1
         {
@@ -62,7 +58,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().AsSingle().When(c => c.AllObjectTypes.Contains(typeof(Test2)));
 
             Assert.Throws(
-                delegate { Container.Resolve<Test1>(); });
+                delegate
+                {
+                    Container.Resolve<Test1>();
+                }
+            );
         }
 
         [Test]
@@ -86,8 +86,14 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test4>().AsSingle();
             Container.Bind<Test1>().AsTransient();
 
-            Container.Bind<Test0>().FromInstance(t0a).When(c => c.AllObjectTypes.Contains(typeof(Test3)));
-            Container.Bind<Test0>().FromInstance(t0b).When(c => c.AllObjectTypes.Contains(typeof(Test4)));
+            Container
+                .Bind<Test0>()
+                .FromInstance(t0a)
+                .When(c => c.AllObjectTypes.Contains(typeof(Test3)));
+            Container
+                .Bind<Test0>()
+                .FromInstance(t0b)
+                .When(c => c.AllObjectTypes.Contains(typeof(Test4)));
 
             var test3 = Container.Resolve<Test3>();
 
@@ -104,7 +110,11 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().AsSingle().When(c => c.AllObjectTypes.Contains(typeof(ITest1)));
 
             Assert.Throws(
-                delegate { Container.Resolve<ITest1>(); });
+                delegate
+                {
+                    Container.Resolve<ITest1>();
+                }
+            );
         }
 
         [Test]
@@ -121,11 +131,13 @@ namespace Zenject.Tests.Conditions
         public void TestCase6()
         {
             Container.Bind<ITest1>().To<Test2>().AsSingle().NonLazy();
-            Container.Bind<Test0>().AsSingle().When(c => c.AllObjectTypes.Where(x => typeof(ITest1).IsAssignableFrom(x)).Any());
+            Container
+                .Bind<Test0>()
+                .AsSingle()
+                .When(c => c.AllObjectTypes.Where(x => typeof(ITest1).IsAssignableFrom(x)).Any());
 
             var test1 = Container.Resolve<ITest1>();
             Assert.That(test1 != null);
         }
     }
 }
-

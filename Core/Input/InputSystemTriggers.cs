@@ -10,7 +10,9 @@ namespace Kiskovi.Core
 
         private void OnEnable()
         {
-            InputSystem.onAnyButtonPress.CallOnce(ctrl => TriggerAction.Trigger(onAnyButtonpressed));
+            InputSystem.onAnyButtonPress.CallOnce(ctrl =>
+                TriggerAction.Trigger(onAnyButtonpressed)
+            );
         }
     }
 }

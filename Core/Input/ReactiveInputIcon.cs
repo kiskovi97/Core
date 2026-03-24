@@ -16,8 +16,11 @@ namespace Kiskovi.Core
         public Sprite defaultIconSprite;
         public TMP_Text inputText;
 
-        [Inject] private IInputIconManager _iconManager;
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private IInputIconManager _iconManager;
+
+        [Inject]
+        private SignalBus _signalBus;
 
         private void OnEnable()
         {
@@ -51,8 +54,6 @@ namespace Kiskovi.Core
 
             if (iconImage != null)
                 iconImage.sprite = icon != null ? icon : defaultIconSprite;
-
-
 
             if (inputText != null)
             {

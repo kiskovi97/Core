@@ -1,13 +1,10 @@
 using System;
 using System.Threading.Tasks;
-
 using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
-    
     public interface ILocalDatabaseTable
     {
         Task Clear();
@@ -19,7 +16,8 @@ namespace Kiskovi.Core
         event Action onDataChanged;
     }
 
-    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable where T : class, ICopyableData<T>, new()
+    public abstract class LocalDatabaseTable<T> : ILocalDatabaseTable, ITickable
+        where T : class, ICopyableData<T>, new()
     {
         private ISaveSystem _saveSystem;
 
@@ -54,7 +52,8 @@ namespace Kiskovi.Core
             {
                 var data = Data.Copy();
                 await _saveSystem.SaveDataAsync(data);
-            } catch(System.Exception e)
+            }
+            catch (System.Exception e)
             {
                 Debug.LogException(e);
             }

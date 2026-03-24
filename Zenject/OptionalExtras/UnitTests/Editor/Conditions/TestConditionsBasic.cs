@@ -6,17 +6,11 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsBasic : ZenjectUnitTestFixture
     {
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
-        class Foo1 : IFoo
-        {
-        }
+        class Foo1 : IFoo { }
 
-        class Foo2 : IFoo
-        {
-        }
+        class Foo2 : IFoo { }
 
         class Bar1
         {
@@ -46,8 +40,7 @@ namespace Zenject.Tests.Conditions
             Container.Bind<IFoo>().To<Foo1>().AsSingle().NonLazy();
             Container.Bind<IFoo>().To<Foo2>().AsSingle().WhenInjectedInto<Bar2>().NonLazy();
 
-            Assert.IsNotEqual(
-                Container.Resolve<Bar1>().Foo, Container.Resolve<Bar2>().Foo);
+            Assert.IsNotEqual(Container.Resolve<Bar1>().Foo, Container.Resolve<Bar2>().Foo);
         }
 
         [Test]
@@ -58,11 +51,7 @@ namespace Zenject.Tests.Conditions
             Container.Bind<IFoo>().To<Foo1>().AsSingle().NonLazy();
             Container.Bind<IFoo>().To<Foo2>().AsSingle().WhenNotInjectedInto<Bar1>().NonLazy();
 
-            Assert.IsNotEqual(
-                Container.Resolve<Bar1>().Foo, Container.Resolve<Bar2>().Foo);
+            Assert.IsNotEqual(Container.Resolve<Bar1>().Foo, Container.Resolve<Bar2>().Foo);
         }
     }
 }
-
-
-

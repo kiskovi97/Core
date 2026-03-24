@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -34,15 +32,18 @@ namespace Kiskovi.Core
         private IEnumerable<ILocalDatabaseTable> _localTables;
         private IEnumerable<IRemoteDatabaseTable> _remoteTables;
 
-
-        internal DatabaseManager(IEnumerable<ILocalDatabaseTable> localTables, IEnumerable<IRemoteDatabaseTable> remoteTables, SignalBus signalBus)
+        internal DatabaseManager(
+            IEnumerable<ILocalDatabaseTable> localTables,
+            IEnumerable<IRemoteDatabaseTable> remoteTables,
+            SignalBus signalBus
+        )
         {
             _localTables = localTables;
             _remoteTables = remoteTables;
             _signalBus = signalBus;
 
             IsInitialized = true;
-            
+
             _signalBus.TryFire(new IDatabaseManager.DatabaseChangedSignal());
         }
 
@@ -52,13 +53,13 @@ namespace Kiskovi.Core
             {
                 await table.Clear();
             }
-            
+
             _signalBus.TryFire(new IDatabaseManager.DatabaseChangedSignal());
         }
 
         public async Task FetchRemote()
         {
-            foreach(var table in _remoteTables)
+            foreach (var table in _remoteTables)
                 await table.FetchRemote();
 
             _signalBus.TryFire(new IDatabaseManager.DatabaseChangedSignal());

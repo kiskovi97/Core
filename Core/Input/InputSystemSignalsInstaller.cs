@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -13,7 +12,8 @@ namespace Kiskovi.Core
 
     public class InputSystemSignalsInstaller : Installer<InputSettings, InputSystemSignalsInstaller>
     {
-        [Inject] private InputSettings settings;
+        [Inject]
+        private InputSettings settings;
 
         public override void InstallBindings()
         {
@@ -30,13 +30,16 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.ModifyValueSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.SkipSignal>().OptionalSubscriber();
 
-
             Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
             Container.DeclareSignal<BindingChangedSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<AvailableInputManager>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<InputIconManager>().AsSingle().WithArguments(settings.iconSettings).NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<InputIconManager>()
+                .AsSingle()
+                .WithArguments(settings.iconSettings)
+                .NonLazy();
 
             Container.Bind<string>().WithId("PlayerId").FromInstance(null);
         }

@@ -14,9 +14,7 @@ namespace Zenject.Tests.Other
 
         public class SaveHandler : ISaveHandler
         {
-            public void Save()
-            {
-            }
+            public void Save() { }
         }
 
         public class SaveDecorator1 : ISaveHandler
@@ -34,10 +32,7 @@ namespace Zenject.Tests.Other
             }
         }
 
-        DiContainer Container
-        {
-            get; set;
-        }
+        DiContainer Container { get; set; }
 
         [SetUp]
         public void Setup()
@@ -48,9 +43,7 @@ namespace Zenject.Tests.Other
 
         public class Foo
         {
-            public Foo(ISaveHandler saveHandler)
-            {
-            }
+            public Foo(ISaveHandler saveHandler) { }
         }
 
         [Test]
@@ -84,4 +77,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-

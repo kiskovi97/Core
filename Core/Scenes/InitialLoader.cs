@@ -1,6 +1,6 @@
-﻿using UnityEngine.AddressableAssets;
+﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
 namespace Kiskovi.Core
 {

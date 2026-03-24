@@ -8,4 +8,3 @@ namespace Zenject.Tests.AutoInjecter
         public DiContainer Container;
     }
 }
-

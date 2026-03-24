@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -13,8 +12,11 @@ namespace Kiskovi.Core
         public bool isMultiFriendly;
         public TriggerAction OnMoved;
 
-        [Inject] private SignalBus signalBus;
-        [Inject(Id = "PlayerId")] private string _id;
+        [Inject]
+        private SignalBus signalBus;
+
+        [Inject(Id = "PlayerId")]
+        private string _id;
 
         private Vector2 movement;
 
@@ -42,7 +44,8 @@ namespace Kiskovi.Core
 
         private void FixedUpdate()
         {
-            if (Time.timeScale < 0.01) return;
+            if (Time.timeScale < 0.01)
+                return;
             var move = new Vector2(movement.x, movement.y);
             rigidBody.AddForce(move * speed * rigidBody.linearDamping, ForceMode2D.Force);
             //rigidBody.AddForce(move * speed, ForceMode.Force);

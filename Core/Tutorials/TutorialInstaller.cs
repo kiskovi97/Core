@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -18,9 +17,15 @@ namespace Kiskovi.Core
         {
             this.settings = settings;
         }
+
         public override void InstallBindings()
         {
-            Container.Bind<ITutorialManager>().To<TutorialManager>().AsSingle().WithArguments(settings.tutorials).NonLazy();
+            Container
+                .Bind<ITutorialManager>()
+                .To<TutorialManager>()
+                .AsSingle()
+                .WithArguments(settings.tutorials)
+                .NonLazy();
         }
     }
 }

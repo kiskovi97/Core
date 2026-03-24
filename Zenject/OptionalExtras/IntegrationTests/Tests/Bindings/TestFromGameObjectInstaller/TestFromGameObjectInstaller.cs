@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -13,8 +12,11 @@ namespace Zenject.Tests.Bindings.FromGameObjectInstaller
         {
             PreInstall();
 
-            Container.Bind<Qux>().FromSubContainerResolve()
-                .ByNewGameObjectInstaller<FooInstaller>().AsCached();
+            Container
+                .Bind<Qux>()
+                .FromSubContainerResolve()
+                .ByNewGameObjectInstaller<FooInstaller>()
+                .AsCached();
 
             PostInstall();
 
@@ -27,8 +29,11 @@ namespace Zenject.Tests.Bindings.FromGameObjectInstaller
         {
             PreInstall();
 
-            Container.Bind<Qux>().FromSubContainerResolve()
-                .ByNewGameObjectMethod(InstallFoo).AsCached();
+            Container
+                .Bind<Qux>()
+                .FromSubContainerResolve()
+                .ByNewGameObjectMethod(InstallFoo)
+                .AsCached();
 
             PostInstall();
 
@@ -56,4 +61,3 @@ namespace Zenject.Tests.Bindings.FromGameObjectInstaller
         }
     }
 }
-

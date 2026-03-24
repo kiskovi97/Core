@@ -6,9 +6,7 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestTestOptional : ZenjectUnitTestFixture
     {
-        class Test1
-        {
-        }
+        class Test1 { }
 
         class Test2
         {
@@ -34,7 +32,11 @@ namespace Zenject.Tests.Injection
             Container.Bind<Test2>().AsSingle().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test2>(); });
+                delegate
+                {
+                    Container.Resolve<Test2>();
+                }
+            );
         }
 
         [Test]
@@ -72,18 +74,14 @@ namespace Zenject.Tests.Injection
 
         class Test4
         {
-            public Test4(Test1 val1)
-            {
-            }
+            public Test4(Test1 val1) { }
         }
 
         class Test5
         {
             public Test1 Val1;
 
-            public Test5(
-                [InjectOptional]
-                Test1 val1)
+            public Test5([InjectOptional] Test1 val1)
             {
                 Val1 = val1;
             }
@@ -95,7 +93,11 @@ namespace Zenject.Tests.Injection
             Container.Bind<Test4>().AsSingle().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test4>(); });
+                delegate
+                {
+                    Container.Resolve<Test4>();
+                }
+            );
         }
 
         [Test]
@@ -109,9 +111,7 @@ namespace Zenject.Tests.Injection
 
         class Test6
         {
-            public Test6(Test2 test2)
-            {
-            }
+            public Test6(Test2 test2) { }
         }
 
         [Test]
@@ -121,16 +121,18 @@ namespace Zenject.Tests.Injection
             Container.Bind<Test2>().AsSingle().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test6>(); });
+                delegate
+                {
+                    Container.Resolve<Test6>();
+                }
+            );
         }
 
         class Test7
         {
             public int Val1;
 
-            public Test7(
-                [InjectOptional]
-                int val1)
+            public Test7([InjectOptional] int val1)
             {
                 Val1 = val1;
             }
@@ -148,9 +150,7 @@ namespace Zenject.Tests.Injection
         {
             public int Val1;
 
-            public Test8(
-                [InjectOptional]
-                int val1 = 5)
+            public Test8([InjectOptional] int val1 = 5)
             {
                 Val1 = val1;
             }
@@ -195,9 +195,7 @@ namespace Zenject.Tests.Injection
         {
             public int? Val1;
 
-            public Test9(
-                [InjectOptional]
-                int? val1)
+            public Test9([InjectOptional] int? val1)
             {
                 Val1 = val1;
             }
@@ -212,6 +210,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-
-
-

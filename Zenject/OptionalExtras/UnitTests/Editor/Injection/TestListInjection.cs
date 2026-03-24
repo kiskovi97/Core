@@ -67,10 +67,7 @@ namespace Zenject.Tests.Injection
                 Values = values;
             }
 
-            public List<string> Values
-            {
-                get; private set;
-            }
+            public List<string> Values { get; private set; }
         }
 
         class Test3
@@ -86,10 +83,7 @@ namespace Zenject.Tests.Injection
                 Values = values;
             }
 
-            public IList<string> Values
-            {
-                get; private set;
-            }
+            public IList<string> Values { get; private set; }
         }
 
         class Test4
@@ -99,10 +93,7 @@ namespace Zenject.Tests.Injection
                 Values = values;
             }
 
-            public IEnumerable<string> Values
-            {
-                get; private set;
-            }
+            public IEnumerable<string> Values { get; private set; }
         }
 
         class Test5
@@ -112,10 +103,7 @@ namespace Zenject.Tests.Injection
                 Values = values;
             }
 
-            public string[] Values
-            {
-                get; private set;
-            }
+            public string[] Values { get; private set; }
         }
     }
 }

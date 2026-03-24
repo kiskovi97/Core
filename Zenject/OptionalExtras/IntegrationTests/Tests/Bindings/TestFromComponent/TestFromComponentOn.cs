@@ -84,7 +84,12 @@ namespace Zenject.Tests.Bindings
             var gameObject = Container.CreateEmptyGameObject("Foo");
             gameObject.AddComponent<Foo>();
 
-            Container.Bind(typeof(IFoo), typeof(Foo)).To<Foo>().FromComponentOn(gameObject).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(Foo))
+                .To<Foo>()
+                .FromComponentOn(gameObject)
+                .AsSingle()
+                .NonLazy();
 
             PostInstall();
 
@@ -102,9 +107,12 @@ namespace Zenject.Tests.Bindings
             gameObject.AddComponent<Foo>();
             gameObject.AddComponent<Bar>();
 
-            Container.Bind(typeof(IFoo), typeof(IBar))
+            Container
+                .Bind(typeof(IFoo), typeof(IBar))
                 .To(new List<Type> { typeof(Foo), typeof(Bar) })
-                .FromComponentOn(gameObject).AsCached().NonLazy();
+                .FromComponentOn(gameObject)
+                .AsCached()
+                .NonLazy();
 
             PostInstall();
 
@@ -115,24 +123,14 @@ namespace Zenject.Tests.Bindings
             yield break;
         }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public interface IFoo2
-        {
-        }
+        public interface IFoo2 { }
 
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
-        public class Foo : MonoBehaviour, IFoo, IBar, IFoo2
-        {
-        }
+        public class Foo : MonoBehaviour, IFoo, IBar, IFoo2 { }
 
-        public class Bar : MonoBehaviour, IFoo, IBar, IFoo2
-        {
-        }
+        public class Bar : MonoBehaviour, IFoo, IBar, IFoo2 { }
     }
 }

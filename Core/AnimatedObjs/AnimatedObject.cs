@@ -11,10 +11,17 @@ namespace Kiskovi.Core
         [Header("Show trigger: onShow")]
         [Header("Destroy trigger: onDestroy")]
         [Space]
-        [SerializeField] private float hideTime = 0.5f;
-        [SerializeField] private float destroyTime = 0.5f;
-        [SerializeField] private List<Animator> animators = new List<Animator>();
-        [SerializeField] private bool unscaledTime;
+        [SerializeField]
+        private float hideTime = 0.5f;
+
+        [SerializeField]
+        private float destroyTime = 0.5f;
+
+        [SerializeField]
+        private List<Animator> animators = new List<Animator>();
+
+        [SerializeField]
+        private bool unscaledTime;
 
         public TriggerAction onHide;
         public TriggerAction onShow;
@@ -59,7 +66,8 @@ namespace Kiskovi.Core
 
         public void Destroy()
         {
-            if (isDestroying) return;
+            if (isDestroying)
+                return;
             isDestroying = true;
 
             StopAllCoroutines();
@@ -97,11 +105,20 @@ namespace Kiskovi.Core
                 {
                     if (animator.parameters.Any(item => item.name == trigger))
                         animator.SetTrigger(trigger);
-                    if (trigger != "onDestroy" && animator.parameters.Any(item => item.name == "onDestroy"))
+                    if (
+                        trigger != "onDestroy"
+                        && animator.parameters.Any(item => item.name == "onDestroy")
+                    )
                         animator.ResetTrigger("onDestroy");
-                    if (trigger != "onHide" && animator.parameters.Any(item => item.name == "onHide"))
+                    if (
+                        trigger != "onHide"
+                        && animator.parameters.Any(item => item.name == "onHide")
+                    )
                         animator.ResetTrigger("onHide");
-                    if (trigger != "onShow" && animator.parameters.Any(item => item.name == "onShow"))
+                    if (
+                        trigger != "onShow"
+                        && animator.parameters.Any(item => item.name == "onShow")
+                    )
                         animator.ResetTrigger("onShow");
                 }
         }

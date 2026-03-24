@@ -12,9 +12,7 @@ namespace Zenject.Tests.Other
             public T Data;
         }
 
-        class Test2
-        {
-        }
+        class Test2 { }
 
         [Test]
         public void TestToSingle()
@@ -48,17 +46,11 @@ namespace Zenject.Tests.Other
             Container.Resolve<Test1<Test2>>();
         }
 
-        interface IFoo<T>
-        {
-        }
+        interface IFoo<T> { }
 
-        interface IBar<T>
-        {
-        }
+        interface IBar<T> { }
 
-        class Test2<T> : IFoo<T>, IBar<T>
-        {
-        }
+        class Test2<T> : IFoo<T>, IBar<T> { }
 
         [Test]
         public void TestToSingleMultipleContracts()
@@ -76,16 +68,17 @@ namespace Zenject.Tests.Other
             Assert.IsEqual(bar, Container.Resolve<IBar<int>>());
         }
 
-        public interface IQux {
-        }
+        public interface IQux { }
 
-        public class Qux : IQux {
-        }
+        public class Qux : IQux { }
 
         [Test]
         public void TestToSingleMultipleContractsMismatch()
         {
-            Container.Bind(typeof(IQux), typeof(IFoo<>), typeof(IBar<>)).To(typeof(Test2<>), typeof(Qux)).AsSingle();
+            Container
+                .Bind(typeof(IQux), typeof(IFoo<>), typeof(IBar<>))
+                .To(typeof(Test2<>), typeof(Qux))
+                .AsSingle();
 
             var foo = Container.Resolve<IFoo<int>>();
             Assert.That(foo is Test2<int>);

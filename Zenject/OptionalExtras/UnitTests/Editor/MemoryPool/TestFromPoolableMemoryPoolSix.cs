@@ -7,7 +7,9 @@ namespace Zenject.Tests.Bindings
     [TestFixture]
     public class TestFromPoolableMemoryPoolSix : ZenjectUnitTestFixture
     {
-        public class Foo : IPoolable<string, int, float, char, double, long, IMemoryPool>, IDisposable
+        public class Foo
+            : IPoolable<string, int, float, char, double, long, IMemoryPool>,
+                IDisposable
         {
             IMemoryPool _pool;
             string _data;
@@ -45,21 +47,30 @@ namespace Zenject.Tests.Bindings
                 SetDefaults();
             }
 
-            public void OnSpawned(string p1, int p2, float p3, char p4, double p5, long p6, IMemoryPool pool)
+            public void OnSpawned(
+                string p1,
+                int p2,
+                float p3,
+                char p4,
+                double p5,
+                long p6,
+                IMemoryPool pool
+            )
             {
                 _pool = pool;
                 _data = p1;
             }
 
-            public class Factory : PlaceholderFactory<string, int, float, char, double, long, Foo>
-            {
-            }
+            public class Factory
+                : PlaceholderFactory<string, int, float, char, double, long, Foo> { }
         }
 
         [Test]
         public void Test1()
         {
-            Container.BindFactory<string, int, float, char, double, long, Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2));
+            Container
+                .BindFactory<string, int, float, char, double, long, Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2));
 
             var factory = Container.Resolve<Foo.Factory>();
 
@@ -81,4 +92,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

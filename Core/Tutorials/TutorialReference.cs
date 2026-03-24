@@ -1,5 +1,4 @@
 ﻿using System;
-
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -24,7 +23,8 @@ namespace Kiskovi.Core
 
         public Sprite GetIcon(IInputIconManager iconManager)
         {
-            if (iconSprite != null) return iconSprite;
+            if (iconSprite != null)
+                return iconSprite;
 
             return iconManager.GetSprite(inputInfoGroup?.inputActionReference);
         }

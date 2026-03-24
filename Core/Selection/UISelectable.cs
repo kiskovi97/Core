@@ -1,5 +1,5 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kiskovi.Core
 {
@@ -10,7 +10,8 @@ namespace Kiskovi.Core
         public int priority = 0;
 
         public override int Priority => base.Priority + priority;
-        public override bool CanBeSelected => base.CanBeSelected && selectable != null && selectable.interactable;
+        public override bool CanBeSelected =>
+            base.CanBeSelected && selectable != null && selectable.interactable;
 
         protected override void Awake()
         {

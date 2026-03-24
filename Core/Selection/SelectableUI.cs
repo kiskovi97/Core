@@ -10,25 +10,45 @@ namespace Kiskovi.Core
     {
         protected Selectable selectable;
 
-        [SerializeField] protected GameObject hoverObject;
-        [SerializeField] protected GameObject onlyHoverObject;
-        [SerializeField] protected GameObject notHoverObject;
+        [SerializeField]
+        protected GameObject hoverObject;
 
-        [SerializeField] protected bool isHoverEnabled;
-        [SerializeField] protected bool isResizeingEnabled = false;
-        [SerializeField] protected bool isInteractableCounted = true;
-        [SerializeField] protected bool isControllerAlwaysVisible = false;
-        [SerializeField] protected bool isToggleCounted = true;
-        [SerializeField] protected float resizePercantage = 1.3f;
+        [SerializeField]
+        protected GameObject onlyHoverObject;
+
+        [SerializeField]
+        protected GameObject notHoverObject;
+
+        [SerializeField]
+        protected bool isHoverEnabled;
+
+        [SerializeField]
+        protected bool isResizeingEnabled = false;
+
+        [SerializeField]
+        protected bool isInteractableCounted = true;
+
+        [SerializeField]
+        protected bool isControllerAlwaysVisible = false;
+
+        [SerializeField]
+        protected bool isToggleCounted = true;
+
+        [SerializeField]
+        protected float resizePercantage = 1.3f;
 
         private Canvas canvasParent;
         private RectTransform myRectTransform;
         private Vector2 originalSize;
         private Vector2? originalSizeOverride;
-        private Vector2 OriginalSize => originalSizeOverride.HasValue ? originalSizeOverride.Value : originalSize;
+        private Vector2 OriginalSize =>
+            originalSizeOverride.HasValue ? originalSizeOverride.Value : originalSize;
 
-        [SerializeField] public UnityEvent<bool> OnHoverEvent;
-        [SerializeField] public UnityEvent<bool> OnSelectedEvent;
+        [SerializeField]
+        public UnityEvent<bool> OnHoverEvent;
+
+        [SerializeField]
+        public UnityEvent<bool> OnSelectedEvent;
         private bool isHovering = false;
 
         public void OverrideSize(Vector2 original)
@@ -47,7 +67,8 @@ namespace Kiskovi.Core
 
         protected virtual void OnEnable()
         {
-            if (myRectTransform == null) return;
+            if (myRectTransform == null)
+                return;
             isHovering = false;
         }
 
@@ -78,12 +99,16 @@ namespace Kiskovi.Core
 
         protected virtual void Update()
         {
-            if (isHoverEnabled &&
-                (isHovering
-                || (selectable is Toggle toggle && toggle.isOn && isToggleCounted)
-                || (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
-                || isControllerAlwaysVisible)
-                && (!isInteractableCounted || selectable.interactable))
+            if (
+                isHoverEnabled
+                && (
+                    isHovering
+                    || (selectable is Toggle toggle && toggle.isOn && isToggleCounted)
+                    || (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+                    || isControllerAlwaysVisible
+                )
+                && (!isInteractableCounted || selectable.interactable)
+            )
                 OnHover();
             else
                 OnNotHover();
@@ -122,7 +147,9 @@ namespace Kiskovi.Core
             if (hoverObject != null)
                 hoverObject.SetActive(isHoverEnabled);
             if (onlyHoverObject != null)
-                onlyHoverObject.SetActive(isHoverEnabled && (isHovering || isControllerAlwaysVisible)); // && InputSignals.Scheme != ControlScheme.Keyboard
+                onlyHoverObject.SetActive(
+                    isHoverEnabled && (isHovering || isControllerAlwaysVisible)
+                ); // && InputSignals.Scheme != ControlScheme.Keyboard
             if (notHoverObject != null)
                 notHoverObject.SetActive(!isHoverEnabled);
             if (onlyHoverObject != null)

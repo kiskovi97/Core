@@ -1,6 +1,7 @@
 namespace Kiskovi.Core
 {
-    public class DataHolder<T> : DataHolderBase where T : class, IData
+    public class DataHolder<T> : DataHolderBase
+        where T : class, IData
     {
         public T Data { get; protected set; }
 

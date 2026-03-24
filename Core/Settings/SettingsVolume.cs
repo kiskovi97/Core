@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
     public class SettingsVolume : MonoBehaviour
     {
-        [Inject] private ISettingsTable settings;
+        [Inject]
+        private ISettingsTable settings;
 
-        public enum Type { Music, Sound }
+        public enum Type
+        {
+            Music,
+            Sound,
+        }
+
         public Type type;
         public Slider slider;
 
@@ -17,6 +22,7 @@ namespace Kiskovi.Core
         {
             slider.onValueChanged.AddListener(OnValueChanged);
         }
+
         private void OnDisable()
         {
             slider.onValueChanged.RemoveListener(OnValueChanged);
@@ -24,7 +30,7 @@ namespace Kiskovi.Core
 
         void Awake()
         {
-            switch(type)
+            switch (type)
             {
                 case Type.Music:
                     slider.value = settings.MusicVolume;

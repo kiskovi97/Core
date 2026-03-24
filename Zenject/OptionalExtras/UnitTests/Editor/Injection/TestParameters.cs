@@ -38,9 +38,11 @@ namespace Zenject.Tests.Injection
             Container.Bind<Test1>().AsTransient().NonLazy();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test1>(); });
+                delegate
+                {
+                    Container.Resolve<Test1>();
+                }
+            );
         }
     }
 }
-
-

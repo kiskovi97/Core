@@ -1,15 +1,14 @@
 ﻿using System;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
     internal class InputTrigger : MonoBehaviour
     {
-        [Inject] private InputActionReference inputActionRef;
+        [Inject]
+        private InputActionReference inputActionRef;
 
         public Type type;
         public TriggerAction onPressed;

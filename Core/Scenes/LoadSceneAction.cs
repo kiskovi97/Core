@@ -8,16 +8,19 @@ namespace Kiskovi.Core
         public bool force = false;
         public float delayTime = 0f;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         public override void Trigger(params object[] parameter)
         {
-            _signalBus.TryFire(new SceneLoadRequestSignal()
-            {
-                scene = index,
-                force = force,
-                delayTime = delayTime,
-            });
+            _signalBus.TryFire(
+                new SceneLoadRequestSignal()
+                {
+                    scene = index,
+                    force = force,
+                    delayTime = delayTime,
+                }
+            );
         }
     }
 }

@@ -5,7 +5,12 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class Dragable : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class Dragable
+        : MonoBehaviour,
+            IPointerDownHandler,
+            IBeginDragHandler,
+            IEndDragHandler,
+            IDragHandler
     {
         public RectTransform rectTransform;
         public RectTransform rectTransformParent;
@@ -23,8 +28,11 @@ namespace Kiskovi.Core
 
         public virtual bool IsDragable => true;
 
-        [Inject] private SignalBus _signalBus;
-        [Inject] private ISelectionSystem selectionSystem;
+        [Inject]
+        private SignalBus _signalBus;
+
+        [Inject]
+        private ISelectionSystem selectionSystem;
 
         private void OnEnable()
         {
@@ -33,13 +41,13 @@ namespace Kiskovi.Core
 
         private void OnDisable()
         {
-
             _signalBus.Unsubscribe<UIInteractions.DragUI>(OnDragUI);
         }
 
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
-            if (!IsDragable) return;
+            if (!IsDragable)
+                return;
             placement = null;
             canvasGroup.alpha = alphaOnDrag;
             canvasGroup.blocksRaycasts = false;
@@ -51,10 +59,19 @@ namespace Kiskovi.Core
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!IsDragable) return;
+            if (!IsDragable)
+                return;
             rectTransform.position = eventData.position;
-            rectTransform.localScale = Vector3.MoveTowards(rectTransform.localScale, Vector3.one * 1.2f, Time.deltaTime);
-            rectTransform.rotation = Quaternion.RotateTowards(rectTransform.rotation, Quaternion.identity, Time.deltaTime * 30f);
+            rectTransform.localScale = Vector3.MoveTowards(
+                rectTransform.localScale,
+                Vector3.one * 1.2f,
+                Time.deltaTime
+            );
+            rectTransform.rotation = Quaternion.RotateTowards(
+                rectTransform.rotation,
+                Quaternion.identity,
+                Time.deltaTime * 30f
+            );
         }
 
         public virtual void OnEndDrag(PointerEventData eventData)
@@ -77,7 +94,10 @@ namespace Kiskovi.Core
         {
             this.placement = placement;
             transform.SetParent(placement.target, true);
-            transform.SetPositionAndRotation(placement.target.position + offset, placement.target.rotation);
+            transform.SetPositionAndRotation(
+                placement.target.position + offset,
+                placement.target.rotation
+            );
         }
 
         public void Release()
@@ -97,7 +117,8 @@ namespace Kiskovi.Core
 
         private void Update()
         {
-            if (selectionSystem.CurrentSelectedObj != gameObject) return;
+            if (selectionSystem.CurrentSelectedObj != gameObject)
+                return;
 
             if (direction != Vector2.zero)
             {

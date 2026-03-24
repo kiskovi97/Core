@@ -41,6 +41,7 @@ namespace Kiskovi.Core
     public class PermissionInstaller : Installer<PermissionSettings, PermissionInstaller>
     {
         private PermissionSettings _settings;
+
         public PermissionInstaller(PermissionSettings settings)
         {
             _settings = settings;

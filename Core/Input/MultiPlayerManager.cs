@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-
 using Unity.Cinemachine;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,7 +29,9 @@ namespace Kiskovi.Core
             var layer = (int)Mathf.Log(playerLayers[players.Count - 1], 2);
 
             obj.camera.cullingMask |= 1 << layer;
-            obj.camera.transform.parent.GetComponentInChildren<CinemachineCamera>().gameObject.layer = layer;
+            obj
+                .camera.transform.parent.GetComponentInChildren<CinemachineCamera>()
+                .gameObject.layer = layer;
         }
     }
 }

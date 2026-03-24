@@ -104,10 +104,7 @@ namespace Zenject.Tests.Signals
 
         public class Foo : ITickable
         {
-            public int CallIndex
-            {
-                get; set;
-            }
+            public int CallIndex { get; set; }
 
             public void Tick()
             {
@@ -115,20 +112,13 @@ namespace Zenject.Tests.Signals
             }
         }
 
-        public class Signal1
-        {
-        }
+        public class Signal1 { }
 
-        public class Signal2
-        {
-        }
+        public class Signal2 { }
 
         public class Receiver1
         {
-            public int CallIndex
-            {
-                get; set;
-            }
+            public int CallIndex { get; set; }
 
             public void OnSignal()
             {
@@ -138,10 +128,7 @@ namespace Zenject.Tests.Signals
 
         public class Receiver2
         {
-            public int CallIndex
-            {
-                get; set;
-            }
+            public int CallIndex { get; set; }
 
             public void OnSignal()
             {
@@ -150,4 +137,3 @@ namespace Zenject.Tests.Signals
         }
     }
 }
-

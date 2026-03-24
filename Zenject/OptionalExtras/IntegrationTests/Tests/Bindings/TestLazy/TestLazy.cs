@@ -1,4 +1,3 @@
-
 using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
@@ -110,9 +109,7 @@ namespace Zenject.Tests.Bindings
                 InstanceCount++;
             }
 
-            public void DoIt()
-            {
-            }
+            public void DoIt() { }
         }
 
         public class Foo
@@ -142,4 +139,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

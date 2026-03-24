@@ -4,7 +4,8 @@ namespace Kiskovi.Core
 {
     internal class ClearTutorialAction : TriggerAction
     {
-        [Inject] private ITutorialManager _manager;
+        [Inject]
+        private ITutorialManager _manager;
 
         public override void Trigger(params object[] parameter)
         {

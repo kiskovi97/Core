@@ -24,7 +24,10 @@ namespace Zenject
         }
 
         public DiContainer CreateSubContainer(
-            List<TypeValuePair> args, InjectContext parentContext, out Action injectAction)
+            List<TypeValuePair> args,
+            InjectContext parentContext,
+            out Action injectAction
+        )
         {
             bool shouldMakeActive;
             var gameObj = CreateGameObject(parentContext, out shouldMakeActive);
@@ -35,7 +38,7 @@ namespace Zenject
 
             context.Install(_container);
 
-            injectAction = () => 
+            injectAction = () =>
             {
                 // Note: We don't need to call ResolveRoots here because GameObjectContext does this for us
                 _container.Inject(context);
@@ -55,7 +58,10 @@ namespace Zenject
         }
 
         protected abstract void AddInstallers(List<TypeValuePair> args, GameObjectContext context);
-        protected abstract GameObject CreateGameObject(InjectContext context, out bool shouldMakeActive);
+        protected abstract GameObject CreateGameObject(
+            InjectContext context,
+            out bool shouldMakeActive
+        );
     }
 }
 

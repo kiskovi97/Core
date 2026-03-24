@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -13,16 +12,20 @@ namespace Kiskovi.Core
         public TriggerAction OnMoved;
         public LayerMask layerMask;
 
-        [Inject] private SignalBus signalBus;
-        [Inject(Id = "PlayerId")] private string _id;
+        [Inject]
+        private SignalBus signalBus;
+
+        [Inject(Id = "PlayerId")]
+        private string _id;
 
         private Vector2 movement;
 
         public enum State
         {
             Idle,
-            Moving
+            Moving,
         }
+
         public State CurrentState { get; private set; }
 
         private NextMovement target;
@@ -65,7 +68,7 @@ namespace Kiskovi.Core
                         {
                             startPos = rigidBody.position,
                             endPos = targetPos,
-                            startTime = 1f - Vector2.Distance(rigidBody.position, targetPos)
+                            startTime = 1f - Vector2.Distance(rigidBody.position, targetPos),
                         };
                         time = target.startTime;
                         CurrentState = State.Moving;
@@ -91,7 +94,8 @@ namespace Kiskovi.Core
                             {
                                 startPos = target.endPos,
                                 endPos = nextTargetPos,
-                                startTime = 1f - Vector2.Distance(rigidBody.position, nextTargetPos)
+                                startTime =
+                                    1f - Vector2.Distance(rigidBody.position, nextTargetPos),
                             };
                             time = target.startTime;
                         }
@@ -103,8 +107,6 @@ namespace Kiskovi.Core
                     break;
             }
         }
-
-
 
         /*private void FixedUpdate()
         {
@@ -134,11 +136,16 @@ namespace Kiskovi.Core
 
             Vector2 current = SnapToGridCenter(position);
 
-            Vector2 step = Mathf.Abs(direction.x) > Mathf.Abs(direction.y) ?
-                (direction.x > 0.6f ? new Vector2(1f, 0f)
-                : direction.x < -0.6f ? new Vector2(-1f, 0f) : new Vector2())
+            Vector2 step =
+                Mathf.Abs(direction.x) > Mathf.Abs(direction.y)
+                    ? (
+                        direction.x > 0.6f ? new Vector2(1f, 0f)
+                        : direction.x < -0.6f ? new Vector2(-1f, 0f)
+                        : new Vector2()
+                    )
                 : direction.y > 0.6f ? new Vector2(0f, 1f)
-                : direction.y < -0.6f ? new Vector2(0f, -1f) : new Vector2();
+                : direction.y < -0.6f ? new Vector2(0f, -1f)
+                : new Vector2();
 
             var goal = current + step;
             var filter = new ContactFilter2D()
@@ -160,10 +167,7 @@ namespace Kiskovi.Core
 
         private static Vector2 SnapToGridCenter(Vector2 position)
         {
-            return new Vector2(
-                Mathf.Floor(position.x) + 0.5f,
-                Mathf.Floor(position.y) + 0.5f
-            );
+            return new Vector2(Mathf.Floor(position.x) + 0.5f, Mathf.Floor(position.y) + 0.5f);
         }
     }
 }

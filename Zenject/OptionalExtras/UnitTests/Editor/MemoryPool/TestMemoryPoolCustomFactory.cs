@@ -11,7 +11,9 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestFromBinding()
         {
-            Container.BindMemoryPool<Qux, Qux.Pool>().FromIFactory(b => b.To<CustomFactory>().AsCached());
+            Container
+                .BindMemoryPool<Qux, Qux.Pool>()
+                .FromIFactory(b => b.To<CustomFactory>().AsCached());
 
             var pool = Container.Resolve<Qux.Pool>();
 
@@ -25,7 +27,9 @@ namespace Zenject.Tests.Bindings
         {
             var settings = new MemoryPoolSettings(0, int.MaxValue, PoolExpandMethods.OneAtATime);
 
-            var pool = Container.Instantiate<Qux.Pool>(new object[] { settings, new CustomFactory() });
+            var pool = Container.Instantiate<Qux.Pool>(
+                new object[] { settings, new CustomFactory() }
+            );
 
             var qux = pool.Spawn();
 
@@ -42,11 +46,7 @@ namespace Zenject.Tests.Bindings
 
         class Qux
         {
-            public class Pool : MemoryPool<Qux>
-            {
-            }
+            public class Pool : MemoryPool<Qux> { }
         }
     }
 }
-
-

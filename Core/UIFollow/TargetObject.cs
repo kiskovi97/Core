@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -9,16 +8,19 @@ namespace Kiskovi.Core
         public Sprite icon;
         public bool canSeenAllTheTime;
 
-        [Inject] private IObjectFollowManager followManager;
+        [Inject]
+        private IObjectFollowManager followManager;
 
         private void OnEnable()
         {
-            followManager.SubscribeTarget(new FollowTargetData()
-            {
-                canSeenAllTheTime = canSeenAllTheTime,
-                goal = transform,
-                icon = icon
-            });
+            followManager.SubscribeTarget(
+                new FollowTargetData()
+                {
+                    canSeenAllTheTime = canSeenAllTheTime,
+                    goal = transform,
+                    icon = icon,
+                }
+            );
         }
 
         private void OnDisable()

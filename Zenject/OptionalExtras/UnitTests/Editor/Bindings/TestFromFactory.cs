@@ -47,9 +47,14 @@ namespace Zenject.Tests.Bindings
         {
             FooFactory.InstanceCount = 0;
 
-            Container.Bind<Foo>().FromIFactory(b => b.To<FooFactory>().AsCached()).MoveIntoDirectSubContainers();
+            Container
+                .Bind<Foo>()
+                .FromIFactory(b => b.To<FooFactory>().AsCached())
+                .MoveIntoDirectSubContainers();
 
-            Assert.That(Container.AllContracts.Where(x => x.Type == typeof(IFactory<Foo>)).IsEmpty());
+            Assert.That(
+                Container.AllContracts.Where(x => x.Type == typeof(IFactory<Foo>)).IsEmpty()
+            );
 
             Assert.IsNull(Container.TryResolve<Foo>());
 
@@ -57,7 +62,9 @@ namespace Zenject.Tests.Bindings
 
             Assert.IsEqual(subContainer.Resolve<Foo>(), StaticFoo);
 
-            Assert.That(subContainer.AllContracts.Where(x => x.Type == typeof(IFactory<Foo>)).Count() == 1);
+            Assert.That(
+                subContainer.AllContracts.Where(x => x.Type == typeof(IFactory<Foo>)).Count() == 1
+            );
 
             subContainer.Resolve<Foo>();
             subContainer.Resolve<Foo>();
@@ -99,7 +106,12 @@ namespace Zenject.Tests.Bindings
         {
             FooFactory.InstanceCount = 0;
 
-            Container.Bind<IFoo>().To<Foo>().FromIFactory(b => b.To<FooFactory>().AsCached()).AsSingle().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromIFactory(b => b.To<FooFactory>().AsCached())
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<IFoo>(), StaticFoo);
 
@@ -115,7 +127,11 @@ namespace Zenject.Tests.Bindings
         {
             FooFactory.InstanceCount = 0;
 
-            Container.Bind<Foo>().FromIFactory(b => b.To<FooFactory>().AsCached()).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromIFactory(b => b.To<FooFactory>().AsCached())
+                .AsSingle()
+                .NonLazy();
             Container.Bind<IFoo>().To<Foo>().FromResolve();
 
             Assert.IsEqual(Container.Resolve<IFoo>(), StaticFoo);
@@ -133,7 +149,11 @@ namespace Zenject.Tests.Bindings
         {
             FooFactory.InstanceCount = 0;
 
-            Container.Bind<Foo>().FromIFactory(b => b.To<FooFactory>().AsCached()).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromIFactory(b => b.To<FooFactory>().AsCached())
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>(), StaticFoo);
 
@@ -149,7 +169,12 @@ namespace Zenject.Tests.Bindings
         {
             FooFactory.InstanceCount = 0;
 
-            Container.Bind<IFoo>().To<Foo>().FromIFactory(b => b.To<FooFactory>().AsCached()).AsSingle().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromIFactory(b => b.To<FooFactory>().AsCached())
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<IFoo>(), StaticFoo);
 
@@ -175,13 +200,8 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class Foo : IFoo
-        {
-        }
+        class Foo : IFoo { }
     }
 }
-

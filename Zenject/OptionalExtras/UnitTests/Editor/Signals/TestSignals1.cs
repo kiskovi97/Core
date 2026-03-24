@@ -75,7 +75,7 @@ namespace Zenject.Tests.Signals
 
             var signalBus = Container.Resolve<SignalBus>();
 
-            Action callback = () => {};
+            Action callback = () => { };
 
             Assert.Throws(() => signalBus.Unsubscribe<FooSignal>(callback));
 
@@ -97,11 +97,14 @@ namespace Zenject.Tests.Signals
 
             object received = null;
 
-            signalBus.Subscribe(typeof(FooSignal), x =>
+            signalBus.Subscribe(
+                typeof(FooSignal),
+                x =>
                 {
                     Assert.That(x is FooSignal);
                     received = x;
-                });
+                }
+            );
 
             var data = new FooSignal();
 
@@ -112,9 +115,7 @@ namespace Zenject.Tests.Signals
             signalBus.Fire(new BarSignal());
         }
 
-        public class FooSignal
-        {
-        }
+        public class FooSignal { }
 
         public class BarSignal
         {

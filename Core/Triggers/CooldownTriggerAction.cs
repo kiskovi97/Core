@@ -12,12 +12,14 @@ namespace Kiskovi.Core
         {
             base.Trigger(parameter);
 
-            if (_coolDownTime > 0) return;
+            if (_coolDownTime > 0)
+                return;
 
             Trigger(onActivated);
 
             _coolDownTime = coolDown;
         }
+
         private void Update()
         {
             if (_coolDownTime > 0)

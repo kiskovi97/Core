@@ -9,7 +9,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfSingle()
         {
-            Container.Bind<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             var foo = Container.Resolve<Foo>();
             Assert.IsNotNull(foo.Bar);
@@ -19,7 +24,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfTransient()
         {
-            Container.Bind<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsTransient().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsTransient()
+                .NonLazy();
 
             var foo = Container.Resolve<Foo>();
             Assert.IsNotNull(foo.Bar);
@@ -37,7 +47,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfCached()
         {
-            Container.Bind<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             var foo = Container.Resolve<Foo>();
             Assert.IsNotNull(foo.Bar);
@@ -47,7 +62,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfCachedMultipleContracts()
         {
-            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Foo), typeof(Bar))
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>().Bar, Container.Resolve<Bar>());
         }
@@ -55,7 +75,13 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodConcreteSingle()
         {
-            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsNotNull(Container.Resolve<IFoo>().Bar);
         }
@@ -63,7 +89,13 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodConcreteTransient()
         {
-            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsTransient().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsTransient()
+                .NonLazy();
 
             Assert.IsNotNull(Container.Resolve<IFoo>().Bar);
         }
@@ -71,8 +103,13 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodConcreteCached()
         {
-            Container.Bind<IFoo>().To<Foo>()
-                .FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<IFoo>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsNotNull(Container.Resolve<IFoo>().Bar);
         }
@@ -80,7 +117,13 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodConcreteCachedMultipleContracts()
         {
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Foo), typeof(IFoo))
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<IFoo>(), Container.Resolve<Foo>());
         }
@@ -88,7 +131,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfIdentifiersFails()
         {
-            Container.Bind<Gorp>().FromSubContainerResolve().ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<Gorp>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.Throws(() => Container.Resolve<Gorp>());
         }
@@ -96,25 +144,23 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMethodSelfIdentifiers()
         {
-            Container.Bind<Gorp>().FromSubContainerResolve("gorp").ByMethod(InstallFooFacade).AsSingle().NonLazy();
+            Container
+                .Bind<Gorp>()
+                .FromSubContainerResolve("gorp")
+                .ByMethod(InstallFooFacade)
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsNotNull(Container.Resolve<Gorp>());
         }
 
-        public class Gorp
-        {
-        }
+        public class Gorp { }
 
-        public class Bar
-        {
-        }
+        public class Bar { }
 
         public interface IFoo
         {
-            Bar Bar
-            {
-                get;
-            }
+            Bar Bar { get; }
         }
 
         public class Foo : IFoo
@@ -124,11 +170,7 @@ namespace Zenject.Tests.Bindings
                 Bar = bar;
             }
 
-            public Bar Bar
-            {
-                get;
-                private set;
-            }
+            public Bar Bar { get; private set; }
         }
 
         void InstallFooFacade(DiContainer container)
@@ -140,5 +182,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-
-

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -10,8 +9,8 @@ namespace Kiskovi.Core
 
         private float time;
 
-        [Inject] private IDatabaseManager databaseManager;
-
+        [Inject]
+        private IDatabaseManager databaseManager;
 
         private void OnEnable()
         {
@@ -25,7 +24,6 @@ namespace Kiskovi.Core
             {
                 time = 0f;
                 databaseManager.SaveToDisk();
-
             }
         }
     }

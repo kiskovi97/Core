@@ -2,7 +2,5 @@
 
 namespace Zenject.Tests.Bindings.FromGameObjectInstaller
 {
-    public class Bar : MonoBehaviour
-    {
-    }
+    public class Bar : MonoBehaviour { }
 }

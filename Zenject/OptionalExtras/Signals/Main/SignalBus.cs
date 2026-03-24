@@ -11,23 +11,23 @@ namespace Zenject
     public class SignalBus : ILateDisposable
     {
         readonly SignalSubscription.Pool _subscriptionPool;
-        readonly Dictionary<BindingId, SignalDeclaration> _localDeclarationMap = new Dictionary<BindingId, SignalDeclaration>();
+        readonly Dictionary<BindingId, SignalDeclaration> _localDeclarationMap =
+            new Dictionary<BindingId, SignalDeclaration>();
         readonly SignalBus _parentBus;
-        readonly Dictionary<SignalSubscriptionId, SignalSubscription> _subscriptionMap = new Dictionary<SignalSubscriptionId, SignalSubscription>();
+        readonly Dictionary<SignalSubscriptionId, SignalSubscription> _subscriptionMap =
+            new Dictionary<SignalSubscriptionId, SignalSubscription>();
         readonly ZenjectSettings.SignalSettings _settings;
         readonly SignalDeclaration.Factory _signalDeclarationFactory;
         readonly DiContainer _container;
 
         public SignalBus(
-            [Inject(Source = InjectSources.Local)]
-            List<SignalDeclaration> signalDeclarations,
-            [Inject(Source = InjectSources.Parent, Optional = true)]
-            SignalBus parentBus,
-            [InjectOptional]
-            ZenjectSettings zenjectSettings,
+            [Inject(Source = InjectSources.Local)] List<SignalDeclaration> signalDeclarations,
+            [Inject(Source = InjectSources.Parent, Optional = true)] SignalBus parentBus,
+            [InjectOptional] ZenjectSettings zenjectSettings,
             SignalSubscription.Pool subscriptionPool,
             SignalDeclaration.Factory signalDeclarationFactory,
-            DiContainer container)
+            DiContainer container
+        )
         {
             _subscriptionPool = subscriptionPool;
             zenjectSettings = zenjectSettings ?? ZenjectSettings.Default;
@@ -35,14 +35,16 @@ namespace Zenject
             _signalDeclarationFactory = signalDeclarationFactory;
             _container = container;
 
-           signalDeclarations.ForEach(x =>
-			{
-				if (!_localDeclarationMap.ContainsKey(x.BindingId))
-				{
-					_localDeclarationMap.Add(x.BindingId, x);
-				}
-				else _localDeclarationMap[x.BindingId].Subscriptions.AllocFreeAddRange(x.Subscriptions);
-			});
+            signalDeclarations.ForEach(x =>
+            {
+                if (!_localDeclarationMap.ContainsKey(x.BindingId))
+                {
+                    _localDeclarationMap.Add(x.BindingId, x);
+                }
+                else
+                    _localDeclarationMap[x.BindingId]
+                        .Subscriptions.AllocFreeAddRange(x.Subscriptions);
+            });
             _parentBus = parentBus;
         }
 
@@ -56,14 +58,16 @@ namespace Zenject
             get { return _subscriptionMap.Count; }
         }
 
-
         //Fires Signals with their interfaces
-        public void AbstractFire<TSignal>() where TSignal : new() => AbstractFire(new TSignal());
-		public void AbstractFire<TSignal>(TSignal signal) => AbstractFireId(null, signal);
-		public void AbstractFireId<TSignal>(object identifier, TSignal signal)
-		{
-			// Do this before creating the signal so that it throws if the signal was not declared
-			Type signalType = typeof(TSignal);
+        public void AbstractFire<TSignal>()
+            where TSignal : new() => AbstractFire(new TSignal());
+
+        public void AbstractFire<TSignal>(TSignal signal) => AbstractFireId(null, signal);
+
+        public void AbstractFireId<TSignal>(object identifier, TSignal signal)
+        {
+            // Do this before creating the signal so that it throws if the signal was not declared
+            Type signalType = typeof(TSignal);
             InternalFire(signalType, signal, identifier, true);
 
             Type[] interfaces = signalType.GetInterfaces();
@@ -72,7 +76,7 @@ namespace Zenject
             {
                 InternalFire(interfaces[i], signal, identifier, true);
             }
-		}
+        }
 
         public void LateDispose()
         {
@@ -82,7 +86,8 @@ namespace Zenject
                 {
                     throw Assert.CreateException(
                         "Found subscriptions for signals '{0}' in SignalBus.LateDispose!  Either add the explicit Unsubscribe or set SignalSettings.AutoUnsubscribeInDispose to true",
-                        _subscriptionMap.Values.Select(x => x.SignalId.ToString()).Join(", "));
+                        _subscriptionMap.Values.Select(x => x.SignalId.ToString()).Join(", ")
+                    );
                 }
             }
             else
@@ -139,12 +144,12 @@ namespace Zenject
             return IsSignalDeclared(typeof(TSignal), identifier);
         }
 
-        public bool IsSignalDeclared(Type signalType)  
+        public bool IsSignalDeclared(Type signalType)
         {
             return IsSignalDeclared(signalType, null);
         }
 
-        public bool IsSignalDeclared(Type signalType, object identifier) 
+        public bool IsSignalDeclared(Type signalType, object identifier)
         {
             var signalId = new BindingId(signalType, identifier);
             return GetDeclaration(signalId) != null;
@@ -180,7 +185,12 @@ namespace Zenject
             TryFireId(null, signal);
         }
 
-        private void InternalFire(Type signalType, object signal, object identifier, bool requireDeclaration)
+        private void InternalFire(
+            Type signalType,
+            object signal,
+            object identifier,
+            bool requireDeclaration
+        )
         {
             var signalId = new BindingId(signalType, identifier);
 
@@ -339,15 +349,19 @@ namespace Zenject
             TryUnsubscribeId<TSignal>(null, callback);
         }
 
-        void UnsubscribeInternal(Type signalType, object identifier, object token, bool throwIfMissing)
+        void UnsubscribeInternal(
+            Type signalType,
+            object identifier,
+            object token,
+            bool throwIfMissing
+        )
         {
             UnsubscribeInternal(new BindingId(signalType, identifier), token, throwIfMissing);
         }
 
         void UnsubscribeInternal(BindingId signalId, object token, bool throwIfMissing)
         {
-            UnsubscribeInternal(
-                new SignalSubscriptionId(signalId, token), throwIfMissing);
+            UnsubscribeInternal(new SignalSubscriptionId(signalId, token), throwIfMissing);
         }
 
         void UnsubscribeInternal(SignalSubscriptionId id, bool throwIfMissing)
@@ -364,32 +378,42 @@ namespace Zenject
                 if (throwIfMissing)
                 {
                     throw Assert.CreateException(
-                        "Called unsubscribe for signal '{0}' but could not find corresponding subscribe.  If this is intentional, call TryUnsubscribe instead.");
+                        "Called unsubscribe for signal '{0}' but could not find corresponding subscribe.  If this is intentional, call TryUnsubscribe instead."
+                    );
                 }
             }
         }
 
-        void SubscribeInternal(Type signalType, object identifier, object token, Action<object> callback)
+        void SubscribeInternal(
+            Type signalType,
+            object identifier,
+            object token,
+            Action<object> callback
+        )
         {
             SubscribeInternal(new BindingId(signalType, identifier), token, callback);
         }
 
         void SubscribeInternal(BindingId signalId, object token, Action<object> callback)
         {
-            SubscribeInternal(
-                new SignalSubscriptionId(signalId, token), callback);
+            SubscribeInternal(new SignalSubscriptionId(signalId, token), callback);
         }
 
         void SubscribeInternal(SignalSubscriptionId id, Action<object> callback)
         {
-            Assert.That(!_subscriptionMap.ContainsKey(id),
-                "Tried subscribing to the same signal with the same callback on Zenject.SignalBus");
+            Assert.That(
+                !_subscriptionMap.ContainsKey(id),
+                "Tried subscribing to the same signal with the same callback on Zenject.SignalBus"
+            );
 
             var declaration = GetDeclaration(id.SignalId);
 
             if (declaration == null)
             {
-                throw Assert.CreateException("Tried subscribing to undeclared signal '{0}'!", id.SignalId);
+                throw Assert.CreateException(
+                    "Tried subscribing to undeclared signal '{0}'!",
+                    id.SignalId
+                );
             }
 
             var subscription = _subscriptionPool.Spawn(callback, declaration);
@@ -398,15 +422,33 @@ namespace Zenject
         }
 
         public void DeclareSignal<T>(
-            object identifier = null, SignalMissingHandlerResponses? missingHandlerResponse = null, bool? forceAsync = null, int? asyncTickPriority = null)
+            object identifier = null,
+            SignalMissingHandlerResponses? missingHandlerResponse = null,
+            bool? forceAsync = null,
+            int? asyncTickPriority = null
+        )
         {
-            DeclareSignal(typeof(T), identifier, missingHandlerResponse, forceAsync, asyncTickPriority);
+            DeclareSignal(
+                typeof(T),
+                identifier,
+                missingHandlerResponse,
+                forceAsync,
+                asyncTickPriority
+            );
         }
 
         public void DeclareSignal(
-            Type signalType, object identifier = null, SignalMissingHandlerResponses? missingHandlerResponse = null, bool? forceAsync = null, int? asyncTickPriority = null)
+            Type signalType,
+            object identifier = null,
+            SignalMissingHandlerResponses? missingHandlerResponse = null,
+            bool? forceAsync = null,
+            int? asyncTickPriority = null
+        )
         {
-            var bindInfo = SignalExtensions.CreateDefaultSignalDeclarationBindInfo(_container, signalType);
+            var bindInfo = SignalExtensions.CreateDefaultSignalDeclarationBindInfo(
+                _container,
+                signalType
+            );
 
             bindInfo.Identifier = identifier;
 

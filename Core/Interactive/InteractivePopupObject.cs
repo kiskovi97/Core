@@ -14,7 +14,8 @@ namespace Kiskovi.Core
 
         private HashSet<GameObject> players = new HashSet<GameObject>();
 
-        [Inject] private SignalBus signalBus;
+        [Inject]
+        private SignalBus signalBus;
 
         private bool _isInteractable = false;
 

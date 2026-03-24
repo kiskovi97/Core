@@ -9,9 +9,11 @@ namespace Kiskovi.Core
             Container.DeclareSignal<SelectionClearSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<GlobalSelectionSystem>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<GlobalSelectionNavigationSystem>().AsSingle().NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<GlobalSelectionNavigationSystem>()
+                .AsSingle()
+                .NonLazy();
             Container.BindInterfacesAndSelfTo<UIManager>().AsSingle().NonLazy();
-
         }
     }
 }

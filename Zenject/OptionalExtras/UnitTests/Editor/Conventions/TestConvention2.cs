@@ -24,30 +24,23 @@ namespace Zenject.Tests.Convention.Two
         {
             var container = new DiContainer();
 
-            container.Bind(x => x.AllInterfaces())
-                .To(x => x.AllNonAbstractClasses().InNamespace("Zenject.Tests.Convention.Two")).AsTransient();
+            container
+                .Bind(x => x.AllInterfaces())
+                .To(x => x.AllNonAbstractClasses().InNamespace("Zenject.Tests.Convention.Two"))
+                .AsTransient();
 
             Assert.IsEqual(container.ResolveAll<IFoo>().Count, 2);
             Assert.IsEqual(container.ResolveAll<IBar>().Count, 2);
         }
 
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public class Foo : IFoo, IBar
-        {
-        }
+        public class Foo : IFoo, IBar { }
 
-        public class Bar : IBar, IFoo
-        {
-        }
+        public class Bar : IBar, IFoo { }
     }
 }
 
 #endif
-

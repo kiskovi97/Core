@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -9,8 +8,11 @@ namespace Kiskovi.Core
         public Rigidbody rigidBody;
         public float speed = 1.0f;
 
-        [Inject] private SignalBus signalBus;
-        [Inject(Id = "PlayerId")] private string _id;
+        [Inject]
+        private SignalBus signalBus;
+
+        [Inject(Id = "PlayerId")]
+        private string _id;
 
         private Vector2 movement;
         public override Vector2 Movement => movement.normalized;
@@ -30,9 +32,11 @@ namespace Kiskovi.Core
         {
             movement = signal.value;
         }
+
         private void FixedUpdate()
         {
-            if (Time.timeScale < 0.01) return;
+            if (Time.timeScale < 0.01)
+                return;
             var move = new Vector3(movement.x, 0f, movement.y);
             rigidBody.MovePosition(rigidBody.position + move * speed * Time.fixedDeltaTime);
             //rigidBody.AddForce(move * speed, ForceMode.Force);

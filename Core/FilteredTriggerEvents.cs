@@ -12,8 +12,10 @@ namespace Kiskovi.Core
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if ((string.IsNullOrEmpty(filterTag) || collision.gameObject.CompareTag(filterTag))
-                && (!onlyNonTrigger || !collision.isTrigger))
+            if (
+                (string.IsNullOrEmpty(filterTag) || collision.gameObject.CompareTag(filterTag))
+                && (!onlyNonTrigger || !collision.isTrigger)
+            )
             {
                 TriggerAction.Trigger(onTriggerEnter);
             }
@@ -21,8 +23,10 @@ namespace Kiskovi.Core
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if ((string.IsNullOrEmpty(filterTag) || collision.gameObject.CompareTag(filterTag))
-                && (!onlyNonTrigger || !collision.isTrigger))
+            if (
+                (string.IsNullOrEmpty(filterTag) || collision.gameObject.CompareTag(filterTag))
+                && (!onlyNonTrigger || !collision.isTrigger)
+            )
             {
                 TriggerAction.Trigger(onTriggerExit);
             }

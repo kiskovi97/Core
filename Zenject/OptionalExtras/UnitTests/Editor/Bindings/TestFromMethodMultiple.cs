@@ -25,7 +25,11 @@ namespace Zenject.Tests.Bindings
             // like FromSubcontainerResolve, FromComponentInPrefab, etc.
             // The 'single' is really refering to the fact that it's a single resolve handler, not a
             // single instance
-            Container.Bind<Foo>().FromMethodMultiple(ctx => new[] { new Foo(), new Foo() }).AsSingle().NonLazy();
+            Container
+                .Bind<Foo>()
+                .FromMethodMultiple(ctx => new[] { new Foo(), new Foo() })
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.ResolveAll<Foo>().Count, 2);
         }
@@ -112,19 +116,19 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestCached2()
         {
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromMethodMultiple(ctx => new[] { new Foo() }).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(Foo), typeof(IFoo))
+                .To<Foo>()
+                .FromMethodMultiple(ctx => new[] { new Foo() })
+                .AsSingle()
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>(), Container.Resolve<Foo>());
             Assert.IsEqual(Container.Resolve<Foo>(), Container.Resolve<IFoo>());
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class Foo : IFoo
-        {
-        }
+        class Foo : IFoo { }
     }
 }
-

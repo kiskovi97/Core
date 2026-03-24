@@ -6,15 +6,11 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestStructInjection : ZenjectUnitTestFixture
     {
-        struct Test1
-        {
-        }
+        struct Test1 { }
 
         class Test2
         {
-            public Test2(Test1 t1)
-            {
-            }
+            public Test2(Test1 t1) { }
         }
 
         [Test]
@@ -38,15 +34,9 @@ namespace Zenject.Tests.Injection
 #pragma warning restore 649
 
             [Inject]
-            public string ValueProperty
-            {
-                get; private set;
-            }
+            public string ValueProperty { get; private set; }
 
-            public float ValueConstructor
-            {
-                get; private set;
-            }
+            public float ValueConstructor { get; private set; }
         }
 
         [Test]
@@ -69,10 +59,7 @@ namespace Zenject.Tests.Injection
                 Value = value;
             }
 
-            public string Value
-            {
-                get; private set;
-            }
+            public string Value { get; private set; }
         }
 
         [Test]

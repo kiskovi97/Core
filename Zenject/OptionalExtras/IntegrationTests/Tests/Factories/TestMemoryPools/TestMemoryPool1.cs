@@ -1,4 +1,3 @@
-
 using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
@@ -79,16 +78,9 @@ namespace Zenject.Tests.Bindings
 
         class Foo
         {
-            public string Value
-            {
-                get;
-                private set;
-            }
+            public string Value { get; private set; }
 
-            public int ResetCount
-            {
-                get; private set;
-            }
+            public int ResetCount { get; private set; }
 
             public class Pool : MemoryPool<string, Foo>
             {
@@ -123,23 +115,15 @@ namespace Zenject.Tests.Bindings
         void TestAbstractMemoryPoolInternal()
         {
             PreInstall();
-            Container.BindMemoryPool<IBar, BarPool>()
-                .WithInitialSize(3).To<Bar>().NonLazy();
+            Container.BindMemoryPool<IBar, BarPool>().WithInitialSize(3).To<Bar>().NonLazy();
 
             PostInstall();
         }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public class Bar : IBar
-        {
-        }
+        public class Bar : IBar { }
 
-        public class BarPool : MemoryPool<int, IBar>
-        {
-        }
+        public class BarPool : MemoryPool<int, IBar> { }
     }
 }
-

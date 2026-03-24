@@ -29,41 +29,21 @@ namespace Zenject.Tests.Injection
             Assert.IsEqual(foo.DerivedTypeMethodInjectCount, 4);
         }
 
-        class Test0
-        {
-        }
+        class Test0 { }
 
         interface IFoo
         {
-            bool DidPostInjectBase
-            {
-                get;
-            }
+            bool DidPostInjectBase { get; }
 
-            bool DidPostInjectDerived
-            {
-                get;
-            }
+            bool DidPostInjectDerived { get; }
 
-            int BaseTypePropertyInjectCount
-            {
-                get;
-            }
+            int BaseTypePropertyInjectCount { get; }
 
-            int DerivedTypePropertyInjectCount
-            {
-                get;
-            }
+            int DerivedTypePropertyInjectCount { get; }
 
-            int BaseTypeMethodInjectCount
-            {
-                get;
-            }
+            int BaseTypeMethodInjectCount { get; }
 
-            int DerivedTypeMethodInjectCount
-            {
-                get;
-            }
+            int DerivedTypeMethodInjectCount { get; }
         }
 
         abstract class FooBase : IFoo
@@ -80,25 +60,13 @@ namespace Zenject.Tests.Injection
             protected static Test0 BaseStaticFieldProtected = null;
 
             [Inject]
-            public static Test0 BaseStaticPropertyPublic
-            {
-                get;
-                set;
-            }
+            public static Test0 BaseStaticPropertyPublic { get; set; }
 
             [Inject]
-            static Test0 BaseStaticPropertyPrivate
-            {
-                get;
-                set;
-            }
+            static Test0 BaseStaticPropertyPrivate { get; set; }
 
             [Inject]
-            protected static Test0 BaseStaticPropertyProtected
-            {
-                get;
-                set;
-            }
+            protected static Test0 BaseStaticPropertyProtected { get; set; }
 
             // Instance
             [Inject]
@@ -124,18 +92,10 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            Test0 BasePropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 BasePropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 BasePropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 BasePropertyProtected { get; set; }
 
             [Inject]
             public void PostInjectBase()
@@ -161,36 +121,18 @@ namespace Zenject.Tests.Injection
 
             public bool DidPostInjectBase
             {
-                get
-                {
-                    return _didPostInjectBase;
-                }
+                get { return _didPostInjectBase; }
             }
 
-            public abstract bool DidPostInjectDerived
-            {
-                get;
-            }
+            public abstract bool DidPostInjectDerived { get; }
 
-            public int BaseTypePropertyInjectCount
-            {
-                get; set;
-            }
+            public int BaseTypePropertyInjectCount { get; set; }
 
-            public int BaseTypeMethodInjectCount
-            {
-                get; set;
-            }
+            public int BaseTypeMethodInjectCount { get; set; }
 
-            public abstract int DerivedTypeMethodInjectCount
-            {
-                get;
-            }
+            public abstract int DerivedTypeMethodInjectCount { get; }
 
-            public abstract int DerivedTypePropertyInjectCount
-            {
-                get;
-            }
+            public abstract int DerivedTypePropertyInjectCount { get; }
         }
 
         class FooDerived : FooBase
@@ -200,10 +142,7 @@ namespace Zenject.Tests.Injection
 
             public override bool DidPostInjectDerived
             {
-                get
-                {
-                    return _didPostInject;
-                }
+                get { return _didPostInject; }
             }
 
             [Inject]
@@ -216,25 +155,13 @@ namespace Zenject.Tests.Injection
             protected static Test0 DerivedStaticFieldProtected = null;
 
             [Inject]
-            public static Test0 DerivedStaticPropertyPublic
-            {
-                get;
-                set;
-            }
+            public static Test0 DerivedStaticPropertyPublic { get; set; }
 
             [Inject]
-            static Test0 DerivedStaticPropertyPrivate
-            {
-                get;
-                set;
-            }
+            static Test0 DerivedStaticPropertyPrivate { get; set; }
 
             [Inject]
-            protected static Test0 DerivedStaticPropertyProtected
-            {
-                get;
-                set;
-            }
+            protected static Test0 DerivedStaticPropertyProtected { get; set; }
 
             // Instance
             public FooDerived(Test0 param)
@@ -288,18 +215,10 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            Test0 DerivedPropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 DerivedPropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 DerivedPropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 DerivedPropertyProtected { get; set; }
 
             int _derivedTypeMethodInjectCount;
 
@@ -317,5 +236,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-
-

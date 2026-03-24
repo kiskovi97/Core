@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-
 using UnityEditor;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -18,8 +16,12 @@ namespace Kiskovi.Core
             _typeOptions = InputActionSignalTypeCache.GetTypes(true).ToArray();
 
             var targetScript = (InputSignalSender)target;
-            _selectedIndex = Array.FindIndex(_typeOptions, name => name == targetScript.inputActionSignalTypeName);
-            if (_selectedIndex < 0) _selectedIndex = 0;
+            _selectedIndex = Array.FindIndex(
+                _typeOptions,
+                name => name == targetScript.inputActionSignalTypeName
+            );
+            if (_selectedIndex < 0)
+                _selectedIndex = 0;
         }
 
         public override void OnInspectorGUI()

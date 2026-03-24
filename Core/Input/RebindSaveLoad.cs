@@ -1,19 +1,19 @@
 using Kiskovi.Core;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 using Zenject;
 
 public class RebindSaveLoad : MonoBehaviour
 {
     public InputActionAsset actions;
 
-    [Inject] private SignalBus _signalBus;
+    [Inject]
+    private SignalBus _signalBus;
 
     public void OnEnable()
     {
-        if (actions == null) return;
+        if (actions == null)
+            return;
 
         _signalBus.Subscribe<BindingChangedSignal>(OnBindingChanged);
 
@@ -30,7 +30,8 @@ public class RebindSaveLoad : MonoBehaviour
 
     public void OnDisable()
     {
-        if (actions == null) return;
+        if (actions == null)
+            return;
 
         _signalBus.Unsubscribe<BindingChangedSignal>(OnBindingChanged);
 

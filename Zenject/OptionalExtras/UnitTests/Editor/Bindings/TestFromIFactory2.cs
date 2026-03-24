@@ -9,10 +9,14 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void Test1()
         {
-            Container.BindFactory<int, Foo, Foo.Factory>().WithId("foo1")
+            Container
+                .BindFactory<int, Foo, Foo.Factory>()
+                .WithId("foo1")
                 .FromIFactory(x => x.To<FooFactory>().AsCached().WithArguments("asdf"));
 
-            Container.BindFactory<int, Foo, Foo.Factory>().WithId("foo2")
+            Container
+                .BindFactory<int, Foo, Foo.Factory>()
+                .WithId("foo2")
                 .FromIFactory(x => x.To<FooFactory>().AsCached().WithArguments("zxcv"));
 
             var factory1 = Container.ResolveId<Foo.Factory>("foo1");
@@ -36,19 +40,11 @@ namespace Zenject.Tests.Bindings
                 Value2 = value2;
             }
 
-            public int Value2
-            {
-                get; private set;
-            }
+            public int Value2 { get; private set; }
 
-            public string Value
-            {
-                get; private set;
-            }
+            public string Value { get; private set; }
 
-            public class Factory : PlaceholderFactory<int, Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<int, Foo> { }
         }
 
         public class FooFactory : IFactory<int, Foo>
@@ -56,9 +52,7 @@ namespace Zenject.Tests.Bindings
             readonly string _value;
             readonly DiContainer _container;
 
-            public FooFactory(
-                DiContainer container,
-                string value)
+            public FooFactory(DiContainer container, string value)
             {
                 _value = value;
                 _container = container;
@@ -66,9 +60,8 @@ namespace Zenject.Tests.Bindings
 
             public Foo Create(int value)
             {
-                return _container.Instantiate<Foo>(new object [] { value, _value });
+                return _container.Instantiate<Foo>(new object[] { value, _value });
             }
         }
     }
 }
-

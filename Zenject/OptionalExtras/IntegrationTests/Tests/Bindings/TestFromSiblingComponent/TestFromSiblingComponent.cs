@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -72,14 +71,10 @@ namespace Zenject.Tests.Bindings
 
         public class Qux
         {
-            public Qux(Foo foo)
-            {
-            }
+            public Qux(Foo foo) { }
         }
 
-        public class Foo : MonoBehaviour
-        {
-        }
+        public class Foo : MonoBehaviour { }
 
         public class Bar : MonoBehaviour
         {
@@ -100,4 +95,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

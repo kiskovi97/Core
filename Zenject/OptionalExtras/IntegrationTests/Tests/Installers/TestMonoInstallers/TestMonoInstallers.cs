@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 using Zenject.Tests.Installers.MonoInstallers;
@@ -12,7 +11,9 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestBadResourcePath()
         {
             PreInstall();
-            Assert.Throws(() => FooInstaller.InstallFromResource("TestMonoInstallers/SDFSDFSDF", Container));
+            Assert.Throws(() =>
+                FooInstaller.InstallFromResource("TestMonoInstallers/SDFSDFSDF", Container)
+            );
             PostInstall();
             yield break;
         }
@@ -45,7 +46,13 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestThreeArgs()
         {
             PreInstall();
-            QuxInstaller.InstallFromResource("TestMonoInstallers/QuxInstaller", Container, "blurg", 2.0f, 1);
+            QuxInstaller.InstallFromResource(
+                "TestMonoInstallers/QuxInstaller",
+                Container,
+                "blurg",
+                2.0f,
+                1
+            );
 
             PostInstall();
 
@@ -54,4 +61,3 @@ namespace Zenject.Tests.Installers
         }
     }
 }
-

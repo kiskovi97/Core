@@ -6,9 +6,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestSubContainers : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-        }
+        class Test0 { }
 
         [Test]
         public void TestIsRemoved()
@@ -21,7 +19,11 @@ namespace Zenject.Tests.Other
             Assert.That(ReferenceEquals(test1, subContainer.Resolve<Test0>()));
 
             Assert.Throws(
-                delegate { Container.Resolve<Test0>(); });
+                delegate
+                {
+                    Container.Resolve<Test0>();
+                }
+            );
         }
 
         class Test1
@@ -48,10 +50,18 @@ namespace Zenject.Tests.Other
             test1 = subContainer.Resolve<Test1>();
 
             Assert.Throws(
-                delegate { Container.Resolve<Test0>(); });
+                delegate
+                {
+                    Container.Resolve<Test0>();
+                }
+            );
 
             Assert.Throws(
-                delegate { Container.Resolve<Test1>(); });
+                delegate
+                {
+                    Container.Resolve<Test1>();
+                }
+            );
 
             Container.Bind<Test0>().AsSingle();
             Container.Bind<Test1>().AsSingle();
@@ -61,17 +71,11 @@ namespace Zenject.Tests.Other
             Assert.That(Container.Resolve<Test1>() != test1);
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        interface IFoo2
-        {
-        }
+        interface IFoo2 { }
 
-        class Foo : IFoo, IFoo2
-        {
-        }
+        class Foo : IFoo, IFoo2 { }
 
         [Test]
         public void TestMultipleSingletonDifferentScope()
@@ -90,4 +94,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-

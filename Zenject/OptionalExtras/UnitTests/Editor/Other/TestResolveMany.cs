@@ -7,17 +7,11 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestResolveMany : ZenjectUnitTestFixture
     {
-        class Test0
-        {
-        }
+        class Test0 { }
 
-        class Test1 : Test0
-        {
-        }
+        class Test1 : Test0 { }
 
-        class Test2 : Test0
-        {
-        }
+        class Test2 : Test0 { }
 
         [Test]
         public void TestCase1()
@@ -38,5 +32,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-
-

@@ -2,8 +2,5 @@ using UnityEngine;
 
 namespace Zenject.Tests.Bindings.FromComponentInHierarchyGameObjectContext
 {
-    public class Gorp : MonoBehaviour
-    {
-    }
+    public class Gorp : MonoBehaviour { }
 }
-

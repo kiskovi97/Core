@@ -1,4 +1,3 @@
-
 using System;
 using NUnit.Framework;
 using Assert = ModestTree.Assert;
@@ -38,15 +37,15 @@ namespace Zenject.Tests.Bindings
                 _pool = pool;
             }
 
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
 
         [Test]
         public void Test1()
         {
-            Container.BindFactory<Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2).FromNew());
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2).FromNew());
 
             var factory = Container.Resolve<Foo.Factory>();
 

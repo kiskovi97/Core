@@ -18,7 +18,11 @@ namespace Kiskovi.Core
             foreach (var renderer in lines)
             {
                 var gradient = renderer.colorGradient;
-                gradient.colorKeys = new GradientColorKey[] { new GradientColorKey(color, 0f), new GradientColorKey(color, 1f) };
+                gradient.colorKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey(color, 0f),
+                    new GradientColorKey(color, 1f),
+                };
                 renderer.colorGradient = gradient;
             }
         }

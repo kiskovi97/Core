@@ -1,15 +1,16 @@
-﻿using UnityEngine.Localization.Settings;
-using UnityEngine.Localization;
-
+﻿using System;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using Zenject;
-using System;
 
 namespace Kiskovi.Core
 {
-    public class LocalizedDataHolder<T> : DataHolder<T> where T : class, IData
+    public class LocalizedDataHolder<T> : DataHolder<T>
+        where T : class, IData
     {
-        [Inject] protected SignalBus _signalBus;
+        [Inject]
+        protected SignalBus _signalBus;
 
         protected virtual void OnEnable()
         {
@@ -36,7 +37,8 @@ namespace Kiskovi.Core
 
         public string GetLocalizedString(LocalizedString value)
         {
-            if (value.IsEmpty) return "";
+            if (value.IsEmpty)
+                return "";
 
             return value.GetLocalizedString();
         }

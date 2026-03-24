@@ -1,8 +1,6 @@
 ﻿using TMPro;
-
 using UnityEngine;
 using UnityEngine.UI;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -24,8 +22,11 @@ namespace Kiskovi.Core
         public TMP_Text titleText;
         public TMP_Text inputText;
 
-        [Inject] private ITutorialManager _manager;
-        [Inject] private IInputIconManager iconManager;
+        [Inject]
+        private ITutorialManager _manager;
+
+        [Inject]
+        private IInputIconManager iconManager;
 
         protected void Start()
         {
@@ -52,7 +53,7 @@ namespace Kiskovi.Core
                 if (iconSpriteRenderer != null)
                     iconSpriteRenderer.sprite = icon != null ? icon : defaultIconSprite;
 
-                if (iconImage != null) 
+                if (iconImage != null)
                     iconImage.sprite = icon != null ? icon : defaultIconSprite;
 
                 if (titleText != null)
@@ -65,12 +66,15 @@ namespace Kiskovi.Core
                     if (icon != null)
                         inputText.text = "";
                     else
-                        inputText.text = iconManager.GetString(Data.inputInfoGroup.inputActionReference);
+                        inputText.text = iconManager.GetString(
+                            Data.inputInfoGroup.inputActionReference
+                        );
                 }
 
                 OnAvailablilityChanged();
             }
         }
+
         private void OnAvailablilityChanged()
         {
             OnAvailablilityChanged(false);

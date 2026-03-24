@@ -10,7 +10,7 @@ namespace Kiskovi.Core
 
         public override void Trigger(params object[] parameter)
         {
-            foreach(var obj in objects)
+            foreach (var obj in objects)
             {
                 obj.SetActive(isActive);
             }

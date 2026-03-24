@@ -9,8 +9,10 @@ namespace Zenject.Tests
     {
         class Foo : IDisposable
         {
-            public static readonly StaticMemoryPool<string, Foo> Pool =
-                new StaticMemoryPool<string, Foo>(OnSpawned, OnDespawned);
+            public static readonly StaticMemoryPool<string, Foo> Pool = new StaticMemoryPool<
+                string,
+                Foo
+            >(OnSpawned, OnDespawned);
 
             public void Dispose()
             {
@@ -27,10 +29,7 @@ namespace Zenject.Tests
                 that.Value = value;
             }
 
-            public string Value
-            {
-                get; private set;
-            }
+            public string Value { get; private set; }
         }
 
         public class Bar : IDisposable
@@ -47,17 +46,12 @@ namespace Zenject.Tests
                 _pool.Despawn(this);
             }
 
-            public class Pool : MemoryPool<Bar>
-            {
-            }
+            public class Pool : MemoryPool<Bar> { }
         }
 
         public class Qux : IDisposable
         {
-            public bool WasDisposed
-            {
-                get; private set;
-            }
+            public bool WasDisposed { get; private set; }
 
             public void Dispose()
             {
@@ -80,9 +74,7 @@ namespace Zenject.Tests
                     throw new Exception();
                 }
             }
-            catch
-            {
-            }
+            catch { }
 
             Assert.That(qux1.WasDisposed);
             Assert.That(qux2.WasDisposed);

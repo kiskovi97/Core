@@ -1,19 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 using Zenject;
 
 namespace Kiskovi.Core
 {
     internal class AcceptDeclineButtons : MonoBehaviour
     {
-        [SerializeField] private Button acceptButton;
-        [SerializeField] private Button cancelButton;
-        [SerializeField] private TriggerAction onAccept;
-        [SerializeField] private TriggerAction onDecline;
+        [SerializeField]
+        private Button acceptButton;
+
+        [SerializeField]
+        private Button cancelButton;
+
+        [SerializeField]
+        private TriggerAction onAccept;
+
+        [SerializeField]
+        private TriggerAction onDecline;
         private UIPanel parent;
 
-        [Inject] private SignalBus signalBus;
+        [Inject]
+        private SignalBus signalBus;
 
         private void Awake()
         {
@@ -34,14 +41,24 @@ namespace Kiskovi.Core
 
         public void OnAccept()
         {
-            if (acceptButton != null && acceptButton.isActiveAndEnabled && acceptButton.interactable && (parent == null || parent.isInFront))
+            if (
+                acceptButton != null
+                && acceptButton.isActiveAndEnabled
+                && acceptButton.interactable
+                && (parent == null || parent.isInFront)
+            )
                 acceptButton.onClick.Invoke();
             TriggerAction.Trigger(onAccept);
         }
 
         public void OnDecline()
         {
-            if (cancelButton != null && cancelButton.isActiveAndEnabled && cancelButton.interactable && (parent == null || parent.isInFront))
+            if (
+                cancelButton != null
+                && cancelButton.isActiveAndEnabled
+                && cancelButton.interactable
+                && (parent == null || parent.isInFront)
+            )
                 cancelButton.onClick.Invoke();
             TriggerAction.Trigger(onDecline);
         }

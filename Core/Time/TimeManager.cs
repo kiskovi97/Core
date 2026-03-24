@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -37,7 +36,9 @@ namespace Kiskovi.Core
         public override void Tick()
         {
             base.Tick();
-            Time.timeScale = (isStoppingPausePanel || isStoppingWindow || pauseKeys.Any() ? 0f : modification);
+            Time.timeScale = (
+                isStoppingPausePanel || isStoppingWindow || pauseKeys.Any() ? 0f : modification
+            );
         }
 
         public void ChangePause(string key, bool value)

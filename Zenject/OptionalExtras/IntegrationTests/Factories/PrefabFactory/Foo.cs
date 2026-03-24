@@ -12,12 +12,8 @@ namespace Zenject.Tests.Factories.PrefabFactory
             WasInitialized = true;
         }
 
-        public class Factory : PlaceholderFactory<Object, Foo>
-        {
-        }
+        public class Factory : PlaceholderFactory<Object, Foo> { }
 
-        public class Factory2 : PlaceholderFactory<string, Foo>
-        {
-        }
+        public class Factory2 : PlaceholderFactory<string, Foo> { }
     }
 }

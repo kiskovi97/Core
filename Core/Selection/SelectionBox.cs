@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -14,21 +12,31 @@ namespace Kiskovi.Core
 {
     internal class SelectionBox : Selectable, ISubmitHandler
     {
-        [SerializeField] private TMP_Text descriptionText;
-        [SerializeField] private Button nextButton;
-        [SerializeField] private Button prevButton;
-        [SerializeField] private TriggerAction onChanged;
-        [SerializeField] private bool IsClickEnabled = true;
-        [NonSerialized] public UnityEvent<int> onValueChanged = new UnityEvent<int>();
+        [SerializeField]
+        private TMP_Text descriptionText;
+
+        [SerializeField]
+        private Button nextButton;
+
+        [SerializeField]
+        private Button prevButton;
+
+        [SerializeField]
+        private TriggerAction onChanged;
+
+        [SerializeField]
+        private bool IsClickEnabled = true;
+
+        [NonSerialized]
+        public UnityEvent<int> onValueChanged = new UnityEvent<int>();
         private int value;
         private List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
         public Dropdown.OptionData Selected => options[value];
 
-
         protected override void Start()
         {
             base.Start();
-            if (nextButton != null )
+            if (nextButton != null)
             {
                 nextButton.onClick.AddListener(OnNextClick);
                 nextButton.interactable = value < options.Count - 1;
@@ -74,7 +82,8 @@ namespace Kiskovi.Core
 
         private void OnPrevClick()
         {
-            if (!interactable) return;
+            if (!interactable)
+                return;
             TriggerAction.Trigger(onChanged);
             value--;
             SetValue();
@@ -82,7 +91,8 @@ namespace Kiskovi.Core
 
         private void OnNextClick()
         {
-            if (!interactable) return;
+            if (!interactable)
+                return;
             TriggerAction.Trigger(onChanged);
             value++;
             SetValue();
@@ -110,11 +120,14 @@ namespace Kiskovi.Core
 
         private void TranslationChanged(Locale locale = null)
         {
-            if (options.Count == 0) return;
+            if (options.Count == 0)
+                return;
 
             var option = options[value];
             if (descriptionText != null)
-                descriptionText.text = LocalizationSettings.StringDatabase.GetLocalizedString(option.text);
+                descriptionText.text = LocalizationSettings.StringDatabase.GetLocalizedString(
+                    option.text
+                );
         }
     }
 }

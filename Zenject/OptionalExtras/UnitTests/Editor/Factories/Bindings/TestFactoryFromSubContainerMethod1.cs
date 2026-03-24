@@ -9,8 +9,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestSelf()
         {
-            Container.BindFactory<string, Foo, Foo.Factory>()
-                .FromSubContainerResolve().ByMethod(InstallFoo).NonLazy();
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo)
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo.Factory>().Create("asdf").Value, "asdf");
         }
@@ -18,29 +21,30 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestConcrete()
         {
-            Container.BindFactory<string, IFoo, IFooFactory>().To<Foo>().FromSubContainerResolve().ByMethod(InstallFoo).NonLazy();
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo)
+                .NonLazy();
 
             Assert.IsEqual(Container.Resolve<IFooFactory>().Create("asdf").Value, "asdf");
         }
 
         void InstallFoo(DiContainer subContainer, string value)
         {
-            subContainer.Bind<Foo>().AsSingle().WithArgumentsExplicit(
-                InjectUtil.CreateArgListExplicit(value));
+            subContainer
+                .Bind<Foo>()
+                .AsSingle()
+                .WithArgumentsExplicit(InjectUtil.CreateArgListExplicit(value));
         }
 
         interface IFoo
         {
-            string Value
-            {
-                get;
-            }
-
+            string Value { get; }
         }
 
-        class IFooFactory : PlaceholderFactory<string, IFoo>
-        {
-        }
+        class IFooFactory : PlaceholderFactory<string, IFoo> { }
 
         class Foo : IFoo
         {
@@ -49,18 +53,9 @@ namespace Zenject.Tests.Bindings
                 Value = value;
             }
 
-            public string Value
-            {
-                get;
-                private set;
-            }
+            public string Value { get; private set; }
 
-            public class Factory : PlaceholderFactory<string, Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<string, Foo> { }
         }
     }
 }
-
-
-

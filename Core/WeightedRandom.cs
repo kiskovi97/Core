@@ -17,7 +17,6 @@ namespace Kiskovi.Core
             var center = Random.Range(0, listLength * clampedRandom);
             var range = Random.Range(0, listLength / 2 * clampedRandom);
 
-
             var min = Mathf.Max(0, center - range);
             var max = Mathf.Min(listLength, center + range);
 

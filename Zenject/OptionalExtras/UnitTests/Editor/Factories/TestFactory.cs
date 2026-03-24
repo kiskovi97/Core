@@ -14,17 +14,11 @@ namespace Zenject.Tests.AbstractFactory
             Assert.IsNotNull(Container.Resolve<Foo.Factory>().Create());
         }
 
-        public interface IFoo
-        {
-        }
+        public interface IFoo { }
 
         public class Foo : IFoo
         {
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
     }
 }
-
-

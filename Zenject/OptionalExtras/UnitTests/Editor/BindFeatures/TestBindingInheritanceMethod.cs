@@ -77,16 +77,10 @@ namespace Zenject.Tests.Other
             Assert.That(sub2.HasBindingId(typeof(Foo), null, InjectSources.Local));
         }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public class Foo
-        {
-        }
+        public class Foo { }
 
-        public class Bar : IBar
-        {
-        }
+        public class Bar : IBar { }
     }
 }

@@ -19,12 +19,22 @@ namespace Zenject.Tests.Other
 
             var container = new DiContainer();
 
-            container.Bind(typeof(TickableManager), typeof(InitializableManager), typeof(DisposableManager))
-                .ToSelf().AsSingle().CopyIntoAllSubContainers();
+            container
+                .Bind(
+                    typeof(TickableManager),
+                    typeof(InitializableManager),
+                    typeof(DisposableManager)
+                )
+                .ToSelf()
+                .AsSingle()
+                .CopyIntoAllSubContainers();
 
             // This is how you add ITickables / etc. within sub containers
-            container.BindInterfacesAndSelfTo<FooKernel>()
-                .FromSubContainerResolve().ByMethod(InstallFoo).AsSingle();
+            container
+                .BindInterfacesAndSelfTo<FooKernel>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo)
+                .AsSingle();
 
             var tickManager = container.Resolve<TickableManager>();
             var initManager = container.Resolve<InitializableManager>();
@@ -54,9 +64,7 @@ namespace Zenject.Tests.Other
             subContainer.Bind<IDisposable>().To<DisposeTest>().AsSingle();
         }
 
-        public class FooKernel : Kernel
-        {
-        }
+        public class FooKernel : Kernel { }
 
         public class InitTest : IInitializable
         {
@@ -89,5 +97,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-
-

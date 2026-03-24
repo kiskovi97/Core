@@ -6,10 +6,7 @@ namespace Zenject.Tests
     [TestFixture]
     public class TestValidationSettings
     {
-        DiContainer Container
-        {
-            get; set;
-        }
+        DiContainer Container { get; set; }
 
         [SetUp]
         public void Setup()
@@ -21,10 +18,10 @@ namespace Zenject.Tests
         //[Test]
         //public void TestValidationErrorLogOnly()
         //{
-            //Container.Settings = new ZenjectSettings(ValidationErrorResponses.Log);
-            //Container.Bind<Bar>().AsSingle().NonLazy();
+        //Container.Settings = new ZenjectSettings(ValidationErrorResponses.Log);
+        //Container.Bind<Bar>().AsSingle().NonLazy();
 
-            //Container.ResolveRoots();
+        //Container.ResolveRoots();
         //}
 
         [Test]
@@ -51,7 +48,9 @@ namespace Zenject.Tests
         public void TestOutsideObjectGraph2()
         {
             Container.Settings = new ZenjectSettings(
-                ValidationErrorResponses.Throw, RootResolveMethods.All);
+                ValidationErrorResponses.Throw,
+                RootResolveMethods.All
+            );
 
             Container.Bind<Bar>().AsSingle();
 
@@ -60,15 +59,9 @@ namespace Zenject.Tests
 
         public class Bar
         {
-            public Bar(Foo foo)
-            {
-            }
+            public Bar(Foo foo) { }
         }
 
-        public class Foo
-        {
-        }
+        public class Foo { }
     }
 }
-
-

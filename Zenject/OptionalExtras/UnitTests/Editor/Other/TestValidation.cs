@@ -6,17 +6,16 @@ namespace Zenject.Tests
     [TestFixture]
     public class TestValidation
     {
-        DiContainer Container
-        {
-            get; set;
-        }
+        DiContainer Container { get; set; }
 
         [SetUp]
         public void Setup()
         {
             Container = new DiContainer(true);
             Container.Settings = new ZenjectSettings(
-                ValidationErrorResponses.Throw, RootResolveMethods.All);
+                ValidationErrorResponses.Throw,
+                RootResolveMethods.All
+            );
         }
 
         [Test]
@@ -68,8 +67,10 @@ namespace Zenject.Tests
         [Test]
         public void TestSubContainerMethodSuccess()
         {
-            Container.Bind<Qux>().FromSubContainerResolve().ByMethod(
-                container =>
+            Container
+                .Bind<Qux>()
+                .FromSubContainerResolve()
+                .ByMethod(container =>
                 {
                     container.Bind<Qux>().AsSingle();
                     container.Bind<Foo>().AsSingle();
@@ -83,8 +84,10 @@ namespace Zenject.Tests
         [Test]
         public void TestSubContainerMethodFailure()
         {
-            Container.Bind<Qux>().FromSubContainerResolve().ByMethod(
-                container =>
+            Container
+                .Bind<Qux>()
+                .FromSubContainerResolve()
+                .ByMethod(container =>
                 {
                     container.Bind<Qux>().AsSingle();
                     container.Bind<Bar>().AsSingle();
@@ -148,18 +151,11 @@ namespace Zenject.Tests
 
         public class Loy : IValidatable, IInitializable, ITickable
         {
-            public int CallCount
-            {
-                get; set;
-            }
+            public int CallCount { get; set; }
 
-            public void Initialize()
-            {
-            }
+            public void Initialize() { }
 
-            public void Tick()
-            {
-            }
+            public void Tick() { }
 
             public void Validate()
             {
@@ -182,39 +178,24 @@ namespace Zenject.Tests
             }
         }
 
-        public class Qux
-        {
-        }
+        public class Qux { }
 
         public class Bar
         {
-            public Bar(Foo foo)
-            {
-            }
+            public Bar(Foo foo) { }
 
-            public class Factory : PlaceholderFactory<Bar>
-            {
-            }
+            public class Factory : PlaceholderFactory<Bar> { }
 
-            public class Pool : MemoryPool<Bar>
-            {
-            }
+            public class Pool : MemoryPool<Bar> { }
         }
 
-        public class Foo
-        {
-        }
+        public class Foo { }
 
-        public interface IGorp
-        {
-        }
+        public interface IGorp { }
 
         public class Gorp : IGorp, IValidatable
         {
-            public static int CallCount
-            {
-                get; set;
-            }
+            public static int CallCount { get; set; }
 
             public void Validate()
             {
@@ -223,4 +204,3 @@ namespace Zenject.Tests
         }
     }
 }
-

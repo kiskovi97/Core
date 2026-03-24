@@ -1,5 +1,4 @@
 using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -10,9 +9,12 @@ namespace Kiskovi.Core
         {
             Container.DeclareSignal<IDatabaseManager.DatabaseChangedSignal>().OptionalSubscriber();
 
-            Container.BindInterfacesAndSelfTo<SaveSystem>().AsSingle().WithArguments(Application.persistentDataPath).NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<SaveSystem>()
+                .AsSingle()
+                .WithArguments(Application.persistentDataPath)
+                .NonLazy();
             Container.BindInterfacesAndSelfTo<DatabaseManager>().AsSingle().NonLazy();
-
         }
     }
 }

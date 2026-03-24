@@ -1,4 +1,3 @@
-
 #if !(UNITY_WSA && ENABLE_DOTNET)
 
 using NUnit.Framework;
@@ -12,8 +11,14 @@ namespace Zenject.Tests.Convention.Names
         [Test]
         public void TestWithSuffix()
         {
-            Container.Bind<IController>()
-                .To(x => x.AllNonAbstractClasses().InNamespace("Zenject.Tests.Convention.Names").WithSuffix("Controller")).AsTransient();
+            Container
+                .Bind<IController>()
+                .To(x =>
+                    x.AllNonAbstractClasses()
+                        .InNamespace("Zenject.Tests.Convention.Names")
+                        .WithSuffix("Controller")
+                )
+                .AsTransient();
 
             Assert.That(Container.Resolve<IController>() is FooController);
         }
@@ -21,8 +26,14 @@ namespace Zenject.Tests.Convention.Names
         [Test]
         public void TestWithPrefix()
         {
-            Container.Bind<IController>()
-                .To(x => x.AllTypes().InNamespace("Zenject.Tests.Convention.Names").WithPrefix("Controller")).AsTransient();
+            Container
+                .Bind<IController>()
+                .To(x =>
+                    x.AllTypes()
+                        .InNamespace("Zenject.Tests.Convention.Names")
+                        .WithPrefix("Controller")
+                )
+                .AsTransient();
 
             Assert.That(Container.Resolve<IController>() is ControllerBar);
         }
@@ -30,35 +41,29 @@ namespace Zenject.Tests.Convention.Names
         [Test]
         public void TestMatchingRegex()
         {
-            Container.Bind<IController>()
-                .To(x => x.AllNonAbstractClasses().InNamespace("Zenject.Tests.Convention.Names").MatchingRegex("Controller$")).AsTransient();
+            Container
+                .Bind<IController>()
+                .To(x =>
+                    x.AllNonAbstractClasses()
+                        .InNamespace("Zenject.Tests.Convention.Names")
+                        .MatchingRegex("Controller$")
+                )
+                .AsTransient();
 
             Assert.That(Container.Resolve<IController>() is FooController);
         }
 
-        interface IController
-        {
-        }
+        interface IController { }
 
-        class FooController : IController
-        {
-        }
+        class FooController : IController { }
 
-        class ControllerBar : IController
-        {
-        }
+        class ControllerBar : IController { }
 
-        class QuxControllerAsdf : IController
-        {
-        }
+        class QuxControllerAsdf : IController { }
 
-        class IgnoredFooController
-        {
-        }
+        class IgnoredFooController { }
 
-        class ControllerBarIgnored
-        {
-        }
+        class ControllerBarIgnored { }
     }
 }
 

@@ -11,7 +11,9 @@ namespace Zenject.Tests.Other
         {
             var foo = new Foo();
 
-            Container.BindFactoryCustomInterface<Foo, Foo.Factory, Foo.IFooFactory>().FromInstance(foo);
+            Container
+                .BindFactoryCustomInterface<Foo, Foo.Factory, Foo.IFooFactory>()
+                .FromInstance(foo);
 
             Assert.IsEqual(Container.Resolve<Foo.IFooFactory>().Create(), foo);
         }
@@ -21,28 +23,22 @@ namespace Zenject.Tests.Other
         {
             var foo = new Foo();
 
-            Container.BindMemoryPoolCustomInterface<Foo, Foo.Pool, Foo.IFooPool>().FromInstance(foo);
+            Container
+                .BindMemoryPoolCustomInterface<Foo, Foo.Pool, Foo.IFooPool>()
+                .FromInstance(foo);
 
             Assert.IsEqual(Container.Resolve<Foo.IFooPool>().Spawn(), foo);
         }
 
         public class Foo
         {
-            public interface IFooFactory : IFactory<Foo>
-            {
-            }
+            public interface IFooFactory : IFactory<Foo> { }
 
-            public interface IFooPool : IMemoryPool<Foo>
-            {
-            }
+            public interface IFooPool : IMemoryPool<Foo> { }
 
-            public class Factory : PlaceholderFactory<Foo>, IFooFactory
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo>, IFooFactory { }
 
-            public class Pool : MemoryPool<Foo>, IFooPool
-            {
-            }
+            public class Pool : MemoryPool<Foo>, IFooPool { }
         }
     }
 }

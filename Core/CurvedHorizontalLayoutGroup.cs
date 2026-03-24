@@ -1,8 +1,6 @@
 using System.Linq;
-
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class CurvedHorizontalLayoutGroup : LayoutGroup
 {
@@ -14,13 +12,13 @@ public class CurvedHorizontalLayoutGroup : LayoutGroup
 
     private void Calculate()
     {
-        if (rectChildren.Count == 0) return;
+        if (rectChildren.Count == 0)
+            return;
 
         var last = rectChildren.LastOrDefault();
         var avgHeight = rectChildren.Average(item => item.rect.height);
-        var width = rectTransform.rect.width;// - last.rect.width;
+        var width = rectTransform.rect.width; // - last.rect.width;
         var height = rectTransform.rect.height;
-
 
         var x = height - avgHeight;
         var y = width / 2f;
@@ -28,7 +26,6 @@ public class CurvedHorizontalLayoutGroup : LayoutGroup
         var d = (y * c) / (x * 2);
         var r = Mathf.Sqrt(d * d + (c / 2) * (c / 2));
         var distance = r;
-
 
         var centerPosition = new Vector2(width / 2f, height + distance - x);
         var startingPos = new Vector2(0f, height);
@@ -58,18 +55,14 @@ public class CurvedHorizontalLayoutGroup : LayoutGroup
         }
     }
 
-    public override float preferredWidth => rectChildren.Any() ? rectChildren.Sum(item => LayoutUtility.GetPreferredWidth(item)) : base.preferredWidth;
+    public override float preferredWidth =>
+        rectChildren.Any()
+            ? rectChildren.Sum(item => LayoutUtility.GetPreferredWidth(item))
+            : base.preferredWidth;
 
-    public override void CalculateLayoutInputVertical()
-    {
-    }
+    public override void CalculateLayoutInputVertical() { }
 
-    public override void SetLayoutHorizontal()
-    {
-    }
+    public override void SetLayoutHorizontal() { }
 
-    public override void SetLayoutVertical()
-    {
-    }
+    public override void SetLayoutVertical() { }
 }
-

@@ -25,7 +25,7 @@ namespace Zenject.Tests.Signals
         [Test]
         public void TestBindWithoutDeclaration()
         {
-            Container.BindSignal<FooSignal>().ToMethod(() => {});
+            Container.BindSignal<FooSignal>().ToMethod(() => { });
 
             Assert.Throws(() => Container.ResolveRoots());
         }
@@ -71,8 +71,10 @@ namespace Zenject.Tests.Signals
             Container.DeclareSignal<FooSignal>();
 
             var qux = new Qux();
-            Container.BindSignal<FooSignal>()
-                .ToMethod<Qux>(x => x.OnFoo).From(b => b.FromInstance(qux));
+            Container
+                .BindSignal<FooSignal>()
+                .ToMethod<Qux>(x => x.OnFoo)
+                .From(b => b.FromInstance(qux));
             Container.ResolveRoots();
 
             var signalBus = Container.Resolve<SignalBus>();
@@ -88,8 +90,10 @@ namespace Zenject.Tests.Signals
             Container.DeclareSignal<FooSignal>();
 
             var gorp = new Gorp();
-            Container.BindSignal<FooSignal>()
-                .ToMethod<Gorp>(x => x.OnFoo).From(b => b.FromInstance(gorp));
+            Container
+                .BindSignal<FooSignal>()
+                .ToMethod<Gorp>(x => x.OnFoo)
+                .From(b => b.FromInstance(gorp));
             Container.ResolveRoots();
 
             var signalBus = Container.Resolve<SignalBus>();
@@ -107,8 +111,11 @@ namespace Zenject.Tests.Signals
 
             var gorp = new Gorp();
 
-            Container.BindSignal<FooSignal>()
-                .ToMethod<Gorp>(x => x.OnFoo).From(b => b.FromInstance(gorp)).MoveIntoDirectSubContainers();
+            Container
+                .BindSignal<FooSignal>()
+                .ToMethod<Gorp>(x => x.OnFoo)
+                .From(b => b.FromInstance(gorp))
+                .MoveIntoDirectSubContainers();
             Container.ResolveRoots();
 
             var signalBus1 = Container.Resolve<SignalBus>();
@@ -135,10 +142,7 @@ namespace Zenject.Tests.Signals
                 HasRecievedSignal = true;
             }
 
-            public bool HasRecievedSignal
-            {
-                get; private set;
-            }
+            public bool HasRecievedSignal { get; private set; }
         }
 
         public class Gorp
@@ -148,16 +152,9 @@ namespace Zenject.Tests.Signals
                 ReceivedValue = foo;
             }
 
-            public FooSignal ReceivedValue
-            {
-                get; private set;
-            }
+            public FooSignal ReceivedValue { get; private set; }
         }
 
-        public class FooSignal
-        {
-        }
+        public class FooSignal { }
     }
 }
-
-

@@ -11,6 +11,7 @@ namespace Kiskovi.Core
     {
         public Vector2 startPoint;
         public Vector2 endPoint;
+
         public Line(Vector2 start, Vector2 end)
         {
             startPoint = start;
@@ -21,22 +22,31 @@ namespace Kiskovi.Core
     [RequireComponent(typeof(CanvasRenderer))]
     public class UILineRenderer : Graphic
     {
-        [SerializeField] private float lineWidth = 5f;
+        [SerializeField]
+        private float lineWidth = 5f;
 
         private List<Line> _lines = new List<Line>();
 
         public void SetLine(Vector2 start, Vector2 end)
         {
             _lines.Clear();
-            _lines.Add(new Line(rectTransform.InverseTransformPoint(start), rectTransform.InverseTransformPoint(end)));
+            _lines.Add(
+                new Line(
+                    rectTransform.InverseTransformPoint(start),
+                    rectTransform.InverseTransformPoint(end)
+                )
+            );
             SetVerticesDirty();
         }
+
         public void SetLines(IEnumerable<Line> lines)
         {
-            _lines = lines.Select(item => new Line(
-                rectTransform.InverseTransformPoint(item.startPoint),
-                rectTransform.InverseTransformPoint(item.endPoint)
-            )).ToList();
+            _lines = lines
+                .Select(item => new Line(
+                    rectTransform.InverseTransformPoint(item.startPoint),
+                    rectTransform.InverseTransformPoint(item.endPoint)
+                ))
+                .ToList();
             SetVerticesDirty();
         }
 
@@ -54,7 +64,6 @@ namespace Kiskovi.Core
                 Vector2 v2 = line.startPoint - normal;
                 Vector2 v3 = line.endPoint - normal;
                 Vector2 v4 = line.endPoint + normal;
-
 
                 vh.AddVert(v1, color, Vector2.zero);
                 vh.AddVert(v2, color, Vector2.zero);

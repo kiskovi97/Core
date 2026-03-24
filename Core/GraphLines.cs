@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using ModestTree;
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +10,10 @@ namespace Kiskovi.Core
     {
         public List<List<float>> _lines = new List<List<float>>()
         {
-            new List<float>() { 0.2f,0.4f, 1f, },
-            new List<float>() { 1f,0.4f, 0f, },
+            new List<float>() { 0.2f, 0.4f, 1f },
+            new List<float>() { 1f, 0.4f, 0f },
         };
-        private List<float> _mainLine = new List<float>()
-        {
-            1f,0.4f, 0f,
-        };
+        private List<float> _mainLine = new List<float>() { 1f, 0.4f, 0f };
         public Color32 otherColor;
         public float lineSize = 2f;
         public float lineSizeSmall = 0.5f;
@@ -26,27 +21,29 @@ namespace Kiskovi.Core
         public void SetLines(IEnumerable<List<float>> lines)
         {
             this._lines = new List<List<float>>();
-            foreach(var line in lines)
+            foreach (var line in lines)
             {
                 if (line.Count > 10)
                 {
                     var list = new List<float>();
                     var step = line.Count / 10 + 1;
                     var index = 0;
-                    while(line.Skip(index).Take(step).Any())
+                    while (line.Skip(index).Take(step).Any())
                     {
                         var avg = line.Skip(index).Take(step).Average();
                         list.Add(avg);
                         index += step;
                     }
                     this._lines.Add(list.ToList());
-                } else
+                }
+                else
                 {
                     this._lines.Add(line.ToList());
                 }
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
         }
+
         public void SetMainLine(List<float> mainLine)
         {
             if (mainLine.Count > 10)
@@ -93,23 +90,41 @@ namespace Kiskovi.Core
                     var value = line[i];
                     var valuePrev = line[i - 1];
 #if UNITY_WEBGL
-                    DrawLine(vh, GetPosition((i - 1) / length, valuePrev, rect), GetPosition(i / length, value, rect), otherColor, lineSizeSmall * 6f);
+                    DrawLine(
+                        vh,
+                        GetPosition((i - 1) / length, valuePrev, rect),
+                        GetPosition(i / length, value, rect),
+                        otherColor,
+                        lineSizeSmall * 6f
+                    );
 #else
-                    DrawLine(vh, GetPosition((i - 1) / length, valuePrev, rect), GetPosition(i / length, value, rect), otherColor, lineSizeSmall);
+                    DrawLine(
+                        vh,
+                        GetPosition((i - 1) / length, valuePrev, rect),
+                        GetPosition(i / length, value, rect),
+                        otherColor,
+                        lineSizeSmall
+                    );
 #endif
                 }
             }
 
-            if (_mainLine == null) return;
+            if (_mainLine == null)
+                return;
 
             var mainLength = _mainLine.Count - 1f;
             for (int i = 1; i < _mainLine.Count; i++)
             {
                 var value = _mainLine[i];
                 var valuePrev = _mainLine[i - 1];
-                DrawLine(vh, GetPosition((i - 1) / mainLength, valuePrev, rect), GetPosition(i / mainLength, value, rect), color, lineSize);
+                DrawLine(
+                    vh,
+                    GetPosition((i - 1) / mainLength, valuePrev, rect),
+                    GetPosition(i / mainLength, value, rect),
+                    color,
+                    lineSize
+                );
             }
-
         }
 
         protected Vector2 GetPosition(float x, float y, Rect rect)
@@ -117,7 +132,13 @@ namespace Kiskovi.Core
             return new Vector2(rect.x + rect.width * x, rect.y + rect.height * y);
         }
 
-        protected void DrawLine(VertexHelper vh, Vector2 from, Vector2 to, Color color, float lineSize)
+        protected void DrawLine(
+            VertexHelper vh,
+            Vector2 from,
+            Vector2 to,
+            Color color,
+            float lineSize
+        )
         {
             var index = vh.currentVertCount;
 

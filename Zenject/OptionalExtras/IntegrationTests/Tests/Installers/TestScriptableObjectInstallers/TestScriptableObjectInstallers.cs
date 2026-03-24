@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 using Zenject.Tests.Installers.ScriptableObjectInstallers;
@@ -12,7 +11,12 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestBadResourcePath()
         {
             PreInstall();
-            Assert.Throws(() => FooInstaller.InstallFromResource("TestScriptableObjectInstallers/SDFSDFSDF", Container));
+            Assert.Throws(() =>
+                FooInstaller.InstallFromResource(
+                    "TestScriptableObjectInstallers/SDFSDFSDF",
+                    Container
+                )
+            );
             PostInstall();
             yield break;
         }
@@ -21,7 +25,10 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestZeroArgs()
         {
             PreInstall();
-            FooInstaller.InstallFromResource("TestScriptableObjectInstallers/FooInstaller", Container);
+            FooInstaller.InstallFromResource(
+                "TestScriptableObjectInstallers/FooInstaller",
+                Container
+            );
 
             PostInstall();
 
@@ -33,7 +40,11 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestOneArg()
         {
             PreInstall();
-            BarInstaller.InstallFromResource("TestScriptableObjectInstallers/BarInstaller", Container, "blurg");
+            BarInstaller.InstallFromResource(
+                "TestScriptableObjectInstallers/BarInstaller",
+                Container,
+                "blurg"
+            );
 
             PostInstall();
 
@@ -45,7 +56,13 @@ namespace Zenject.Tests.Installers
         public IEnumerator TestThreeArgs()
         {
             PreInstall();
-            QuxInstaller.InstallFromResource("TestScriptableObjectInstallers/QuxInstaller", Container, "blurg", 2.0f, 1);
+            QuxInstaller.InstallFromResource(
+                "TestScriptableObjectInstallers/QuxInstaller",
+                Container,
+                "blurg",
+                2.0f,
+                1
+            );
 
             PostInstall();
 
@@ -54,4 +71,3 @@ namespace Zenject.Tests.Installers
         }
     }
 }
-

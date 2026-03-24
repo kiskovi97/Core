@@ -95,8 +95,7 @@ namespace Zenject.Tests.Bindings
             Container.Bind<Foo>().AsSingle();
             Container.Bind<Foo>().AsSingle();
 
-            Assert.Throws(
-                () => Container.FlushBindings());
+            Assert.Throws(() => Container.FlushBindings());
         }
 
         [Test]
@@ -180,8 +179,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMultipleBindingsConcreteMultipleSingle()
         {
-            Container.Bind(typeof(IFoo), typeof(IBar))
-                .To(new List<Type> {typeof(Foo), typeof(Bar)}).AsSingle().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(IBar))
+                .To(new List<Type> { typeof(Foo), typeof(Bar) })
+                .AsSingle()
+                .NonLazy();
 
             var foos = Container.ResolveAll<IFoo>();
             var bars = Container.ResolveAll<IBar>();
@@ -199,7 +201,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMultipleBindingsConcreteMultipleTransient()
         {
-            Container.Bind(typeof(IFoo), typeof(IBar)).To(new List<Type> {typeof(Foo), typeof(Bar)}).AsTransient().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(IBar))
+                .To(new List<Type> { typeof(Foo), typeof(Bar) })
+                .AsTransient()
+                .NonLazy();
 
             var foos = Container.ResolveAll<IFoo>();
             var bars = Container.ResolveAll<IBar>();
@@ -217,7 +223,11 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestMultipleBindingsConcreteMultipleCached()
         {
-            Container.Bind(typeof(IFoo), typeof(IBar)).To(new List<Type> {typeof(Foo), typeof(Bar)}).AsCached().NonLazy();
+            Container
+                .Bind(typeof(IFoo), typeof(IBar))
+                .To(new List<Type> { typeof(Foo), typeof(Bar) })
+                .AsCached()
+                .NonLazy();
             Container.Bind<Foo>().AsCached().NonLazy();
             Container.Bind<Bar>().AsCached().NonLazy();
 
@@ -237,24 +247,14 @@ namespace Zenject.Tests.Bindings
             Assert.IsNotEqual(foos[1], Container.Resolve<Bar>());
         }
 
-        interface IBar
-        {
-        }
+        interface IBar { }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class Foo : IFoo, IBar
-        {
-        }
+        class Foo : IFoo, IBar { }
 
-        class Bar : IFoo, IBar
-        {
-        }
+        class Bar : IFoo, IBar { }
 
-        public class Qux
-        {
-        }
+        public class Qux { }
     }
 }

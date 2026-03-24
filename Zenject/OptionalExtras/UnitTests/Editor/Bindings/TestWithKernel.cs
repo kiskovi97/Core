@@ -10,15 +10,9 @@ namespace Zenject.Tests.Bindings
 
         public class Foo : IInitializable
         {
-            public bool WasInitialized
-            {
-                get; private set;
-            }
+            public bool WasInitialized { get; private set; }
 
-            public int InitializeCount
-            {
-                get; private set;
-            }
+            public int InitializeCount { get; private set; }
 
             public void Initialize()
             {
@@ -30,10 +24,7 @@ namespace Zenject.Tests.Bindings
         public class FooFacade
         {
             [Inject]
-            public Foo Foo
-            {
-                get; private set;
-            }
+            public Foo Foo { get; private set; }
         }
 
         public class FooInstaller : Installer<FooInstaller>
@@ -53,8 +44,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestByInstaller()
         {
-            Container.Bind<FooFacade>().FromSubContainerResolve()
-                .ByInstaller<FooInstaller>().WithKernel().AsSingle();
+            Container
+                .Bind<FooFacade>()
+                .FromSubContainerResolve()
+                .ByInstaller<FooInstaller>()
+                .WithKernel()
+                .AsSingle();
 
             ZenjectManagersInstaller.Install(Container);
             Container.ResolveRoots();
@@ -69,8 +64,12 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestByMethod()
         {
-            Container.Bind<FooFacade>().FromSubContainerResolve()
-                .ByMethod(InstallFoo).WithKernel().AsSingle();
+            Container
+                .Bind<FooFacade>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo)
+                .WithKernel()
+                .AsSingle();
 
             ZenjectManagersInstaller.Install(Container);
             Container.ResolveRoots();
@@ -82,16 +81,11 @@ namespace Zenject.Tests.Bindings
             Assert.That(facade.Foo.WasInitialized);
         }
 
-        public class FooKernel : Kernel
-        {
-        }
+        public class FooKernel : Kernel { }
 
         public class Bar : IInitializable
         {
-            public int InitializeCount
-            {
-                get; private set;
-            }
+            public int InitializeCount { get; private set; }
 
             public void Initialize()
             {
@@ -105,8 +99,12 @@ namespace Zenject.Tests.Bindings
             GlobalInitializeCount = 0;
 
             Container.BindInterfacesAndSelfTo<Bar>().AsSingle();
-            Container.Bind<FooFacade>().FromSubContainerResolve()
-                .ByInstaller<FooInstaller>().WithKernel<FooKernel>().AsSingle();
+            Container
+                .Bind<FooFacade>()
+                .FromSubContainerResolve()
+                .ByInstaller<FooInstaller>()
+                .WithKernel<FooKernel>()
+                .AsSingle();
 
             ZenjectManagersInstaller.Install(Container);
             Container.ResolveRoots();
@@ -127,8 +125,12 @@ namespace Zenject.Tests.Bindings
             GlobalInitializeCount = 0;
 
             Container.BindInterfacesAndSelfTo<Bar>().AsSingle();
-            Container.Bind<FooFacade>().FromSubContainerResolve()
-                .ByInstaller<FooInstaller>().WithKernel<FooKernel>().AsSingle();
+            Container
+                .Bind<FooFacade>()
+                .FromSubContainerResolve()
+                .ByInstaller<FooInstaller>()
+                .WithKernel<FooKernel>()
+                .AsSingle();
 
             Container.BindExecutionOrder<FooKernel>(-1);
 
@@ -146,5 +148,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-
-

@@ -1,4 +1,3 @@
-
 using System;
 using NUnit.Framework;
 using Zenject.Internal;
@@ -9,13 +8,9 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestCustomInjectAttribute : ZenjectUnitTestFixture
     {
-        public class InjectCustomAttribute : Attribute
-        {
-        }
+        public class InjectCustomAttribute : Attribute { }
 
-        class Bar
-        {
-        }
+        class Bar { }
 
         [NoReflectionBaking]
         class Foo
@@ -32,10 +27,7 @@ namespace Zenject.Tests.Other
             public Bar BarMethod;
 
             [InjectCustom]
-            public Bar BarProperty
-            {
-                get; private set;
-            }
+            public Bar BarProperty { get; private set; }
 
             [InjectCustom]
             public void Construct(Bar bar)

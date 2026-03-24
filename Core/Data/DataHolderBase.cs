@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace Kiskovi.Core
 {
-  public class DataHolderBase : MonoBehaviour
-  {
-    public TriggerAction OnItemChanged;
-
-    public event Action OnChanged;
-    public IData StoredData { get; protected set; }
-
-    public virtual void SetData(IData itemData)
+    public class DataHolderBase : MonoBehaviour
     {
-      StoredData = itemData;
+        public TriggerAction OnItemChanged;
 
-      OnChanged?.Invoke();
+        public event Action OnChanged;
+        public IData StoredData { get; protected set; }
 
-      TriggerAction.Trigger(OnItemChanged);
+        public virtual void SetData(IData itemData)
+        {
+            StoredData = itemData;
+
+            OnChanged?.Invoke();
+
+            TriggerAction.Trigger(OnItemChanged);
+        }
     }
-  }
 }

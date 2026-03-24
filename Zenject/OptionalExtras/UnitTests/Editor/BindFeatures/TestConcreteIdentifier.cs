@@ -12,8 +12,12 @@ namespace Zenject.Tests.BindFeatures
             Container.Bind<IFoo>().To<Foo>().AsCached().WithConcreteId("asdf");
             Container.Bind<IFoo>().To<Foo>().AsCached();
 
-            Container.BindInstance("a").When(x => Equals(x.ConcreteIdentifier, "asdf") && x.ObjectType == typeof(Foo));
-            Container.BindInstance("b").When(x => x.ConcreteIdentifier == null && x.ObjectType == typeof(Foo));
+            Container
+                .BindInstance("a")
+                .When(x => Equals(x.ConcreteIdentifier, "asdf") && x.ObjectType == typeof(Foo));
+            Container
+                .BindInstance("b")
+                .When(x => x.ConcreteIdentifier == null && x.ObjectType == typeof(Foo));
 
             var foos = Container.ResolveAll<IFoo>();
 
@@ -23,10 +27,7 @@ namespace Zenject.Tests.BindFeatures
 
         interface IFoo
         {
-            string Value
-            {
-                get;
-            }
+            string Value { get; }
         }
 
         class Foo : IFoo
@@ -36,12 +37,7 @@ namespace Zenject.Tests.BindFeatures
                 Value = data;
             }
 
-            public string Value
-            {
-                get; private set;
-            }
+            public string Value { get; private set; }
         }
     }
 }
-
-

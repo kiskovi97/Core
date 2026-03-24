@@ -8,7 +8,8 @@ namespace Kiskovi.Core
     {
         public TriggerAction onSignalRecived;
 
-        [HideInInspector] public string inputActionSignalTypeName;
+        [HideInInspector]
+        public string inputActionSignalTypeName;
 
         private Type _cachedType;
         protected Type CachedType
@@ -21,7 +22,8 @@ namespace Kiskovi.Core
             }
         }
 
-        [Inject] protected SignalBus _signalBus;
+        [Inject]
+        protected SignalBus _signalBus;
 
         private void OnEnable()
         {

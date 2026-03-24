@@ -53,9 +53,7 @@ namespace Zenject.Tests.Injection
         }
 
         [NoReflectionBaking]
-        class Test0
-        {
-        }
+        class Test0 { }
 
         [NoReflectionBaking]
         abstract class FooBaseBaked
@@ -70,24 +68,13 @@ namespace Zenject.Tests.Injection
             protected Test0 BaseFieldProtected = null;
 
             [Inject]
-            public Test0 BasePropertyPublic
-            {
-                get; set;
-            }
+            public Test0 BasePropertyPublic { get; set; }
 
             [Inject]
-            Test0 BasePropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 BasePropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 BasePropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 BasePropertyProtected { get; set; }
 
             [Inject]
             public void PostInjectBase()
@@ -95,10 +82,7 @@ namespace Zenject.Tests.Injection
                 DidPostInjectBase = true;
             }
 
-            public bool DidPostInjectBase
-            {
-                get; private set;
-            }
+            public bool DidPostInjectBase { get; private set; }
 
             private static void __zenFieldSetter0(object P_0, object P_1)
             {
@@ -138,18 +122,87 @@ namespace Zenject.Tests.Injection
             [Preserve]
             private static InjectTypeInfo CreateInjectTypeInfo()
             {
-                return new InjectTypeInfo(typeof(FooBaseBaked), new InjectTypeInfo.InjectConstructorInfo(null, new InjectableInfo[0]), new InjectTypeInfo.InjectMethodInfo[1]
-                {
-                    new InjectTypeInfo.InjectMethodInfo(__zenInjectMethod0, new InjectableInfo[0], "PostInjectBase")
-                }, new InjectTypeInfo.InjectMemberInfo[6]
-                {
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter0, new InjectableInfo(false, null, "BaseFieldPublic", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter1, new InjectableInfo(false, null, "BaseFieldPrivate", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter2, new InjectableInfo(false, null, "BaseFieldProtected", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter0, new InjectableInfo(false, null, "BasePropertyPublic", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter1, new InjectableInfo(false, null, "BasePropertyPrivate", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter2, new InjectableInfo(false, null, "BasePropertyProtected", typeof(Test0), null, 0))
-                });
+                return new InjectTypeInfo(
+                    typeof(FooBaseBaked),
+                    new InjectTypeInfo.InjectConstructorInfo(null, new InjectableInfo[0]),
+                    new InjectTypeInfo.InjectMethodInfo[1]
+                    {
+                        new InjectTypeInfo.InjectMethodInfo(
+                            __zenInjectMethod0,
+                            new InjectableInfo[0],
+                            "PostInjectBase"
+                        ),
+                    },
+                    new InjectTypeInfo.InjectMemberInfo[6]
+                    {
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter0,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BaseFieldPublic",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter1,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BaseFieldPrivate",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter2,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BaseFieldProtected",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter0,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BasePropertyPublic",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter1,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BasePropertyPrivate",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter2,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "BasePropertyProtected",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                    }
+                );
             }
         }
 
@@ -165,9 +218,7 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            public void PostInject()
-            {
-            }
+            public void PostInject() { }
 
             [Inject]
             public Test0 DerivedFieldPublic = null;
@@ -179,24 +230,13 @@ namespace Zenject.Tests.Injection
             protected Test0 DerivedFieldProtected = null;
 
             [Inject]
-            public Test0 DerivedPropertyPublic
-            {
-                get; set;
-            }
+            public Test0 DerivedPropertyPublic { get; set; }
 
             [Inject]
-            Test0 DerivedPropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 DerivedPropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 DerivedPropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 DerivedPropertyProtected { get; set; }
 
             private static object __zenCreate(object[] P_0)
             {
@@ -241,21 +281,93 @@ namespace Zenject.Tests.Injection
             [Preserve]
             private static InjectTypeInfo CreateInjectTypeInfo()
             {
-                return new InjectTypeInfo(typeof(FooDerivedBaked), new InjectTypeInfo.InjectConstructorInfo(__zenCreate, new InjectableInfo[1]
-                {
-                    new InjectableInfo(false, null, "param", typeof(Test0), null, 0)
-                }), new InjectTypeInfo.InjectMethodInfo[1]
-                {
-                    new InjectTypeInfo.InjectMethodInfo(__zenInjectMethod0, new InjectableInfo[0], "PostInject")
-                }, new InjectTypeInfo.InjectMemberInfo[6]
-                {
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter0, new InjectableInfo(false, null, "DerivedFieldPublic", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter1, new InjectableInfo(false, null, "DerivedFieldPrivate", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenFieldSetter2, new InjectableInfo(false, null, "DerivedFieldProtected", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter0, new InjectableInfo(false, null, "DerivedPropertyPublic", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter1, new InjectableInfo(false, null, "DerivedPropertyPrivate", typeof(Test0), null, 0)),
-                    new InjectTypeInfo.InjectMemberInfo(__zenPropertySetter2, new InjectableInfo(false, null, "DerivedPropertyProtected", typeof(Test0), null, 0))
-                });
+                return new InjectTypeInfo(
+                    typeof(FooDerivedBaked),
+                    new InjectTypeInfo.InjectConstructorInfo(
+                        __zenCreate,
+                        new InjectableInfo[1]
+                        {
+                            new InjectableInfo(false, null, "param", typeof(Test0), null, 0),
+                        }
+                    ),
+                    new InjectTypeInfo.InjectMethodInfo[1]
+                    {
+                        new InjectTypeInfo.InjectMethodInfo(
+                            __zenInjectMethod0,
+                            new InjectableInfo[0],
+                            "PostInject"
+                        ),
+                    },
+                    new InjectTypeInfo.InjectMemberInfo[6]
+                    {
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter0,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedFieldPublic",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter1,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedFieldPrivate",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenFieldSetter2,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedFieldProtected",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter0,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedPropertyPublic",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter1,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedPropertyPrivate",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                        new InjectTypeInfo.InjectMemberInfo(
+                            __zenPropertySetter2,
+                            new InjectableInfo(
+                                false,
+                                null,
+                                "DerivedPropertyProtected",
+                                typeof(Test0),
+                                null,
+                                0
+                            )
+                        ),
+                    }
+                );
             }
         }
 
@@ -272,24 +384,13 @@ namespace Zenject.Tests.Injection
             protected Test0 BaseFieldProtected = null;
 
             [Inject]
-            public Test0 BasePropertyPublic
-            {
-                get; set;
-            }
+            public Test0 BasePropertyPublic { get; set; }
 
             [Inject]
-            Test0 BasePropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 BasePropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 BasePropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 BasePropertyProtected { get; set; }
 
             [Inject]
             public void PostInjectBase()
@@ -297,10 +398,7 @@ namespace Zenject.Tests.Injection
                 DidPostInjectBase = true;
             }
 
-            public bool DidPostInjectBase
-            {
-                get; private set;
-            }
+            public bool DidPostInjectBase { get; private set; }
         }
 
         [NoReflectionBaking]
@@ -315,9 +413,7 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            public void PostInject()
-            {
-            }
+            public void PostInject() { }
 
             [Inject]
             public Test0 DerivedFieldPublic = null;
@@ -329,24 +425,13 @@ namespace Zenject.Tests.Injection
             protected Test0 DerivedFieldProtected = null;
 
             [Inject]
-            public Test0 DerivedPropertyPublic
-            {
-                get; set;
-            }
+            public Test0 DerivedPropertyPublic { get; set; }
 
             [Inject]
-            Test0 DerivedPropertyPrivate
-            {
-                get;
-                set;
-            }
+            Test0 DerivedPropertyPrivate { get; set; }
 
             [Inject]
-            protected Test0 DerivedPropertyProtected
-            {
-                get;
-                set;
-            }
+            protected Test0 DerivedPropertyProtected { get; set; }
         }
     }
 }

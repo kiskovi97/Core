@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -8,7 +7,8 @@ namespace Kiskovi.Core
     {
         public InputInfoGroup inputInfo;
 
-        [Inject] private IAvailableInputManager manager;
+        [Inject]
+        private IAvailableInputManager manager;
 
         private void OnEnable()
         {

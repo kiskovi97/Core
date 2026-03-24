@@ -33,13 +33,9 @@ namespace Zenject.Tests.Bindings
 
         public class Foo
         {
-            public Foo(Bar bar)
-            {
-            }
+            public Foo(Bar bar) { }
         }
 
-        public class Bar
-        {
-        }
+        public class Bar { }
     }
 }

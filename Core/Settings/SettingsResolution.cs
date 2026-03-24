@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
-
 using UnityEngine;
-
 using static UnityEngine.UI.Dropdown;
 
 namespace Kiskovi.Core
 {
     internal class SettingsResolution : MonoBehaviour
     {
-        [SerializeField] private SelectionBox selectionBox;
+        [SerializeField]
+        private SelectionBox selectionBox;
 
         private int resCount = 0;
 
@@ -36,7 +35,9 @@ namespace Kiskovi.Core
         private void Initialized()
         {
             resCount = Screen.resolutions.Length;
-            var options = Screen.resolutions.Select(item => new OptionData(item.width + " x " + item.height));
+            var options = Screen.resolutions.Select(item => new OptionData(
+                item.width + " x " + item.height
+            ));
             var value = Screen.currentResolution;
             if (Screen.resolutions.Contains(value))
             {

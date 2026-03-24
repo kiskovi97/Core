@@ -8,7 +8,8 @@ namespace Kiskovi.Core
         public GameObject keyboardObject;
         public GameObject xboxObject;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         private void Start()
         {
@@ -30,6 +31,7 @@ namespace Kiskovi.Core
         {
             SetObjects(obj.Scheme);
         }
+
         private void SetObjects(ControlScheme Scheme)
         {
             switch (Scheme)

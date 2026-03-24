@@ -9,10 +9,14 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void Test1()
         {
-            Container.BindFactory<Foo, Foo.Factory>().WithId("foo1")
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .WithId("foo1")
                 .FromIFactory(x => x.To<FooFactory>().AsCached().WithArguments("asdf"));
 
-            Container.BindFactory<Foo, Foo.Factory>().WithId("foo2")
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .WithId("foo2")
                 .FromIFactory(x => x.To<FooFactory>().AsCached().WithArguments("zxcv"));
 
             var factory1 = Container.ResolveId<Foo.Factory>("foo1");
@@ -29,14 +33,9 @@ namespace Zenject.Tests.Bindings
                 Value = value;
             }
 
-            public string Value
-            {
-                get; private set;
-            }
+            public string Value { get; private set; }
 
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
 
         public class FooFactory : IFactory<Foo>
@@ -44,9 +43,7 @@ namespace Zenject.Tests.Bindings
             readonly string _value;
             readonly DiContainer _container;
 
-            public FooFactory(
-                DiContainer container,
-                string value)
+            public FooFactory(DiContainer container, string value)
             {
                 _value = value;
                 _container = container;
@@ -54,7 +51,7 @@ namespace Zenject.Tests.Bindings
 
             public Foo Create()
             {
-                return _container.Instantiate<Foo>(new [] { _value });
+                return _container.Instantiate<Foo>(new[] { _value });
             }
         }
     }

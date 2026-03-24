@@ -6,7 +6,8 @@ namespace Kiskovi.Core
     {
         public TutorialReference tutorial;
 
-        [Inject] private ITutorialManager _manager;
+        [Inject]
+        private ITutorialManager _manager;
 
         public override void Trigger(params object[] parameter)
         {

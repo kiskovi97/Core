@@ -2,7 +2,5 @@
 
 namespace Zenject.Tests.Bindings.FromPrefab
 {
-    public class Bar : MonoBehaviour
-    {
-    }
+    public class Bar : MonoBehaviour { }
 }

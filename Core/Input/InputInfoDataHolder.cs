@@ -1,8 +1,6 @@
 ﻿using TMPro;
-
 using UnityEngine;
 using UnityEngine.UI;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -15,13 +13,15 @@ namespace Kiskovi.Core
         public Sprite defaultIconSprite;
         public TMP_Text inputText;
 
-        [Inject] private IInputIconManager iconManager;
+        [Inject]
+        private IInputIconManager iconManager;
 
         public override void SetData(IData itemData)
         {
             base.SetData(itemData);
 
-            if (Data == null) return;
+            if (Data == null)
+                return;
 
             if (text != null)
                 text.text = GetLocalizedString(Data.title);
@@ -33,8 +33,6 @@ namespace Kiskovi.Core
 
             if (iconImage != null)
                 iconImage.sprite = icon != null ? icon : defaultIconSprite;
-
-
 
             if (inputText != null)
             {

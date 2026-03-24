@@ -11,14 +11,22 @@ namespace Zenject.Tests.Other
         [Test]
         public void Test1()
         {
-            Container.BindFactory<Foo, Foo.Factory>().WithId("foo1")
-                .FromSubContainerResolve().ByMethod(InstallFoo1);
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .WithId("foo1")
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo1);
 
-            Container.BindFactory<Foo, Foo.Factory>().WithId("foo2")
-                .FromSubContainerResolve().ByMethod(InstallFoo2);
+            Container
+                .BindFactory<Foo, Foo.Factory>()
+                .WithId("foo2")
+                .FromSubContainerResolve()
+                .ByMethod(InstallFoo2);
 
-            Container.Bind<Dictionary<string, IFactory<Foo>>>()
-                .FromMethod(GetFooFactories).WhenInjectedInto<FooFactory>();
+            Container
+                .Bind<Dictionary<string, IFactory<Foo>>>()
+                .FromMethod(GetFooFactories)
+                .WhenInjectedInto<FooFactory>();
 
             Container.Bind<FooFactory>().AsSingle();
 
@@ -32,9 +40,12 @@ namespace Zenject.Tests.Other
 
         Dictionary<string, IFactory<Foo>> GetFooFactories(InjectContext ctx)
         {
-            return ctx.Container.AllContracts.Where(
-                x => x.Type == typeof(Foo.Factory))
-                .ToDictionary(x => (string)x.Identifier, x => (IFactory<Foo>)ctx.Container.ResolveId<Foo.Factory>(x.Identifier));
+            return ctx
+                .Container.AllContracts.Where(x => x.Type == typeof(Foo.Factory))
+                .ToDictionary(
+                    x => (string)x.Identifier,
+                    x => (IFactory<Foo>)ctx.Container.ResolveId<Foo.Factory>(x.Identifier)
+                );
         }
 
         void InstallFoo2(DiContainer subContainer)
@@ -53,8 +64,7 @@ namespace Zenject.Tests.Other
         {
             readonly Dictionary<string, IFactory<Foo>> _subFactories;
 
-            public FooFactory(
-                Dictionary<string, IFactory<Foo>> subFactories)
+            public FooFactory(Dictionary<string, IFactory<Foo>> subFactories)
             {
                 _subFactories = subFactories;
             }
@@ -72,15 +82,9 @@ namespace Zenject.Tests.Other
                 Number = number;
             }
 
-            public int Number
-            {
-                get; private set;
-            }
+            public int Number { get; private set; }
 
-            public class Factory : PlaceholderFactory<Foo>
-            {
-            }
+            public class Factory : PlaceholderFactory<Foo> { }
         }
     }
 }
-

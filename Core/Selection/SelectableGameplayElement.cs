@@ -1,17 +1,31 @@
 ﻿using System;
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Kiskovi.Core
 {
     [RequireComponent(typeof(Collider2D))]
-    internal class SelectableGameplayElement : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler,
-        ISelectHandler, IDeselectHandler, ISubmitHandler
+    internal class SelectableGameplayElement
+        : MonoBehaviour,
+            IPointerClickHandler,
+            IPointerDownHandler,
+            IPointerEnterHandler,
+            IPointerExitHandler,
+            ISelectHandler,
+            IDeselectHandler,
+            ISubmitHandler
     {
-        [SerializeField] protected GameObject glowSprite;
-        [SerializeField] private GameObject hover;
-        [SerializeField] private int layer;
-        [SerializeField] private TriggerAction onMainAction;
+        [SerializeField]
+        protected GameObject glowSprite;
+
+        [SerializeField]
+        private GameObject hover;
+
+        [SerializeField]
+        private int layer;
+
+        [SerializeField]
+        private TriggerAction onMainAction;
         protected bool isHover { get; private set; }
         protected bool isSelected { get; private set; }
 
@@ -37,9 +51,7 @@ namespace Kiskovi.Core
             myCollider = GetComponent<Collider2D>();
         }
 
-        protected virtual void OnEnable()
-        {
-        }
+        protected virtual void OnEnable() { }
 
         protected virtual void OnDisable()
         {
@@ -87,7 +99,8 @@ namespace Kiskovi.Core
 
         protected virtual void Select(BaseEventData eventData)
         {
-            if (!Accesable) return;
+            if (!Accesable)
+                return;
             isSelected = true;
             onSelected?.Invoke();
         }

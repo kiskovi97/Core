@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -11,18 +10,12 @@ namespace Zenject.Tests.Factories
     {
         GameObject FooPrefab
         {
-            get
-            {
-                return FixtureUtil.GetPrefab("TestBindFactoryOne/Foo");
-            }
+            get { return FixtureUtil.GetPrefab("TestBindFactoryOne/Foo"); }
         }
 
         GameObject FooSubContainerPrefab
         {
-            get
-            {
-                return FixtureUtil.GetPrefab("TestBindFactoryOne/FooSubContainer");
-            }
+            get { return FixtureUtil.GetPrefab("TestBindFactoryOne/FooSubContainer"); }
         }
 
         [UnityTest]
@@ -58,7 +51,8 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromNewScriptableObjectResource()
         {
             PreInstall();
-            Container.BindFactory<string, Bar, Bar.Factory>()
+            Container
+                .BindFactory<string, Bar, Bar.Factory>()
                 .FromNewScriptableObjectResource("TestBindFactoryOne/Bar");
 
             PostInstall();
@@ -90,7 +84,10 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromNewComponentOnNewGameObjectConcrete()
         {
             PreInstall();
-            Container.BindFactory<string, IFoo, IFooFactory>().To<Foo>().FromNewComponentOnNewGameObject();
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromNewComponentOnNewGameObject();
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -124,7 +121,10 @@ namespace Zenject.Tests.Factories
             PreInstall();
             var gameObject = Container.CreateEmptyGameObject("foo");
 
-            Container.BindFactory<string, IFoo, IFooFactory>().To<Foo>().FromNewComponentOn(gameObject);
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromNewComponentOn(gameObject);
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -139,7 +139,10 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromComponentInNewPrefabSelf()
         {
             PreInstall();
-            Container.BindFactory<string, Foo, Foo.Factory>().FromComponentInNewPrefab(FooPrefab).WithGameObjectName("asdf");
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromComponentInNewPrefab(FooPrefab)
+                .WithGameObjectName("asdf");
 
             AddFactoryUser<Foo, Foo.Factory>();
 
@@ -155,8 +158,11 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromComponentInNewPrefabConcrete()
         {
             PreInstall();
-            Container.BindFactory<string, IFoo, IFooFactory>().To<Foo>()
-                .FromComponentInNewPrefab(FooPrefab).WithGameObjectName("asdf");
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromComponentInNewPrefab(FooPrefab)
+                .WithGameObjectName("asdf");
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -172,7 +178,10 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromComponentInNewPrefabResourceSelf()
         {
             PreInstall();
-            Container.BindFactory<string, Foo, Foo.Factory>().FromComponentInNewPrefabResource("TestBindFactoryOne/Foo").WithGameObjectName("asdf");
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromComponentInNewPrefabResource("TestBindFactoryOne/Foo")
+                .WithGameObjectName("asdf");
 
             AddFactoryUser<Foo, Foo.Factory>();
 
@@ -188,8 +197,11 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromComponentInNewPrefabResourceConcrete()
         {
             PreInstall();
-            Container.BindFactory<string, IFoo, IFooFactory>().To<Foo>()
-                .FromComponentInNewPrefabResource("TestBindFactoryOne/Foo").WithGameObjectName("asdf");
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromComponentInNewPrefabResource("TestBindFactoryOne/Foo")
+                .WithGameObjectName("asdf");
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -205,8 +217,10 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromSubContainerResolveByNewPrefabSelf()
         {
             PreInstall();
-            Container.BindFactory<string, Foo, Foo.Factory>()
-                .FromSubContainerResolve().ByNewContextPrefab<FooInstaller>(FooSubContainerPrefab);
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefab<FooInstaller>(FooSubContainerPrefab);
 
             AddFactoryUser<Foo, Foo.Factory>();
 
@@ -221,8 +235,11 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromSubContainerResolveByNewPrefabConcrete()
         {
             PreInstall();
-            Container.BindFactory<string, IFoo, IFooFactory>()
-                .To<Foo>().FromSubContainerResolve().ByNewContextPrefab<FooInstaller>(FooSubContainerPrefab);
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefab<FooInstaller>(FooSubContainerPrefab);
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -237,8 +254,10 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromSubContainerResolveByNewPrefabResourceSelf()
         {
             PreInstall();
-            Container.BindFactory<string, Foo, Foo.Factory>()
-                .FromSubContainerResolve().ByNewContextPrefabResource<FooInstaller>("TestBindFactoryOne/FooSubContainer");
+            Container
+                .BindFactory<string, Foo, Foo.Factory>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefabResource<FooInstaller>("TestBindFactoryOne/FooSubContainer");
 
             AddFactoryUser<Foo, Foo.Factory>();
 
@@ -253,8 +272,11 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestFromSubContainerResolveByNewPrefabResourceConcrete()
         {
             PreInstall();
-            Container.BindFactory<string, IFoo, IFooFactory>()
-                .To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource<FooInstaller>("TestBindFactoryOne/FooSubContainer");
+            Container
+                .BindFactory<string, IFoo, IFooFactory>()
+                .To<Foo>()
+                .FromSubContainerResolve()
+                .ByNewContextPrefabResource<FooInstaller>("TestBindFactoryOne/FooSubContainer");
 
             AddFactoryUser<IFoo, IFooFactory>();
 
@@ -269,8 +291,7 @@ namespace Zenject.Tests.Factories
             where TValue : IFoo
             where TFactory : PlaceholderFactory<string, TValue>
         {
-            Container.Bind<IInitializable>()
-                .To<FooFactoryTester<TValue, TFactory>>().AsSingle();
+            Container.Bind<IInitializable>().To<FooFactoryTester<TValue, TFactory>>().AsSingle();
 
             Container.BindExecutionOrder<FooFactoryTester<TValue, TFactory>>(-100);
         }
@@ -295,4 +316,3 @@ namespace Zenject.Tests.Factories
         }
     }
 }
-

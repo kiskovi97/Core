@@ -18,16 +18,12 @@ namespace Zenject.Tests.Other
 
         public class Foo1
         {
-            public Foo1(Bar1 bar)
-            {
-            }
+            public Foo1(Bar1 bar) { }
         }
 
         public class Bar1
         {
-            public Bar1(Foo1 foo)
-            {
-            }
+            public Bar1(Foo1 foo) { }
         }
 
         [Test]
@@ -43,17 +39,13 @@ namespace Zenject.Tests.Other
         public class Foo2
         {
             [Inject]
-            public void Init(Bar2 bar)
-            {
-            }
+            public void Init(Bar2 bar) { }
         }
 
         public class Bar2
         {
             [Inject]
-            public void Init(Foo2 foo)
-            {
-            }
+            public void Init(Foo2 foo) { }
         }
 
         [Test]
@@ -79,4 +71,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-

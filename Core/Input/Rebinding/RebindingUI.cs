@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 using Zenject;
 
 namespace Kiskovi.Core
@@ -31,7 +28,8 @@ namespace Kiskovi.Core
 
         private static List<RebindingUI> s_RebindActionUIs;
 
-        [Inject] private SignalBus _signalBus;
+        [Inject]
+        private SignalBus _signalBus;
 
         public void UpdateBindingDisplay()
         {
@@ -45,7 +43,12 @@ namespace Kiskovi.Core
             {
                 var bindingIndex = action.bindings.IndexOf(x => x.id.ToString() == m_BindingId);
                 if (bindingIndex != -1)
-                    displayString = action.GetBindingDisplayString(bindingIndex, out deviceLayoutName, out controlPath, m_DisplayStringOptions);
+                    displayString = action.GetBindingDisplayString(
+                        bindingIndex,
+                        out deviceLayoutName,
+                        out controlPath,
+                        m_DisplayStringOptions
+                    );
             }
 
             // Set on label (if any).
@@ -84,7 +87,11 @@ namespace Kiskovi.Core
             if (action.bindings[bindingIndex].isComposite)
             {
                 // It's a composite. Remove overrides from part bindings.
-                for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
+                for (
+                    var i = bindingIndex + 1;
+                    i < action.bindings.Count && action.bindings[i].isPartOfComposite;
+                    ++i
+                )
                     action.RemoveBindingOverride(i);
             }
             else
@@ -106,7 +113,10 @@ namespace Kiskovi.Core
             if (action.bindings[bindingIndex].isComposite)
             {
                 var firstPartIndex = bindingIndex + 1;
-                if (firstPartIndex < action.bindings.Count && action.bindings[firstPartIndex].isPartOfComposite)
+                if (
+                    firstPartIndex < action.bindings.Count
+                    && action.bindings[firstPartIndex].isPartOfComposite
+                )
                     PerformInteractiveRebind(action, firstPartIndex, allCompositeParts: true);
             }
             else
@@ -115,7 +125,11 @@ namespace Kiskovi.Core
             }
         }
 
-        private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool allCompositeParts = false)
+        private void PerformInteractiveRebind(
+            InputAction action,
+            int bindingIndex,
+            bool allCompositeParts = false
+        )
         {
             m_RebindOperation?.Cancel(); // Will null out m_RebindOperation.
 
@@ -130,35 +144,42 @@ namespace Kiskovi.Core
             string originalBindingPath = action.bindings[bindingIndex].effectivePath;
 
             // Configure the rebind.
-            m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-                .OnCancel(
-                    operation =>
+            m_RebindOperation = action
+                .PerformInteractiveRebinding(bindingIndex)
+                .OnCancel(operation =>
+                {
+                    UpdateBindingDisplay();
+                    CleanUp();
+                })
+                .OnComplete(operation =>
+                {
+                    _signalBus.TryFire(new BindingChangedSignal());
+
+                    UpdateBindingDisplay();
+                    CleanUp();
+
+                    // If there's more composite parts we should bind, initiate a rebind
+                    // for the next part.
+                    if (allCompositeParts)
                     {
-                        UpdateBindingDisplay();
-                        CleanUp();
-                    })
-                .OnComplete(
-                    operation =>
-                    {
-                        _signalBus.TryFire(new BindingChangedSignal());
+                        var nextBindingIndex = bindingIndex + 1;
+                        if (
+                            nextBindingIndex < action.bindings.Count
+                            && action.bindings[nextBindingIndex].isPartOfComposite
+                        )
+                            PerformInteractiveRebind(action, nextBindingIndex, true);
+                    }
 
-                        UpdateBindingDisplay();
-                        CleanUp();
+                    action.Enable();
 
-                        // If there's more composite parts we should bind, initiate a rebind
-                        // for the next part.
-                        if (allCompositeParts)
-                        {
-                            var nextBindingIndex = bindingIndex + 1;
-                            if (nextBindingIndex < action.bindings.Count && action.bindings[nextBindingIndex].isPartOfComposite)
-                                PerformInteractiveRebind(action, nextBindingIndex, true);
-                        }
-
-                        action.Enable();
-
-                        string newBindingPath = action.bindings[bindingIndex].effectivePath;
-                        SwapConflictingBindings(action, bindingIndex, newBindingPath, originalBindingPath);
-                    });
+                    string newBindingPath = action.bindings[bindingIndex].effectivePath;
+                    SwapConflictingBindings(
+                        action,
+                        bindingIndex,
+                        newBindingPath,
+                        originalBindingPath
+                    );
+                });
 
             // If it's a part binding, show the name of the part in the UI.
             var partName = default(string);
@@ -173,21 +194,29 @@ namespace Kiskovi.Core
             m_RebindOperation.Start();
         }
 
-        private void SwapConflictingBindings(InputAction currentAction, int currentBindingIndex, string newPath, string oldPath)
+        private void SwapConflictingBindings(
+            InputAction currentAction,
+            int currentBindingIndex,
+            string newPath,
+            string oldPath
+        )
         {
             var currentMap = currentAction.actionMap;
             var asset = currentMap?.asset;
-            if (asset == null) return;
+            if (asset == null)
+                return;
 
             var changed = false;
 
             foreach (var map in asset.actionMaps)
             {
-                if (map != currentAction.actionMap) continue;
+                if (map != currentAction.actionMap)
+                    continue;
 
                 foreach (var action in map.actions)
                 {
-                    if (action == currentAction) continue;
+                    if (action == currentAction)
+                        continue;
 
                     for (int i = 0; i < action.bindings.Count; i++)
                     {
@@ -197,7 +226,9 @@ namespace Kiskovi.Core
                         {
                             changed = true;
                             // Swap bindings
-                            Debug.LogWarning($"Same binding carry over: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
+                            Debug.LogWarning(
+                                $"Same binding carry over: '{currentAction.name}' <-> '{action.name}' for path: {newPath}"
+                            );
 
                             action.ApplyBindingOverride(i, newPath);
                         }
@@ -205,7 +236,9 @@ namespace Kiskovi.Core
                         {
                             changed = true;
                             // Swap bindings
-                            Debug.LogWarning($"Swapping binding: '{currentAction.name}' <-> '{action.name}' for path: {newPath}");
+                            Debug.LogWarning(
+                                $"Swapping binding: '{currentAction.name}' <-> '{action.name}' for path: {newPath}"
+                            );
 
                             action.ApplyBindingOverride(i, oldPath);
                         }
@@ -255,9 +288,11 @@ namespace Kiskovi.Core
                 if (referencedAction == null)
                     continue;
 
-                if (referencedAction == action ||
-                    referencedAction.actionMap == actionMap ||
-                    referencedAction.actionMap?.asset == actionAsset)
+                if (
+                    referencedAction == action
+                    || referencedAction.actionMap == actionMap
+                    || referencedAction.actionMap?.asset == actionAsset
+                )
                     component.UpdateBindingDisplay();
             }
         }

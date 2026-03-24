@@ -40,13 +40,8 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(Container.Resolve<Foo>(), foo);
         }
 
-        interface IFoo
-        {
-        }
+        interface IFoo { }
 
-        class Foo : IFoo
-        {
-        }
+        class Foo : IFoo { }
     }
 }
-

@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 
@@ -28,10 +27,7 @@ namespace Zenject.Tests.TestAnimationStateBehaviourInject
 
         public class Foo : IInitializable
         {
-            public bool HasInitialized
-            {
-                get; private set;
-            }
+            public bool HasInitialized { get; private set; }
 
             public void Initialize()
             {
@@ -40,4 +36,3 @@ namespace Zenject.Tests.TestAnimationStateBehaviourInject
         }
     }
 }
-

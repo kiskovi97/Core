@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using ModestTree;
@@ -202,13 +201,9 @@ namespace Zenject.Tests.Bindings
             public Qux OtherQux;
         }
 
-        public interface IBar
-        {
-        }
+        public interface IBar { }
 
-        public class Bar : MonoBehaviour, IBar
-        {
-        }
+        public class Bar : MonoBehaviour, IBar { }
 
         public class FooOptional : MonoBehaviour
         {
@@ -241,4 +236,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
 
 namespace Kiskovi.Core
@@ -31,7 +30,7 @@ namespace Kiskovi.Core
             if (other.gameObject.CompareTag("Player"))
             {
                 players.Remove(other.gameObject);
-                if(players.Count == 0)
+                if (players.Count == 0)
                     TriggerAction.Trigger(onTriggerExit);
             }
         }
