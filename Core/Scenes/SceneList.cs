@@ -17,6 +17,9 @@ namespace Kiskovi.Core
     public class SceneList
     {
         [AssetReferenceUILabelRestriction("scene")]
+        public AssetReference EMPTY;
+
+        [AssetReferenceUILabelRestriction("scene")]
         public AssetReference START_MENU;
 
         [AssetReferenceUILabelRestriction("scene")]
@@ -40,6 +43,8 @@ namespace Kiskovi.Core
                     return LEVEL;
                 case SceneEnum.Tutorial_Level:
                     return TUTORIAL;
+                case SceneEnum.None:
+                    return EMPTY;
             }
             return null;
         }
