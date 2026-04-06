@@ -20,6 +20,13 @@ namespace Kiskovi.Core
                     return isConvention;
                 case PermissionType.Editor:
                     return Application.isEditor;
+                case PermissionType.PC:
+                    return Application.platform == RuntimePlatform.WindowsPlayer
+                        || Application.platform == RuntimePlatform.OSXPlayer
+                        || Application.platform == RuntimePlatform.LinuxPlayer;
+                case PermissionType.Mobile:
+                    return Application.platform == RuntimePlatform.Android
+                        || Application.platform == RuntimePlatform.IPhonePlayer;
                 default:
                     return false;
             }
@@ -31,6 +38,8 @@ namespace Kiskovi.Core
         Demo,
         Convention,
         Editor,
+        PC,
+        Mobile,
     }
 
     public interface IPermissionSettings

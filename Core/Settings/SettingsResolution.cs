@@ -10,13 +10,18 @@ namespace Kiskovi.Core
         [SerializeField]
         private SelectionBox selectionBox;
 
-        private int resCount = 0;
-
         void Awake()
         {
+#if !(UNITY_ANDROID || UNITY_IOS)
             if (selectionBox != null)
                 selectionBox.onValueChanged.AddListener(OnValueChanged);
+#endif
+            Destroy(gameObject);
         }
+
+#if !(UNITY_ANDROID || UNITY_IOS)
+
+        private int resCount = 0;
 
         private void Update()
         {
@@ -55,5 +60,6 @@ namespace Kiskovi.Core
             var value = Screen.resolutions[newValue];
             Screen.SetResolution(value.width, value.height, Screen.fullScreen);
         }
+#endif
     }
 }
