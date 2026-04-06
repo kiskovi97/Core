@@ -15,8 +15,9 @@ namespace Kiskovi.Core
 #if !(UNITY_ANDROID || UNITY_IOS)
             if (selectionBox != null)
                 selectionBox.onValueChanged.AddListener(OnValueChanged);
-#endif
+#else
             Destroy(gameObject);
+#endif
         }
 
 #if !(UNITY_ANDROID || UNITY_IOS)
