@@ -228,6 +228,8 @@ namespace Kiskovi.Core
                                     return _icons.xboxIcons.GetSprite(shortPath);
                                 case ControlScheme.Keyboard:
                                     return _icons.keyboard.GetSprite(shortPath);
+                                case ControlScheme.Touch:
+                                    return _icons.xboxIcons.GetSprite(shortPath);
                                 default:
                                     return null;
                             }

@@ -29,14 +29,14 @@ namespace Kiskovi.Core
             OnControlsChanged(playerInput);
         }
 
-        private void PauseGameReqest()
+        private void PauseGameRequest()
         {
             _signalBus.TryFire(new PauseGameRequestSignal());
         }
 
         private void PlayerInput_onDeviceLost(PlayerInput obj)
         {
-            PauseGameReqest();
+            PauseGameRequest();
         }
 
         private void Start()
@@ -67,7 +67,7 @@ namespace Kiskovi.Core
                 {
                     case InputSignals.KEYBOARD_NAME:
                         if (InputSignals.Scheme != ControlScheme.Keyboard)
-                            PauseGameReqest();
+                            PauseGameRequest();
                         InputSignals.Scheme = ControlScheme.Keyboard;
                         _signalBus.TryFire(
                             new InputSignals.ControlSchemeChanged(ControlScheme.Keyboard)
@@ -75,10 +75,18 @@ namespace Kiskovi.Core
                         break;
                     case InputSignals.XBOX_NAME:
                         if (InputSignals.Scheme != ControlScheme.XboxController)
-                            PauseGameReqest();
+                            PauseGameRequest();
                         InputSignals.Scheme = ControlScheme.XboxController;
                         _signalBus.TryFire(
                             new InputSignals.ControlSchemeChanged(ControlScheme.XboxController)
+                        );
+                        break;
+                    case InputSignals.TOUCH_NAME:
+                        if (InputSignals.Scheme != ControlScheme.Touch)
+                            PauseGameRequest();
+                        InputSignals.Scheme = ControlScheme.Touch;
+                        _signalBus.TryFire(
+                            new InputSignals.ControlSchemeChanged(ControlScheme.Touch)
                         );
                         break;
                     default:

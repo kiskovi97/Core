@@ -6,6 +6,7 @@ namespace Kiskovi.Core
     {
         Keyboard,
         XboxController,
+        Touch,
     }
 
     public class MoveSignal : InputVector2Signal
@@ -61,6 +62,7 @@ namespace Kiskovi.Core
     {
         public const string KEYBOARD_NAME = "Keyboard";
         public const string XBOX_NAME = "XboxController";
+        public const string TOUCH_NAME = "Touch";
 
         public static ControlScheme Scheme = ControlScheme.Keyboard;
         public static string SchemeName =>
@@ -68,6 +70,7 @@ namespace Kiskovi.Core
             {
                 ControlScheme.Keyboard => KEYBOARD_NAME,
                 ControlScheme.XboxController => XBOX_NAME,
+                ControlScheme.Touch => TOUCH_NAME,
                 _ => KEYBOARD_NAME,
             };
         public static string translationKey =>
@@ -75,6 +78,7 @@ namespace Kiskovi.Core
             {
                 ControlScheme.Keyboard => "_keyboard",
                 ControlScheme.XboxController => "_xbox",
+                ControlScheme.Touch => "_touch",
                 _ => "_keyboard",
             };
 

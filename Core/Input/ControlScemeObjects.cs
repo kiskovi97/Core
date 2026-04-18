@@ -48,6 +48,12 @@ namespace Kiskovi.Core
                     if (xboxObject != null)
                         xboxObject.SetActive(true);
                     break;
+                case ControlScheme.Touch:
+                    if (keyboardObject != null)
+                        keyboardObject.SetActive(false);
+                    if (xboxObject != null)
+                        xboxObject.SetActive(true);
+                    break;
             }
         }
     }

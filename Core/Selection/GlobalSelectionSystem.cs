@@ -90,6 +90,7 @@ namespace Kiskovi.Core
             switch (scheme)
             {
                 case ControlScheme.Keyboard:
+                case ControlScheme.Touch:
                     SetKeyboardWorkflow();
                     break;
                 default:
