@@ -13,6 +13,7 @@ namespace Kiskovi.Core
         void StartDialog(DialogData dialog, bool restart = false);
         void EndDialog(bool triggerEnding = false);
         void SkipNextLine();
+        event Action<DialogData> onDialogEnd;
     }
 
     internal class DialogSystem : ITickable, IDialogSystem
@@ -20,6 +21,7 @@ namespace Kiskovi.Core
         public static readonly float SECOND_PER_CHARACTER = 0.1f;
         public static readonly float WAIT_TIME_AFTER_END = 1f;
         public static readonly float MIN_TIMER = 1f;
+        public event Action<DialogData> onDialogEnd;
 
         private SignalBus _signalBus;
 
@@ -96,6 +98,7 @@ namespace Kiskovi.Core
                         break;
                 }
             }
+            onDialogEnd?.Invoke(_currentDialog);
             _currentDialog = null;
             _dialogIndex = 0;
             _dialogTimer = 0f;

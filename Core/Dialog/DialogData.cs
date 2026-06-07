@@ -7,7 +7,9 @@ namespace Kiskovi.Core
     public enum DialogSpeaker
     {
         MainCharacter,
-        NPC,
+        NPC_Alex,
+        NPC_Bob,
+        NPC_Detective,
     }
 
     public enum EndDialogEvent
