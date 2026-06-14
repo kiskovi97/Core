@@ -9,6 +9,7 @@ namespace Kiskovi.Core
     {
         public bool isDemo;
         public bool isConvention;
+        public bool disableIsEditorCheck;
 
         public bool IsPermissionType(PermissionType type)
         {
@@ -19,7 +20,7 @@ namespace Kiskovi.Core
                 case PermissionType.Convention:
                     return isConvention;
                 case PermissionType.Editor:
-                    return Application.isEditor;
+                    return Application.isEditor && !disableIsEditorCheck;
                 case PermissionType.PC:
                     return Application.platform == RuntimePlatform.WindowsPlayer
                         || Application.platform == RuntimePlatform.OSXPlayer
