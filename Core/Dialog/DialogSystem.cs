@@ -129,7 +129,7 @@ namespace Kiskovi.Core
             }
             else
             {
-                _dialogTimer -= UnityEngine.Time.deltaTime;
+                _dialogTimer -= UnityEngine.Time.unscaledDeltaTime;
             }
         }
 
