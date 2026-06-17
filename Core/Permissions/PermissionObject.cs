@@ -15,7 +15,6 @@ namespace Kiskovi.Core
 
         public void Awake()
         {
-            Debug.Log("PermissionObject Awake" + _settings.IsPermissionType(PermissionType.Demo));
             var allowed =
                 requironments.IsEmpty()
                 || requironments.All(item => _settings.IsPermissionType(item));
