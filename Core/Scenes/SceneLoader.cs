@@ -42,6 +42,12 @@ namespace Kiskovi.Core
         [SerializeField]
         private TriggerAction onSceneChange;
 
+        [SerializeField]
+        private TriggerAction onLoadingStart;
+
+        [SerializeField]
+        private TriggerAction onLoadingEnd;
+
         private static readonly string DE_LOAD_DEFAULT = "deLoad";
         private static readonly string DE_LOAD_NONE = "deLoad_none";
         private static readonly string LOAD_DEFAULT = "Load";
@@ -177,7 +183,7 @@ namespace Kiskovi.Core
             yield return new WaitForSecondsRealtime(delayTime);
             if (animator != null)
                 animator.SetTrigger(deloadTriggerName);
-
+            TriggerAction.Trigger(onLoadingStart);
             TriggerAction.Trigger(onSceneChange);
 
             yield return new WaitForSecondsRealtime(animationTime);
@@ -194,6 +200,7 @@ namespace Kiskovi.Core
                 uiBlock.SetActive(false);
             if (animator != null)
                 animator.SetTrigger(loadTrigger);
+            TriggerAction.Trigger(onLoadingEnd);
             yield return new WaitForSecondsRealtime(animationDelay);
             if (loadingPanel != null)
                 loadingPanel.SetObjectActive(false);

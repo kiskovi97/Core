@@ -18,6 +18,9 @@ namespace Kiskovi.Core
         private float destroyTime = 0.5f;
 
         [SerializeField]
+        private float debounceTime = 0.5f;
+
+        [SerializeField]
         private List<Animator> animators = new List<Animator>();
 
         [SerializeField]
@@ -88,6 +91,10 @@ namespace Kiskovi.Core
 
         private IEnumerator SetActiveFalse()
         {
+            if (unscaledTime)
+                yield return new WaitForSecondsRealtime(debounceTime);
+            else
+                yield return new WaitForSeconds(debounceTime);
             TriggerAction.Trigger(onHide);
             SetTrigger("onHide");
             if (unscaledTime)
