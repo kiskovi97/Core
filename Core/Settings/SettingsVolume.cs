@@ -20,16 +20,6 @@ namespace Kiskovi.Core
 
         private void OnEnable()
         {
-            slider.onValueChanged.AddListener(OnValueChanged);
-        }
-
-        private void OnDisable()
-        {
-            slider.onValueChanged.RemoveListener(OnValueChanged);
-        }
-
-        void Awake()
-        {
             switch (type)
             {
                 case Type.Music:
@@ -39,6 +29,12 @@ namespace Kiskovi.Core
                     slider.value = settings.SoundVolume;
                     break;
             }
+            slider.onValueChanged.AddListener(OnValueChanged);
+        }
+
+        private void OnDisable()
+        {
+            slider.onValueChanged.RemoveListener(OnValueChanged);
         }
 
         private void OnValueChanged(float newValue)
