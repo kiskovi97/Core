@@ -10,12 +10,14 @@ namespace Kiskovi.Core
         NPC_Alex,
         NPC_Bob,
         NPC_Detective,
+        Narrator,
     }
 
     public enum EndDialogEvent
     {
         None,
         EndGame,
+        StartMenu,
     }
 
     [System.Serializable]

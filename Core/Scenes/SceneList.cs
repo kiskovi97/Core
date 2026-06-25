@@ -11,6 +11,7 @@ namespace Kiskovi.Core
         Hub = 20,
         Level = 30,
         Tutorial_Level = 40,
+        End_Credits = 50,
     }
 
     [Serializable]
@@ -31,6 +32,9 @@ namespace Kiskovi.Core
         [AssetReferenceUILabelRestriction("scene")]
         public AssetReference TUTORIAL;
 
+        [AssetReferenceUILabelRestriction("scene")]
+        public AssetReference END_CREDITS;
+
         internal AssetReference GetScene(SceneEnum scene)
         {
             switch (scene)
@@ -43,6 +47,8 @@ namespace Kiskovi.Core
                     return LEVEL;
                 case SceneEnum.Tutorial_Level:
                     return TUTORIAL;
+                case SceneEnum.End_Credits:
+                    return END_CREDITS ?? START_MENU;
                 case SceneEnum.None:
                     return EMPTY;
             }

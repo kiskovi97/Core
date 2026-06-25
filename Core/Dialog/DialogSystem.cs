@@ -90,6 +90,16 @@ namespace Kiskovi.Core
                         _signalBus.TryFire(
                             new SceneLoadRequestSignal()
                             {
+                                scene = SceneEnum.End_Credits,
+                                force = false,
+                                delayTime = 0f,
+                            }
+                        );
+                        break;
+                    case EndDialogEvent.StartMenu:
+                        _signalBus.TryFire(
+                            new SceneLoadRequestSignal()
+                            {
                                 scene = SceneEnum.Start_Menu,
                                 force = false,
                                 delayTime = 0f,
