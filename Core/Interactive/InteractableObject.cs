@@ -11,6 +11,7 @@ namespace Kiskovi.Core
 
         public GameObject nearObject;
         public GameObject nearestObject;
+        public GameObject notNearEnoughObject;
         public TriggerAction onTriggerEnter;
         public TriggerAction onTriggerExit;
 
@@ -60,6 +61,8 @@ namespace Kiskovi.Core
 
             if (nearObject != null)
                 nearObject.SetActive(false);
+            if (notNearEnoughObject != null)
+                notNearEnoughObject.SetActive(true);
             if (nearestObject != null)
                 nearestObject.SetActive(false);
         }
@@ -71,6 +74,8 @@ namespace Kiskovi.Core
 
             if (nearObject != null)
                 nearObject.SetActive(false);
+            if (notNearEnoughObject != null)
+                notNearEnoughObject.SetActive(true);
             if (nearestObject != null)
                 nearestObject.SetActive(false);
         }
@@ -79,6 +84,8 @@ namespace Kiskovi.Core
         {
             if (nearObject != null)
                 nearObject.SetActive(players.Any());
+            if (notNearEnoughObject != null)
+                notNearEnoughObject.SetActive(!players.Any());
             if (nearestObject != null)
                 nearestObject.SetActive(interactions.Any());
         }
