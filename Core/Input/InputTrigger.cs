@@ -7,10 +7,8 @@ namespace Kiskovi.Core
 {
     internal class InputTrigger : MonoBehaviour
     {
-        [Inject]
-        private InputActionReference inputActionRef;
+        public InputActionReference inputActionRef;
 
-        public Type type;
         public TriggerAction onPressed;
 
         private InputAction _inputAction;
