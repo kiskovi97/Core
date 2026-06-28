@@ -21,11 +21,13 @@ namespace Kiskovi.Core
 
     internal class SaveSystem : ISaveSystem
     {
-        private string PersistentDataPath = Application.persistentDataPath;
+        private string _dataPath = Application.persistentDataPath;
+        private string _saveKey;
 
-        public SaveSystem(string pPersistentDataPath)
+        public SaveSystem(string pPersistentDataPath, string saveKey)
         {
-            PersistentDataPath = pPersistentDataPath;
+            _dataPath = pPersistentDataPath;
+            _saveKey = saveKey;
         }
 
         public T GetDataSync<T>()
@@ -85,7 +87,7 @@ namespace Kiskovi.Core
 
         private string GetFileName(Type type)
         {
-            return Path.Combine(PersistentDataPath, type.FullName + ".json");
+            return Path.Combine(_dataPath, $"{type.FullName}_{_saveKey}.json");
         }
     }
 }
