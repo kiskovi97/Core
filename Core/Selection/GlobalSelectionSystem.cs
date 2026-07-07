@@ -14,6 +14,7 @@ namespace Kiskovi.Core
         GameObject CurrentSelectedObj { get; }
 
         void SetSelected(GameObject gameObject);
+        void ClearSelection();
 
         void BlockSelection();
 
@@ -68,6 +69,11 @@ namespace Kiskovi.Core
         public void SetSelected(GameObject gameObject)
         {
             SetSelectedGameObject(gameObject.GetComponent<SelectableBase>());
+        }
+
+        public void ClearSelection()
+        {
+            SetSelectedGameObject(null);
         }
 
         private void OnClear()

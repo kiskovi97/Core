@@ -14,6 +14,9 @@ namespace Kiskovi.Core
         protected GameObject hoverObject;
 
         [SerializeField]
+        protected GameObject onlySelectedObject;
+
+        [SerializeField]
         protected GameObject onlyHoverObject;
 
         [SerializeField]
@@ -123,6 +126,8 @@ namespace Kiskovi.Core
                 hoverObject.SetActive(false);
             if (onlyHoverObject != null)
                 onlyHoverObject.SetActive(false);
+            if (onlySelectedObject != null)
+                onlySelectedObject.SetActive(false);
             if (notHoverObject != null)
                 notHoverObject.SetActive(true);
             if (lastHovered)
@@ -150,6 +155,10 @@ namespace Kiskovi.Core
                 onlyHoverObject.SetActive(
                     isHoverEnabled && (isHovering || isControllerAlwaysVisible)
                 ); // && InputSignals.Scheme != ControlScheme.Keyboard
+            if (onlySelectedObject != null)
+                onlySelectedObject.SetActive(
+                    isHoverEnabled && (!isHovering || isControllerAlwaysVisible)
+                );
             if (notHoverObject != null)
                 notHoverObject.SetActive(!isHoverEnabled);
             if (onlyHoverObject != null)
