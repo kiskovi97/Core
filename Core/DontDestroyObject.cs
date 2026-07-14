@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PuzzleProject.Core
+namespace Kiskovi.Core
 {
     internal class DontDestroyObject : MonoBehaviour
     {

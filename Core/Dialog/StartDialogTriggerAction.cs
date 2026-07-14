@@ -2,7 +2,7 @@ using Kiskovi.Core;
 using UnityEngine;
 using Zenject;
 
-namespace PuzzleProject.Dialog
+namespace Kiskovi.Dialog
 {
     public class StartDialogTriggerAction : TriggerAction
     {
