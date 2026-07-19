@@ -17,7 +17,15 @@ namespace Kiskovi.Core
         public float delayTime = 0f;
     }
 
-    public class ReloadSceneSignal { }
+    public class ReloadSceneSignal
+    {
+        public Action betweenReload;
+
+        public ReloadSceneSignal(Action reload = null)
+        {
+            betweenReload = reload;
+        }
+    }
 
     internal class SceneLoader : MonoBehaviour
     {
@@ -112,7 +120,7 @@ namespace Kiskovi.Core
 
         private void OnReload(ReloadSceneSignal signal)
         {
-            StartCoroutine(ReLoadSceneAsync());
+            StartCoroutine(ReLoadSceneAsync(signal.betweenReload));
         }
 
         private void OnSceneLoadRequest(SceneLoadRequestSignal signal)
@@ -167,10 +175,11 @@ namespace Kiskovi.Core
             yield return AfterLoad(LOAD_DEFAULT, afterLoadAnimationTime);
         }
 
-        IEnumerator ReLoadSceneAsync()
+        IEnumerator ReLoadSceneAsync(Action betweenReload)
         {
             var currentScene = sceneBeingLoaded;
             yield return LoadAsynchronously(SceneEnum.None, 0f);
+            betweenReload?.Invoke();
             yield return LoadAsynchronously(currentScene, 0f);
         }
 
