@@ -68,6 +68,7 @@ namespace Kiskovi.Core
                     case InputSignals.KEYBOARD_NAME:
                         if (InputSignals.Scheme != ControlScheme.Keyboard)
                             PauseGameRequest();
+                        Cursor.visible = true;
                         InputSignals.Scheme = ControlScheme.Keyboard;
                         _signalBus.TryFire(
                             new InputSignals.ControlSchemeChanged(ControlScheme.Keyboard)
@@ -76,6 +77,7 @@ namespace Kiskovi.Core
                     case InputSignals.XBOX_NAME:
                         if (InputSignals.Scheme != ControlScheme.XboxController)
                             PauseGameRequest();
+                        Cursor.visible = false;
                         InputSignals.Scheme = ControlScheme.XboxController;
                         _signalBus.TryFire(
                             new InputSignals.ControlSchemeChanged(ControlScheme.XboxController)

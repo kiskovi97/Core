@@ -80,7 +80,8 @@ namespace Kiskovi.Core
         {
             if (inProgress != null)
                 return;
-            foreach (var window in openedWindows)
+            var windows = openedWindows.ToList();
+            foreach (var window in windows)
             {
                 window.Close();
             }
