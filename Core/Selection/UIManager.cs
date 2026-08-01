@@ -15,16 +15,23 @@ namespace Kiskovi.Core
         public void Initialize()
         {
             _signalBus.Subscribe<UIInteractions.ExitSignal>(OnExit);
+            _signalBus.Subscribe<PauseGameRequestSignal>(OnPauseGameRequest);
         }
 
         public void Dispose()
         {
             _signalBus.Unsubscribe<UIInteractions.ExitSignal>(OnExit);
+            _signalBus.Unsubscribe<PauseGameRequestSignal>(OnPauseGameRequest);
         }
 
         private void OnExit()
         {
             UIWindow.CloseLast();
+        }
+
+        private void OnPauseGameRequest()
+        {
+            UIWindow.OpenPause();
         }
     }
 }

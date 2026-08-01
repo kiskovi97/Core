@@ -76,6 +76,18 @@ namespace Kiskovi.Core
             }
         }
 
+        public static void OpenPause()
+        {
+            if (inProgress != null)
+                return;
+            foreach (var window in openedWindows)
+            {
+                window.Close();
+            }
+            if (PauseMenu != null)
+                PauseMenu.Open();
+        }
+
         public void Open()
         {
             if (!isOpen)
