@@ -140,6 +140,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9ccb3d93-37da-42bd-b8a1-3a1d2ab79426",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2be9f8ca-de8f-4ff6-9b30-f3f34033c03d",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -437,6 +448,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3260e6b5-4a28-4c49-9783-21e691838502",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ce15e9de-f9f5-4581-bcdb-02bced5183b4",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -519,6 +541,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ea45988-5721-4127-b548-02a722557f6c",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
                     "action": "SkipDialog",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -797,6 +830,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XboxController;XboxController",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ecdde73-0510-4a9c-99fa-d86648d39735",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
