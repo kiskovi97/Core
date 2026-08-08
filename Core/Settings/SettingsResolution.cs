@@ -10,6 +10,8 @@ namespace Kiskovi.Core
         [SerializeField]
         private SelectionBox selectionBox;
 
+        private bool isInitialized;
+
         void Awake()
         {
 #if !(UNITY_ANDROID || UNITY_IOS)
@@ -38,6 +40,11 @@ namespace Kiskovi.Core
             Initialized();
         }
 
+        void OnDisable()
+        {
+            isInitialized = false;
+        }
+
         private void Initialized()
         {
             resCount = Screen.resolutions.Length;
@@ -54,10 +61,13 @@ namespace Kiskovi.Core
             {
                 selectionBox.SetOptions(options, Screen.resolutions.Length - 1);
             }
+            isInitialized = true;
         }
 
         private void OnValueChanged(int newValue)
         {
+            if (!isInitialized)
+                return;
             var value = Screen.resolutions[newValue];
             Screen.SetResolution(value.width, value.height, Screen.fullScreen);
         }
