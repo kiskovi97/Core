@@ -29,6 +29,7 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.DeleteSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.ModifyValueSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.SkipSignal>().OptionalSubscriber();
+            Container.DeclareSignal<UIInteractions.SkipDialogSignal>().OptionalSubscriber();
 
             Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();

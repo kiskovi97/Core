@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SkipDialog",
+                    "type": "Button",
+                    "id": "8aa03a72-cc9b-42fe-986f-704e0799a912",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -500,6 +509,94 @@
                     "processors": "",
                     "groups": "XboxController;XboxController",
                     "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49a33e5e-84af-4c23-927f-a9be78761402",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33efb9cd-7644-44dc-9ed8-9c522a3e6064",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db469c58-7629-4674-97c4-9ac72219814b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92e55f6b-0173-4df2-8dbf-4322b7bd128d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3c3a6ea-6667-4fec-88a9-ba0f35405f77",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxController;XboxController",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28b5cefc-3694-4f96-b4c6-7acb79ec2cee",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxController;XboxController",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ce5fa85-91d8-4caa-a09d-15c47e81591d",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxController;XboxController",
+                    "action": "SkipDialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6edc57d6-5451-4612-b882-4307c8570aff",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxController;XboxController",
+                    "action": "SkipDialog",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

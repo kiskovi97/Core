@@ -56,6 +56,8 @@ namespace Kiskovi.Core
         }
 
         public class SkipSignal : InputSimpleSignal { }
+
+        public class SkipDialogSignal : InputSimpleSignal { }
     }
 
     public class InputSignals

@@ -59,6 +59,7 @@ namespace Kiskovi.Core
             _signalBus = signalBus;
             _signalBus.Subscribe<UIInteractions.AcceptSignal>(SkipNextLine);
             _signalBus.Subscribe<UIInteractions.DeclineSignal>(SkipNextLine);
+            _signalBus.Subscribe<UIInteractions.SkipDialogSignal>(SkipNextLine);
         }
 
         public void StartDialog(DialogData dialog, bool restart = false)
