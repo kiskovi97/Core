@@ -28,6 +28,7 @@ namespace Kiskovi.Core
         private DialogData _currentDialog;
         private int _dialogIndex = 0;
         private float _dialogTimer = 0f;
+        private bool _showFull = false;
 
         public bool isDialogActive => _currentDialog != null;
         public DialogLine? CurrentDialogLine
@@ -50,15 +51,13 @@ namespace Kiskovi.Core
                 if (line == null)
                     return 0f;
                 var duration = CalculateDuration(line.Value);
-                return Mathf.Max(0, duration - _dialogTimer) / duration;
+                return _showFull ? 1f : Mathf.Max(0, duration - _dialogTimer) / duration;
             }
         }
 
         public DialogSystem(SignalBus signalBus)
         {
             _signalBus = signalBus;
-            _signalBus.Subscribe<UIInteractions.AcceptSignal>(SkipNextLine);
-            _signalBus.Subscribe<UIInteractions.DeclineSignal>(SkipNextLine);
             _signalBus.Subscribe<UIInteractions.SkipDialogSignal>(SkipNextLine);
         }
 
@@ -79,6 +78,7 @@ namespace Kiskovi.Core
             {
                 _dialogTimer = 0f;
             }
+            _showFull = false;
         }
 
         public void EndDialog(bool triggerEnding)
@@ -113,11 +113,15 @@ namespace Kiskovi.Core
             _currentDialog = null;
             _dialogIndex = 0;
             _dialogTimer = 0f;
+            _showFull = false;
         }
 
         public void SkipNextLine()
         {
-            _dialogTimer = -WAIT_TIME_AFTER_END;
+            if (_showFull)
+                _dialogTimer = -WAIT_TIME_AFTER_END;
+            else
+                _showFull = true;
         }
 
         public void Tick()
@@ -132,6 +136,7 @@ namespace Kiskovi.Core
                 {
                     var line = _currentDialog.Lines[_dialogIndex];
                     _dialogTimer = CalculateDuration(line);
+                    _showFull = false;
                 }
                 else
                 {
