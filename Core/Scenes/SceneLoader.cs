@@ -62,6 +62,7 @@ namespace Kiskovi.Core
         private static readonly string LOAD_NONE = "Load_none";
 
         private static AssetReference lastScreenLoaded;
+        private static SceneEnum lasSceneEnumLoaded;
         private static SceneEnum sceneBeingLoaded = SceneEnum.None;
         private SceneProvider _sceneProvider;
         private SignalBus _signalBus;
@@ -101,6 +102,11 @@ namespace Kiskovi.Core
             _signalBus.TryUnsubscribe<ReloadSceneSignal>(OnReload);
         }
 
+        public static bool IsSceneLoaded(SceneEnum sceneEnum)
+        {
+            return lasSceneEnumLoaded == sceneEnum;
+        }
+
         private static void SetInstance(SceneLoader instance)
         {
             if (Instance == null)
@@ -137,6 +143,7 @@ namespace Kiskovi.Core
 
         private void _LoadScene(SceneEnum sceneIndex, float delayTime)
         {
+            lasSceneEnumLoaded = sceneIndex;
             ObjectsVisibilityManager.Clear();
             StartCoroutine(LoadAsynchronously(sceneIndex, delayTime));
         }
@@ -152,6 +159,7 @@ namespace Kiskovi.Core
 
         IEnumerator LoadAsynchronously(SceneEnum sceneIndex, float delayTime)
         {
+            lasSceneEnumLoaded = sceneIndex;
             yield return BeforeLoad(delayTime, DE_LOAD_DEFAULT, beforeLoadAnimationTime);
             Debug.Log("Load Scene started: " + sceneIndex);
             var scene = _sceneProvider.GetScene(sceneIndex);
