@@ -5,7 +5,83 @@ using UnityEngine;
 
 namespace Kiskovi.Core
 {
-    public class UIWindow : UIPanel
+    /// <summary>
+    /// Abstract base class for UI windows. Supports both Canvas-based (UIWindow) and UIToolkit-based (UIToolkitWindow) implementations.
+    /// Both types share a common window stack (openedWindows) for consistent focus/state management.
+    /// Static methods (CloseLast, OpenPause) work with windows of any type.
+    /// </summary>
+    public abstract class UIWindowBase : UIPanel
+    {
+        // Shared static state used by all UIWindowBase implementations
+        protected static List<UIWindowBase> openedWindows = new List<UIWindowBase>();
+        protected static float animationTime = 0.2f;
+        protected static UIWindowBase inProgress = null;
+
+        public static UIWindowBase PauseMenu { get; set; }
+
+        /// <summary>
+        /// Returns true if any window is currently open (Canvas or UIToolkit)
+        /// </summary>
+        public static bool IsWindowOpen => openedWindows.Count > 0;
+
+        public abstract void Close();
+        public abstract void Open();
+        public abstract void GoToBackground(bool blockUI = true);
+        public abstract void GoToFront();
+
+        /// <summary>
+        /// Adds a window to the shared openedWindows list, ordered by sibling index
+        /// </summary>
+        protected static void AddToOpenedWindows(UIWindowBase window)
+        {
+            openedWindows = openedWindows
+                .Append(window)
+                .OrderBy(item => item.transform.GetSiblingIndex())
+                .ToList();
+        }
+
+        /// <summary>
+        /// Removes a window from the shared openedWindows list
+        /// </summary>
+        protected static void RemoveFromOpenedWindows(UIWindowBase window)
+        {
+            openedWindows.Remove(window);
+        }
+
+        /// <summary>
+        /// Gets the last (topmost) window in the stack
+        /// </summary>
+        protected static UIWindowBase GetLastOpenedWindow()
+        {
+            return openedWindows.LastOrDefault();
+        }
+
+        /// <summary>
+        /// Checks if any window transition is currently in progress
+        /// </summary>
+        protected static bool IsInProgress()
+        {
+            return inProgress != null;
+        }
+
+        /// <summary>
+        /// Sets the current window as in-progress (prevents other operations)
+        /// </summary>
+        protected static void SetInProgress(UIWindowBase window)
+        {
+            inProgress = window;
+        }
+
+        /// <summary>
+        /// Clears the in-progress flag after a transition completes
+        /// </summary>
+        protected static void ClearInProgress()
+        {
+            inProgress = null;
+        }
+    }
+
+    public class UIWindow : UIWindowBase
     {
         [Header("show trigger: open")]
         [Header("show trigger: close")]
@@ -28,20 +104,10 @@ namespace Kiskovi.Core
         [SerializeField]
         private float closeAnimationTime = 0.2f;
 
-        private static List<UIWindow> openedWindows = new List<UIWindow>();
-
-        private static float animationTime = 0.2f;
-
-        public static UIWindow PauseMenu { get; set; }
-
-        public static bool IsWindowOpen => openedWindows.Count > 0;
-
         public bool isOpen =>
             windowObjects != null
             && windowObjects.Length > 0
             && windowObjects.Any(item => item.activeInHierarchy);
-
-        private static UIWindow inProgress = null;
 
         protected virtual void Start()
         {
@@ -62,11 +128,11 @@ namespace Kiskovi.Core
 
         public static void CloseLast()
         {
-            if (inProgress != null)
+            if (IsInProgress())
                 return;
             if (openedWindows.Count > 0)
             {
-                var window = openedWindows.LastOrDefault();
+                var window = GetLastOpenedWindow();
                 window.Close();
             }
             else
@@ -78,7 +144,7 @@ namespace Kiskovi.Core
 
         public static void OpenPause()
         {
-            if (inProgress != null)
+            if (IsInProgress())
                 return;
             var windows = openedWindows.ToList();
             foreach (var window in windows)
@@ -89,7 +155,7 @@ namespace Kiskovi.Core
                 PauseMenu.Open();
         }
 
-        public void Open()
+        public override void Open()
         {
             if (!isOpen)
             {
@@ -98,7 +164,7 @@ namespace Kiskovi.Core
             }
         }
 
-        public virtual void Close()
+        public override void Close()
         {
             if (isOpen)
             {
@@ -106,12 +172,12 @@ namespace Kiskovi.Core
             }
         }
 
-        public void GoToBackground(bool blockUI = true)
+        public override void GoToBackground(bool blockUI = true)
         {
             StartCoroutine(StartToGoBackground(blockUI));
         }
 
-        public void GoToFront()
+        public override void GoToFront()
         {
             StartCoroutine(StartToGoFront());
         }
@@ -120,7 +186,7 @@ namespace Kiskovi.Core
         {
             OnBackground();
             blockingObject.SetObjectActive(blockUI);
-            inProgress = this;
+            SetInProgress(this);
             if (animator != null)
             {
                 //animator.SetTrigger("background");
@@ -130,7 +196,7 @@ namespace Kiskovi.Core
             {
                 yield return null;
             }
-            inProgress = null;
+            ClearInProgress();
             //if (windowObject != null)
             //    windowObject.SetObjectActive(false);
         }
@@ -144,7 +210,7 @@ namespace Kiskovi.Core
             }
             if (blockingObject != null)
                 blockingObject.SetObjectActive(true);
-            inProgress = this;
+            SetInProgress(this);
             if (animator != null)
             {
                 //animator.SetTrigger("front");
@@ -155,7 +221,7 @@ namespace Kiskovi.Core
                 yield return null;
             }
             OnFront();
-            inProgress = null;
+            ClearInProgress();
             if (blockingObject != null)
                 blockingObject.SetObjectActive(false);
         }
@@ -164,7 +230,7 @@ namespace Kiskovi.Core
         {
             if (openedWindows.Count > 0)
             {
-                var last = openedWindows.LastOrDefault();
+                var last = GetLastOpenedWindow();
                 if (last != null)
                     last.GoToBackground();
             }
@@ -180,13 +246,10 @@ namespace Kiskovi.Core
                 blockingObject.SetObjectActive(true);
 
             TriggerAction.Trigger(onOpen);
-            openedWindows = openedWindows
-                .Append(this)
-                .OrderBy(item => item.transform.GetSiblingIndex())
-                .ToList();
+            AddToOpenedWindows(this);
             OnOpened();
 
-            inProgress = this;
+            SetInProgress(this);
             if (animator != null)
             {
                 animator.SetTrigger("open");
@@ -197,7 +260,7 @@ namespace Kiskovi.Core
                 yield return null;
             }
             OnFront();
-            inProgress = null;
+            ClearInProgress();
 
             if (blockingObject != null)
                 blockingObject.SetObjectActive(false);
@@ -209,13 +272,13 @@ namespace Kiskovi.Core
                 yield break;
             OnBackground();
 
-            openedWindows.Remove(this);
+            RemoveFromOpenedWindows(this);
             if (blockingObject != null)
                 blockingObject.SetObjectActive(true);
 
             TriggerAction.Trigger(onClose);
 
-            inProgress = this;
+            SetInProgress(this);
             if (animator != null)
             {
                 animator.SetTrigger("close");
@@ -225,7 +288,7 @@ namespace Kiskovi.Core
             {
                 yield return null;
             }
-            inProgress = null;
+            ClearInProgress();
 
             foreach (var window in windowObjects)
             {
@@ -237,7 +300,7 @@ namespace Kiskovi.Core
 
             if (openedWindows.Count > 0)
             {
-                var last = openedWindows.LastOrDefault();
+                var last = GetLastOpenedWindow();
                 if (last != null)
                     last.GoToFront();
                 else if (UIBasePanel.Instance != null)
