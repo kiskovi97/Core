@@ -21,17 +21,31 @@ namespace Kiskovi.Core
         [SerializeField]
         private TriggerAction onClose;
 
-        public bool isOpen =>
-            uIDocument != null
-            && uIDocument.rootVisualElement != null
-            && uIDocument.rootVisualElement.style.display != DisplayStyle.None;
+        private VisualElement rootPanel;
+
+        [SerializeField]
+        private float closeAnimationTime = 0.3f;
+
+        private bool _isOpen;
+
+        public bool isOpen => _isOpen;
+
+        private const string HiddenClass = "window-hidden";
 
         protected virtual void Start()
         {
-            if (uIDocument != null && uIDocument.rootVisualElement != null)
+            if (uIDocument == null)
+                return;
+
+            rootPanel = uIDocument.rootVisualElement.Q<VisualElement>("Base");
+
+            if (rootPanel == null)
             {
-                uIDocument.rootVisualElement.style.display = DisplayStyle.None;
+                Debug.LogError($"UIToolkitWindow '{name}' could not find VisualElement 'Base'.");
+                return;
             }
+
+            HideInstant();
         }
 
         protected virtual void OnDestroy()
@@ -80,7 +94,7 @@ namespace Kiskovi.Core
         {
             if (uIDocument != null && uIDocument.rootVisualElement != null)
             {
-                uIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+                yield return Show();
             }
             SetInProgress(this);
             yield return null;
@@ -99,17 +113,16 @@ namespace Kiskovi.Core
             if (UIBasePanel.Instance != null)
                 UIBasePanel.Instance.ToBack();
 
-            if (uIDocument != null && uIDocument.rootVisualElement != null)
-            {
-                uIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-            }
-
             TriggerAction.Trigger(onOpen);
             AddToOpenedWindows(this);
             OnOpened();
-
             SetInProgress(this);
-            yield return null;
+
+            if (uIDocument != null && uIDocument.rootVisualElement != null)
+            {
+                yield return Show();
+            }
+
             OnFront();
             ClearInProgress();
         }
@@ -124,13 +137,13 @@ namespace Kiskovi.Core
             TriggerAction.Trigger(onClose);
 
             SetInProgress(this);
-            yield return null;
-            ClearInProgress();
 
             if (uIDocument != null && uIDocument.rootVisualElement != null)
             {
-                uIDocument.rootVisualElement.style.display = DisplayStyle.None;
+                yield return Hide();
             }
+
+            ClearInProgress();
 
             if (openedWindows.Count > 0)
             {
@@ -144,6 +157,35 @@ namespace Kiskovi.Core
                 UIBasePanel.Instance.ToFront();
 
             OnClosed();
+        }
+
+        private IEnumerator Show()
+        {
+            rootPanel.style.display = DisplayStyle.Flex;
+
+            rootPanel.RemoveFromClassList(HiddenClass);
+
+            yield return null;
+
+            _isOpen = true;
+        }
+
+        private void HideInstant()
+        {
+            rootPanel.AddToClassList(HiddenClass);
+
+            rootPanel.style.display = DisplayStyle.None;
+        }
+
+        private IEnumerator Hide()
+        {
+            rootPanel.AddToClassList(HiddenClass);
+
+            yield return new WaitForSecondsRealtime(closeAnimationTime);
+
+            rootPanel.style.display = DisplayStyle.None;
+
+            _isOpen = false;
         }
     }
 }
