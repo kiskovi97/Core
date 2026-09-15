@@ -11,6 +11,7 @@ namespace Kiskovi.Core
         public float speed = 1.0f;
         public bool isMultiFriendly;
         public TriggerAction OnMoved;
+        public TriggerAction OnTeleported;
 
         [Inject]
         private SignalBus signalBus;
