@@ -12,7 +12,7 @@ namespace Kiskovi.Core
         private SignalBus signalBus;
 
         [Inject(Id = "PlayerId")]
-        private string _id;
+        private PlayerId _id;
 
         private Vector2 movement;
         public override Vector2 Movement => movement.normalized;

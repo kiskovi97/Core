@@ -9,6 +9,12 @@ namespace Kiskovi.Core
         Touch,
     }
 
+    public enum PlayerId
+    {
+        Player1,
+        Player2,
+    }
+
     public class MoveSignal : InputVector2Signal
     {
         public MoveSignal(Vector2 move)

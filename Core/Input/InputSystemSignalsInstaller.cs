@@ -31,7 +31,8 @@ namespace Kiskovi.Core
             Container.DeclareSignal<UIInteractions.SkipSignal>().OptionalSubscriber();
             Container.DeclareSignal<UIInteractions.SkipDialogSignal>().OptionalSubscriber();
 
-            Container.DeclareSignal<MoveSignal>().WithId(null).OptionalSubscriber();
+            Container.DeclareSignal<MoveSignal>().WithId(PlayerId.Player1).OptionalSubscriber();
+            Container.DeclareSignal<MoveSignal>().WithId(PlayerId.Player2).OptionalSubscriber();
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
             Container.DeclareSignal<BindingChangedSignal>().OptionalSubscriber();
 
@@ -42,7 +43,7 @@ namespace Kiskovi.Core
                 .WithArguments(settings.iconSettings)
                 .NonLazy();
 
-            Container.Bind<string>().WithId("PlayerId").FromInstance(null);
+            Container.Bind<PlayerId>().WithId("PlayerId").FromInstance(PlayerId.Player1);
         }
     }
 }
