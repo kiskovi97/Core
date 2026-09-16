@@ -8,6 +8,7 @@ namespace Kiskovi.Core
     internal class MultiPlayerManager : MonoBehaviour
     {
         public PlayerInputManager playerInputManager;
+        public Transform spawnPoint;
         public List<LayerMask> playerLayers = new List<LayerMask>();
 
         private List<PlayerInput> players = new List<PlayerInput>();
@@ -25,6 +26,8 @@ namespace Kiskovi.Core
         private void PlayerInputManager_onPlayerJoined(PlayerInput obj)
         {
             players.Add(obj);
+            var character = obj.GetComponentInChildren<PlayerController2D>();
+            character.transform.position = spawnPoint.position;
 
             var layer = (int)Mathf.Log(playerLayers[players.Count - 1], 2);
 
