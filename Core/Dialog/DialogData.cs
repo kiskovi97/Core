@@ -11,6 +11,9 @@ namespace Kiskovi.Core
         NPC_Bob,
         NPC_Detective,
         Narrator,
+        NPC_Marta,
+        NPC_Klara,
+        NPC_Boss,
     }
 
     public enum EndDialogEvent
@@ -32,5 +35,6 @@ namespace Kiskovi.Core
     {
         public List<DialogLine> Lines = new List<DialogLine>();
         public EndDialogEvent endDialogEvent = EndDialogEvent.None;
+        public DialogSpeaker mainSpeaker = DialogSpeaker.NPC_Alex;
     }
 }
