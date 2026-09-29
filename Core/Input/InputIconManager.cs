@@ -24,6 +24,10 @@ namespace Kiskovi.Core
         public Sprite RightClick;
         public Sprite MiddleClick;
         public Sprite MiddleScroll;
+        public Sprite Up;
+        public Sprite Down;
+        public Sprite Left;
+        public Sprite Right;
 
         public Sprite GetSprite(string controlPath)
         {
@@ -65,6 +69,14 @@ namespace Kiskovi.Core
                     return MiddleClick;
                 case "scroll":
                     return MiddleScroll;
+                case "upArrow":
+                    return Up;
+                case "downArrow":
+                    return Down;
+                case "leftArrow":
+                    return Left;
+                case "rightArrow":
+                    return Right;
             }
             Debug.LogWarning(controlPath + " has no icon");
             return null;
