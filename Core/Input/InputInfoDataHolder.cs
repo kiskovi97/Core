@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,6 +11,7 @@ namespace Kiskovi.Core
         public TMP_Text text;
         public SpriteRenderer iconSprite;
         public Image iconImage;
+        public Image altIconImage;
         public GameObject noIconObject;
         public TMP_Text inputText;
 
@@ -26,8 +28,14 @@ namespace Kiskovi.Core
             if (text != null)
                 text.text = GetLocalizedString(Data.title);
 
-            var icon = iconManager.GetSprite(Data.inputActionReference);
+            var icons = iconManager.GetSprites(Data.inputActionReference);
+            var icon = icons.FirstOrDefault();
 
+            if (altIconImage != null)
+            {
+                altIconImage.sprite = icons.LastOrDefault();
+                altIconImage.gameObject.SetActive(icons.Count() > 1);
+            }
             if (iconSprite != null)
             {
                 iconSprite.sprite = icon;

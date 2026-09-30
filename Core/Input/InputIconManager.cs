@@ -265,7 +265,7 @@ namespace Kiskovi.Core
                     }
                 }
             }
-            return sprites;
+            return sprites.Distinct();
         }
     }
 }
