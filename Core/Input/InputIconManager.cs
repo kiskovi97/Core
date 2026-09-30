@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -68,6 +70,8 @@ namespace Kiskovi.Core
                 case "middleButton":
                     return MiddleClick;
                 case "scroll":
+                case "scrollWheel":
+                case "scroll/y":
                     return MiddleScroll;
                 case "upArrow":
                     return Up;
@@ -159,6 +163,7 @@ namespace Kiskovi.Core
     public interface IInputIconManager
     {
         Sprite GetSprite(InputActionReference reference);
+        IEnumerable<Sprite> GetSprites(InputActionReference reference);
         string GetString(InputActionReference reference);
     }
 
@@ -211,9 +216,16 @@ namespace Kiskovi.Core
 
         public Sprite GetSprite(InputActionReference reference)
         {
+            var sprites = GetSprites(reference);
+            return sprites.FirstOrDefault();
+        }
+
+        public IEnumerable<Sprite> GetSprites(InputActionReference reference)
+        {
+            var sprites = new List<Sprite>();
             if (reference == null || reference.action == null)
             {
-                return null;
+                return sprites;
             }
 
             foreach (var binding in reference.action.bindings)
@@ -230,26 +242,30 @@ namespace Kiskovi.Core
                         if (control != null)
                         {
                             // Get the control path part (e.g., "buttonSouth")
-                            var shortPath = control.path.Substring(
-                                control.path.LastIndexOf('/') + 1
-                            );
+                            var path = control.path.Split('/');
+                            var shortPath = path.Last();
+                            if (shortPath == "y" || shortPath == "x")
+                            {
+                                shortPath = path[path.Length - 2];
+                            }
 
                             switch (InputSignals.Scheme)
                             {
                                 case ControlScheme.XboxController:
-                                    return _icons.xboxIcons.GetSprite(shortPath);
+                                    sprites.Add(_icons.xboxIcons.GetSprite(shortPath));
+                                    break;
                                 case ControlScheme.Keyboard:
-                                    return _icons.keyboard.GetSprite(shortPath);
+                                    sprites.Add(_icons.keyboard.GetSprite(shortPath));
+                                    break;
                                 case ControlScheme.Touch:
-                                    return _icons.xboxIcons.GetSprite(shortPath);
-                                default:
-                                    return null;
+                                    sprites.Add(_icons.xboxIcons.GetSprite(shortPath));
+                                    break;
                             }
                         }
                     }
                 }
             }
-            return null;
+            return sprites;
         }
     }
 }
