@@ -12,6 +12,7 @@ namespace Kiskovi.Core
         public SpriteRenderer iconSprite;
         public Image iconImage;
         public Image altIconImage;
+        public GameObject slash;
         public GameObject noIconObject;
         public TMP_Text inputText;
 
@@ -36,6 +37,8 @@ namespace Kiskovi.Core
                 altIconImage.sprite = icons.LastOrDefault();
                 altIconImage.gameObject.SetActive(icons.Count() > 1);
             }
+            if (slash != null)
+                slash.gameObject.SetActive(icons.Count() > 1);
             if (iconSprite != null)
             {
                 iconSprite.sprite = icon;
