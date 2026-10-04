@@ -359,7 +359,7 @@ namespace Kiskovi.Core
             {
                 displayString = shortPath;
             }
-            if (iconData.Any(data => data.sprite == sprite))
+            if (sprite != null && iconData.Any(data => data.sprite == sprite))
             {
                 var existingData = iconData.First(data => data.sprite == sprite);
                 if (!existingData.text.Contains(displayString))
