@@ -170,6 +170,7 @@ namespace Kiskovi.Core
     {
         Sprite GetSprite(InputActionReference reference);
         IEnumerable<IconData> GetIconData(InputActionReference reference);
+        IconData GetIconData(InputActionReference reference, InputBinding inputBinding);
         IEnumerable<Sprite> GetSprites(InputActionReference reference);
         string GetString(InputActionReference reference);
     }
@@ -225,6 +226,39 @@ namespace Kiskovi.Core
         {
             var sprites = GetSprites(reference);
             return sprites.FirstOrDefault();
+        }
+
+        public IconData GetIconData(InputActionReference reference, InputBinding binding)
+        {
+            var iconData = new List<IconData>();
+            foreach (var device in InputSystem.devices)
+            {
+                var control = InputControlPath.TryFindControl(device, binding.effectivePath);
+                if (control != null)
+                {
+                    // Get the control path part (e.g., "buttonSouth")
+                    var path = control.path.Split('/');
+                    var shortPath = path.Last();
+                    if (shortPath == "y" || shortPath == "x")
+                    {
+                        shortPath = path[path.Length - 2];
+                    }
+
+                    switch (InputSignals.Scheme)
+                    {
+                        case ControlScheme.XboxController:
+                        case ControlScheme.Touch:
+                            var spriteXbox = _icons.xboxIcons.GetSprite(shortPath);
+                            AddIconData(iconData, spriteXbox, reference, binding);
+                            break;
+                        case ControlScheme.Keyboard:
+                            var spriteKeyboard = _icons.keyboard.GetSprite(shortPath);
+                            AddIconData(iconData, spriteKeyboard, reference, binding);
+                            break;
+                    }
+                }
+            }
+            return iconData.FirstOrDefault();
         }
 
         public IEnumerable<IconData> GetIconData(InputActionReference reference)

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    internal class InputIcon : DataHolder<IconData>
+    public class InputIcon : DataHolder<IconData>
     {
         public SpriteRenderer iconSprite;
         public Image iconImage;

@@ -129,6 +129,17 @@
                 },
                 {
                     "name": "",
+                    "id": "31071662-176b-49c9-a349-a1d5030e6b11",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "83e4d916-f5e2-4003-a41d-293616958862",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -841,6 +852,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "08d243de-97ee-4a59-9533-68cf53097a5d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
