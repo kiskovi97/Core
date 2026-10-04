@@ -448,6 +448,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5115420b-def4-418a-9d99-130895845ad7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8caa9a5f-65e4-4511-aa0d-503d6b9472b2",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
@@ -542,6 +553,17 @@
                     "processors": "",
                     "groups": "XboxController;XboxController",
                     "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "86cfe306-87a3-46db-8c51-73cf29c7249d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "SkipDialog",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

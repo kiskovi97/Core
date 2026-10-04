@@ -12,9 +12,6 @@ namespace Kiskovi.Core
     {
         public InputActionReference m_Reference;
 
-        [SerializeField]
-        private string m_BindingId;
-
         public InputIcon m_Visual;
 
         [Inject]
@@ -22,8 +19,9 @@ namespace Kiskovi.Core
 
         void Update()
         {
-            var bindingId = new Guid(m_BindingId);
-            var binding = m_Reference.action.bindings.FirstOrDefault(x => x.id == bindingId);
+            var binding = m_Reference.action.bindings.FirstOrDefault(x =>
+                x.groups.Contains(InputSignals.SchemeName)
+            );
             var icon = iconManager.GetIconData(m_Reference, binding);
             if (m_Visual != null)
             {
