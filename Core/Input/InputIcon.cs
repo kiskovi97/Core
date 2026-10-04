@@ -38,6 +38,7 @@ namespace Kiskovi.Core
                     inputText.text = "";
                 else
                     inputText.text = Data.text;
+                inputText.gameObject.SetActive(Data.sprite == null);
             }
         }
     }
