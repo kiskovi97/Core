@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
 using Zenject;
 
 namespace Kiskovi.Core
@@ -9,12 +6,7 @@ namespace Kiskovi.Core
     internal class InputInfoDataHolder : LocalizedDataHolder<InputInfoGroup>
     {
         public TMP_Text text;
-        public SpriteRenderer iconSprite;
-        public Image iconImage;
-        public Image altIconImage;
-        public GameObject slash;
-        public GameObject noIconObject;
-        public TMP_Text inputText;
+        public InputIconList iconList;
 
         [Inject]
         private IInputIconManager iconManager;
@@ -29,36 +21,11 @@ namespace Kiskovi.Core
             if (text != null)
                 text.text = GetLocalizedString(Data.title);
 
-            var icons = iconManager.GetSprites(Data.inputActionReference);
-            var icon = icons.FirstOrDefault();
+            var icons = iconManager.GetIconData(Data.inputActionReference);
 
-            if (altIconImage != null)
+            if (iconList != null)
             {
-                altIconImage.sprite = icons.LastOrDefault();
-                altIconImage.gameObject.SetActive(icons.Count() > 1);
-            }
-            if (slash != null)
-                slash.gameObject.SetActive(icons.Count() > 1);
-            if (iconSprite != null)
-            {
-                iconSprite.sprite = icon;
-                iconSprite.gameObject.SetActive(icon != null);
-            }
-
-            if (iconImage != null)
-            {
-                iconImage.sprite = icon;
-                iconImage.gameObject.SetActive(icon != null);
-            }
-            if (noIconObject != null)
-                noIconObject.SetActive(icon == null);
-
-            if (inputText != null)
-            {
-                if (icon != null)
-                    inputText.text = "";
-                else
-                    inputText.text = iconManager.GetString(Data.inputActionReference);
+                iconList.UpdateList(icons);
             }
         }
     }

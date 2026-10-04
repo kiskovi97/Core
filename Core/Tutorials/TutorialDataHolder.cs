@@ -16,11 +16,8 @@ namespace Kiskovi.Core
         public TutorialReference defaultValue;
         public Type type;
         public AnimatedObject objectBase;
-        public SpriteRenderer iconSpriteRenderer;
-        public Image iconImage;
-        public Sprite defaultIconSprite;
         public TMP_Text titleText;
-        public TMP_Text inputText;
+        public InputIconList iconList;
 
         [Inject]
         private ITutorialManager _manager;
@@ -49,26 +46,16 @@ namespace Kiskovi.Core
 
             if (Data != null)
             {
-                var icon = Data.GetIcon(iconManager);
-                if (iconSpriteRenderer != null)
-                    iconSpriteRenderer.sprite = icon != null ? icon : defaultIconSprite;
+                var icons = Data.GetIcon(iconManager);
 
-                if (iconImage != null)
-                    iconImage.sprite = icon != null ? icon : defaultIconSprite;
+                if (iconList != null)
+                {
+                    iconList.UpdateList(icons);
+                }
 
                 if (titleText != null)
                 {
                     titleText.text = GetLocalizedString(Data.TitleString);
-                }
-
-                if (inputText != null)
-                {
-                    if (icon != null)
-                        inputText.text = "";
-                    else
-                        inputText.text = iconManager.GetString(
-                            Data.inputInfoGroup.inputActionReference
-                        );
                 }
 
                 OnAvailablilityChanged();

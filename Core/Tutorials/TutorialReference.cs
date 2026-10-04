@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -19,14 +20,26 @@ namespace Kiskovi.Core
         public string key => name;
         public LocalizedString title;
         public Sprite iconSprite;
-        public InputInfoGroup inputInfoGroup;
+        public InputInfoGroup[] inputInfoGroups;
 
-        public Sprite GetIcon(IInputIconManager iconManager)
+        public IEnumerable<IconData> GetIcon(IInputIconManager iconManager)
         {
+            var iconData = new List<IconData>();
             if (iconSprite != null)
-                return iconSprite;
+                return new List<IconData>
+                {
+                    new IconData { sprite = iconSprite, text = "" },
+                };
 
-            return iconManager.GetSprite(inputInfoGroup?.inputActionReference);
+            if (inputInfoGroups != null)
+            {
+                foreach (var group in inputInfoGroups)
+                {
+                    iconData.AddRange(iconManager.GetIconData(group.inputActionReference));
+                }
+            }
+
+            return iconData;
         }
 
         public LocalizedString TitleString
@@ -34,7 +47,7 @@ namespace Kiskovi.Core
             get
             {
                 if (title.isDirty)
-                    return inputInfoGroup?.title;
+                    return inputInfoGroups.Length > 0 ? inputInfoGroups[0].title : title;
                 return title;
             }
         }

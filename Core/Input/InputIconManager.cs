@@ -160,9 +160,16 @@ namespace Kiskovi.Core
         }
     }
 
+    public class IconData : IData
+    {
+        public Sprite sprite;
+        public string text;
+    }
+
     public interface IInputIconManager
     {
         Sprite GetSprite(InputActionReference reference);
+        IEnumerable<IconData> GetIconData(InputActionReference reference);
         IEnumerable<Sprite> GetSprites(InputActionReference reference);
         string GetString(InputActionReference reference);
     }
@@ -218,6 +225,74 @@ namespace Kiskovi.Core
         {
             var sprites = GetSprites(reference);
             return sprites.FirstOrDefault();
+        }
+
+        public IEnumerable<IconData> GetIconData(InputActionReference reference)
+        {
+            var iconData = new List<IconData>();
+            if (reference == null || reference.action == null)
+            {
+                return iconData;
+            }
+
+            foreach (var binding in reference.action.bindings)
+            {
+                // Skip if it's not a part of a control scheme
+                if (binding.groups.Contains(InputSignals.SchemeName))
+                {
+                    foreach (var device in InputSystem.devices)
+                    {
+                        var control = InputControlPath.TryFindControl(
+                            device,
+                            binding.effectivePath
+                        );
+                        if (control != null)
+                        {
+                            // Get the control path part (e.g., "buttonSouth")
+                            var path = control.path.Split('/');
+                            var shortPath = path.Last();
+                            if (shortPath == "y" || shortPath == "x")
+                            {
+                                shortPath = path[path.Length - 2];
+                            }
+
+                            switch (InputSignals.Scheme)
+                            {
+                                case ControlScheme.XboxController:
+                                case ControlScheme.Touch:
+                                    var spriteXbox = _icons.xboxIcons.GetSprite(shortPath);
+                                    AddIconData(iconData, spriteXbox, reference, binding);
+                                    break;
+                                case ControlScheme.Keyboard:
+                                    var spriteKeyboard = _icons.keyboard.GetSprite(shortPath);
+                                    AddIconData(iconData, spriteKeyboard, reference, binding);
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+            return iconData.Distinct();
+        }
+
+        private void AddIconData(
+            List<IconData> iconData,
+            Sprite sprite,
+            InputActionReference reference,
+            InputBinding binding
+        )
+        {
+            var displayString = reference.action.GetBindingDisplayString(binding);
+            if (iconData.Any(data => data.sprite == sprite))
+            {
+                var existingData = iconData.First(data => data.sprite == sprite);
+                existingData.text += "/" + displayString;
+                return;
+            }
+            else
+            {
+                iconData.Add(new IconData { sprite = sprite, text = displayString });
+            }
         }
 
         public IEnumerable<Sprite> GetSprites(InputActionReference reference)
