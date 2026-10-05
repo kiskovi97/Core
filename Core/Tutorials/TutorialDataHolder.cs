@@ -35,6 +35,12 @@ namespace Kiskovi.Core
             OnAvailablilityChanged(true);
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            OnAvailablilityChanged(true);
+        }
+
         protected void OnDestroy()
         {
             _manager.onChanged -= OnAvailablilityChanged;
