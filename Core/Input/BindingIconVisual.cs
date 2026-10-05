@@ -17,6 +17,16 @@ namespace Kiskovi.Core
         [Inject]
         private IInputIconManager iconManager;
 
+        void Awake()
+        {
+            Update();
+        }
+
+        void OnEnable()
+        {
+            Update();
+        }
+
         void Update()
         {
             var binding = m_Reference.action.bindings.FirstOrDefault(x =>
