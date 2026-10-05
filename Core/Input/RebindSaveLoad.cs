@@ -7,6 +7,8 @@ public class RebindSaveLoad : MonoBehaviour
 {
     public InputActionAsset actions;
 
+    private string RebindsKey => "rebinds_" + actions.name;
+
     [Inject]
     private SignalBus _signalBus;
 
@@ -17,7 +19,7 @@ public class RebindSaveLoad : MonoBehaviour
 
         _signalBus.Subscribe<BindingChangedSignal>(OnBindingChanged);
 
-        var rebinds = PlayerPrefs.GetString("rebinds");
+        var rebinds = PlayerPrefs.GetString(RebindsKey);
         if (!string.IsNullOrEmpty(rebinds))
             actions.LoadBindingOverridesFromJson(rebinds);
     }
@@ -25,7 +27,8 @@ public class RebindSaveLoad : MonoBehaviour
     private void OnBindingChanged()
     {
         var rebinds = actions.SaveBindingOverridesAsJson();
-        PlayerPrefs.SetString("rebinds", rebinds);
+        PlayerPrefs.SetString(RebindsKey, rebinds);
+        PlayerPrefs.Save();
     }
 
     public void OnDisable()

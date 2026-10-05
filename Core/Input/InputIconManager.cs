@@ -233,33 +233,14 @@ namespace Kiskovi.Core
         public IconData GetIconData(InputActionReference reference, InputBinding binding)
         {
             var iconData = new List<IconData>();
-            foreach (var device in InputSystem.devices)
-            {
-                var control = InputControlPath.TryFindControl(device, binding.effectivePath);
-                if (control != null)
-                {
-                    // Get the control path part (e.g., "buttonSouth")
-                    var path = control.path.Split('/');
-                    var shortPath = path.Last();
-                    if (shortPath == "y" || shortPath == "x")
-                    {
-                        shortPath = path[path.Length - 2];
-                    }
+            if (reference == null || reference.action == null)
+                return null;
 
-                    switch (InputSignals.Scheme)
-                    {
-                        case ControlScheme.XboxController:
-                        case ControlScheme.Touch:
-                            var spriteXbox = _icons.xboxIcons.GetSprite(shortPath);
-                            AddIconData(iconData, spriteXbox, reference, binding, shortPath);
-                            break;
-                        case ControlScheme.Keyboard:
-                            var spriteKeyboard = _icons.keyboard.GetSprite(shortPath);
-                            AddIconData(iconData, spriteKeyboard, reference, binding, shortPath);
-                            break;
-                    }
-                }
-            }
+            var bindingIndex = reference.action.bindings.IndexOf(item => item.id == binding.id);
+            if (bindingIndex >= 0)
+                binding = reference.action.bindings[bindingIndex];
+
+            AddIconDataForBinding(iconData, reference, binding, bindingIndex);
             MergeIfNeeded(iconData);
             return iconData.FirstOrDefault();
         }
@@ -272,57 +253,64 @@ namespace Kiskovi.Core
                 return iconData;
             }
 
-            foreach (var binding in reference.action.bindings)
+            var action = reference.action;
+            for (var bindingIndex = 0; bindingIndex < action.bindings.Count; bindingIndex++)
             {
+                var binding = action.bindings[bindingIndex];
                 // Skip if it's not a part of a control scheme
                 if (binding.groups.Contains(InputSignals.SchemeName))
-                {
-                    foreach (var device in InputSystem.devices)
-                    {
-                        var control = InputControlPath.TryFindControl(
-                            device,
-                            binding.effectivePath
-                        );
-                        if (control != null)
-                        {
-                            // Get the control path part (e.g., "buttonSouth")
-                            var path = control.path.Split('/');
-                            var shortPath = path.Last();
-                            if (shortPath == "y" || shortPath == "x")
-                            {
-                                shortPath = path[path.Length - 2];
-                            }
-
-                            switch (InputSignals.Scheme)
-                            {
-                                case ControlScheme.XboxController:
-                                case ControlScheme.Touch:
-                                    var spriteXbox = _icons.xboxIcons.GetSprite(shortPath);
-                                    AddIconData(
-                                        iconData,
-                                        spriteXbox,
-                                        reference,
-                                        binding,
-                                        shortPath
-                                    );
-                                    break;
-                                case ControlScheme.Keyboard:
-                                    var spriteKeyboard = _icons.keyboard.GetSprite(shortPath);
-                                    AddIconData(
-                                        iconData,
-                                        spriteKeyboard,
-                                        reference,
-                                        binding,
-                                        shortPath
-                                    );
-                                    break;
-                            }
-                        }
-                    }
-                }
+                    AddIconDataForBinding(iconData, reference, binding, bindingIndex);
             }
             MergeIfNeeded(iconData);
             return iconData.Distinct();
+        }
+
+        private void AddIconDataForBinding(
+            List<IconData> iconData,
+            InputActionReference reference,
+            InputBinding binding,
+            int bindingIndex
+        )
+        {
+            foreach (var device in InputSystem.devices)
+            {
+                var control = InputControlPath.TryFindControl(device, binding.effectivePath);
+                if (control == null)
+                    continue;
+
+                // Get the control path part (e.g., "buttonSouth")
+                var path = control.path.Split('/');
+                var shortPath = path.Last();
+                if (shortPath == "y" || shortPath == "x")
+                    shortPath = path[path.Length - 2];
+
+                switch (InputSignals.Scheme)
+                {
+                    case ControlScheme.XboxController:
+                    case ControlScheme.Touch:
+                        var spriteXbox = _icons.xboxIcons.GetSprite(shortPath);
+                        AddIconData(
+                            iconData,
+                            spriteXbox,
+                            reference,
+                            binding,
+                            bindingIndex,
+                            shortPath
+                        );
+                        break;
+                    case ControlScheme.Keyboard:
+                        var spriteKeyboard = _icons.keyboard.GetSprite(shortPath);
+                        AddIconData(
+                            iconData,
+                            spriteKeyboard,
+                            reference,
+                            binding,
+                            bindingIndex,
+                            shortPath
+                        );
+                        break;
+                }
+            }
         }
 
         private void MergeIfNeeded(List<IconData> iconData)
@@ -351,10 +339,14 @@ namespace Kiskovi.Core
             Sprite sprite,
             InputActionReference reference,
             InputBinding binding,
+            int bindingIndex,
             string shortPath
         )
         {
-            var displayString = reference.action.GetBindingDisplayString(binding);
+            var displayString =
+                bindingIndex >= 0
+                    ? reference.action.GetBindingDisplayString(bindingIndex)
+                    : reference.action.GetBindingDisplayString(binding);
             if (string.IsNullOrEmpty(displayString))
             {
                 displayString = shortPath;
