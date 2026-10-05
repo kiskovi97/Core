@@ -51,6 +51,8 @@ namespace Kiskovi.Core
 
         public void CompleteTutorial(TutorialReference reference)
         {
+            if (reference == null)
+                return;
             if (!_finishedTutorials.Contains(reference.key))
                 _finishedTutorials.Add(reference.key);
             SendChange();
@@ -58,6 +60,8 @@ namespace Kiskovi.Core
 
         public bool IsTutorialComplete(TutorialReference reference)
         {
+            if (reference == null)
+                return true;
             return _finishedTutorials.Contains(reference.key);
         }
 
@@ -68,6 +72,8 @@ namespace Kiskovi.Core
 
         public bool IsTutorialAvailable(TutorialReference reference)
         {
+            if (reference == null)
+                return false;
             return reference.dependencies == null || reference.dependencies.All(IsTutorialComplete);
         }
     }
