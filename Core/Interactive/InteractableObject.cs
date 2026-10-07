@@ -19,7 +19,7 @@ namespace Kiskovi.Core
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player") && other.isTrigger == false)
             {
                 players.Add(other.gameObject);
                 TriggerAction.Trigger(onTriggerEnter);
@@ -28,7 +28,7 @@ namespace Kiskovi.Core
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player") && other.isTrigger == false)
             {
                 players.Remove(other.gameObject);
                 if (players.Count == 0)
@@ -38,7 +38,7 @@ namespace Kiskovi.Core
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player") && collision.isTrigger == false)
             {
                 players.Add(collision.gameObject);
                 TriggerAction.Trigger(onTriggerEnter);
@@ -47,7 +47,7 @@ namespace Kiskovi.Core
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player") && other.isTrigger == false)
             {
                 players.Remove(other.gameObject);
                 TriggerAction.Trigger(onTriggerExit);
