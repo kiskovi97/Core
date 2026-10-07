@@ -7,7 +7,17 @@ using Zenject;
 
 namespace Kiskovi.Core
 {
-    public class BindingChangedSignal { }
+    public class BindingChangedSignal
+    {
+        public InputActionAsset Asset { get; }
+        public Guid BindingId { get; }
+
+        public BindingChangedSignal(InputActionAsset asset, Guid bindingId)
+        {
+            Asset = asset;
+            BindingId = bindingId;
+        }
+    }
 
     public class RebindingUI : MonoBehaviour
     {
@@ -30,6 +40,15 @@ namespace Kiskovi.Core
 
         [Inject]
         private SignalBus _signalBus;
+
+        private RebindSaveLoad _rebindSaveLoad;
+
+        [Inject]
+        private void InitializeRebindingProfile(RebindSaveLoad rebindSaveLoad)
+        {
+            _rebindSaveLoad = rebindSaveLoad;
+            _rebindSaveLoad.SynchronizeRuntimeAsset(m_Action?.action?.actionMap?.asset);
+        }
 
         public void UpdateBindingDisplay()
         {
@@ -99,7 +118,9 @@ namespace Kiskovi.Core
                 action.RemoveBindingOverride(bindingIndex);
             }
 
-            _signalBus.TryFire(new BindingChangedSignal());
+            _signalBus.TryFire(
+                new BindingChangedSignal(action.actionMap?.asset, action.bindings[bindingIndex].id)
+            );
 
             UpdateBindingDisplay();
         }
@@ -148,12 +169,15 @@ namespace Kiskovi.Core
                 .PerformInteractiveRebinding(bindingIndex)
                 .OnCancel(operation =>
                 {
+                    var asset = action.actionMap?.asset;
                     UpdateBindingDisplay();
                     CleanUp();
                 })
                 .OnComplete(operation =>
                 {
-                    _signalBus.TryFire(new BindingChangedSignal());
+                    var asset = action.actionMap?.asset;
+                    var binding = action.bindings[bindingIndex];
+                    _signalBus.TryFire(new BindingChangedSignal(asset, binding.id));
 
                     UpdateBindingDisplay();
                     CleanUp();
@@ -173,12 +197,16 @@ namespace Kiskovi.Core
                     action.Enable();
 
                     string newBindingPath = action.bindings[bindingIndex].effectivePath;
-                    SwapConflictingBindings(
+                    var swappedConflicts = SwapConflictingBindings(
                         action,
                         bindingIndex,
                         newBindingPath,
                         originalBindingPath
                     );
+                    if (swappedConflicts)
+                    {
+                        _signalBus.TryFire(new BindingChangedSignal(asset, binding.id));
+                    }
                 });
 
             // If it's a part binding, show the name of the part in the UI.
@@ -194,7 +222,7 @@ namespace Kiskovi.Core
             m_RebindOperation.Start();
         }
 
-        private void SwapConflictingBindings(
+        private bool SwapConflictingBindings(
             InputAction currentAction,
             int currentBindingIndex,
             string newPath,
@@ -204,10 +232,9 @@ namespace Kiskovi.Core
             var currentMap = currentAction.actionMap;
             var asset = currentMap?.asset;
             if (asset == null)
-                return;
+                return false;
 
             var changed = false;
-
             foreach (var map in asset.actionMaps)
             {
                 if (map != currentAction.actionMap)
@@ -246,12 +273,13 @@ namespace Kiskovi.Core
                 }
             }
 
-            if (changed)
-                _signalBus.TryFire(new BindingChangedSignal());
+            return changed;
         }
 
         protected void OnEnable()
         {
+            _rebindSaveLoad?.SynchronizeRuntimeAsset(m_Action?.action?.actionMap?.asset);
+
             if (s_RebindActionUIs == null)
                 s_RebindActionUIs = new List<RebindingUI>();
             s_RebindActionUIs.Add(this);

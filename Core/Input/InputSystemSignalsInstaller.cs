@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Kiskovi.Core
@@ -8,6 +9,7 @@ namespace Kiskovi.Core
     public class InputSettings
     {
         public InputIconSettings iconSettings;
+        public InputActionAsset[] actions;
     }
 
     public class InputSystemSignalsInstaller : Installer<InputSettings, InputSystemSignalsInstaller>
@@ -44,6 +46,11 @@ namespace Kiskovi.Core
                 .NonLazy();
 
             Container.Bind<PlayerId>().WithId("PlayerId").FromInstance(PlayerId.Player1);
+            Container
+                .BindInterfacesAndSelfTo<RebindSaveLoad>()
+                .AsSingle()
+                .WithArguments(settings.actions)
+                .NonLazy();
         }
     }
 }
