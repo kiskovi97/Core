@@ -16,6 +16,10 @@ namespace Kiskovi.Core
                 "m_DisplayStringOptions"
             );
             m_BindingTextProperty = serializedObject.FindProperty("m_BindingText");
+            m_SwapConflictingBindingsProperty = serializedObject.FindProperty(
+                "m_SwapConflictingBindings"
+            );
+            m_BindingIconProperty = serializedObject.FindProperty("m_BindingIcon");
 
             RefreshBindingOptions();
         }
@@ -56,6 +60,8 @@ namespace Kiskovi.Core
             using (new EditorGUI.IndentLevelScope())
             {
                 EditorGUILayout.PropertyField(m_BindingTextProperty);
+                EditorGUILayout.PropertyField(m_BindingIconProperty);
+                EditorGUILayout.PropertyField(m_SwapConflictingBindingsProperty);
             }
 
             if (EditorGUI.EndChangeCheck())
@@ -144,7 +150,9 @@ namespace Kiskovi.Core
 
         private SerializedProperty m_ActionProperty;
         private SerializedProperty m_BindingIdProperty;
+        private SerializedProperty m_SwapConflictingBindingsProperty;
         private SerializedProperty m_BindingTextProperty;
+        private SerializedProperty m_BindingIconProperty;
         private SerializedProperty m_DisplayStringOptionsProperty;
 
         private GUIContent m_BindingLabel = new GUIContent("Binding");

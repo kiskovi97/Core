@@ -172,6 +172,7 @@ namespace Kiskovi.Core
     public interface IInputIconManager
     {
         Sprite GetSprite(InputActionReference reference);
+        Sprite GetSprite(InputActionReference reference, string bindingId);
         IEnumerable<IconData> GetIconData(InputActionReference reference);
         IconData GetIconData(InputActionReference reference, InputBinding inputBinding);
         string GetString(InputActionReference reference);
@@ -222,6 +223,20 @@ namespace Kiskovi.Core
                 }
             }
             return null;
+        }
+
+        public Sprite GetSprite(InputActionReference reference, string bindingId)
+        {
+            if (reference == null || reference.action == null)
+                return null;
+
+            var binding = reference.action.bindings.FirstOrDefault(b =>
+                b.id.ToString() == bindingId
+            );
+            if (binding == null)
+                return null;
+
+            return GetIconData(reference, binding)?.sprite;
         }
 
         public Sprite GetSprite(InputActionReference reference)

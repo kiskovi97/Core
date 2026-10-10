@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Kiskovi.Core
@@ -19,6 +20,8 @@ namespace Kiskovi.Core
         }
     }
 
+    public class BindingLoadedSignal { }
+
     public class RebindingUI : MonoBehaviour
     {
         [Tooltip("Reference to action that is to be rebound from the UI.")]
@@ -29,10 +32,16 @@ namespace Kiskovi.Core
         private string m_BindingId;
 
         [SerializeField]
+        private bool m_SwapConflictingBindings = false;
+
+        [SerializeField]
         private InputBinding.DisplayStringOptions m_DisplayStringOptions;
 
         [SerializeField]
         private TMP_Text m_BindingText;
+
+        [SerializeField]
+        private Image m_BindingIcon;
 
         private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
@@ -40,6 +49,9 @@ namespace Kiskovi.Core
 
         [Inject]
         private SignalBus _signalBus;
+
+        [Inject]
+        private InputIconManager _inputIconManager;
 
         private RebindSaveLoad _rebindSaveLoad;
 
@@ -73,6 +85,15 @@ namespace Kiskovi.Core
             // Set on label (if any).
             if (m_BindingText != null)
                 m_BindingText.text = displayString;
+            if (m_BindingIcon != null)
+            {
+                var sprite =
+                    _inputIconManager == null
+                        ? null
+                        : _inputIconManager.GetSprite(m_Action, m_BindingId);
+                m_BindingIcon.sprite = sprite;
+                m_BindingIcon.gameObject.SetActive(sprite != null);
+            }
         }
 
         public bool ResolveActionAndBinding(out InputAction action, out int bindingIndex)
@@ -218,6 +239,11 @@ namespace Kiskovi.Core
             // temporarily set the binding text label to "<Waiting>".
             if (m_BindingText != null)
                 m_BindingText.text = "<Waiting...>";
+            if (m_BindingIcon != null)
+            {
+                m_BindingIcon.sprite = null;
+                m_BindingIcon.gameObject.SetActive(false);
+            }
 
             m_RebindOperation.Start();
         }
@@ -229,6 +255,8 @@ namespace Kiskovi.Core
             string oldPath
         )
         {
+            if (m_SwapConflictingBindings == false)
+                return false;
             var currentMap = currentAction.actionMap;
             var asset = currentMap?.asset;
             if (asset == null)
@@ -285,6 +313,8 @@ namespace Kiskovi.Core
             s_RebindActionUIs.Add(this);
             if (s_RebindActionUIs.Count == 1)
                 InputSystem.onActionChange += OnActionChange;
+
+            UpdateBindingDisplay();
         }
 
         protected void OnDisable()

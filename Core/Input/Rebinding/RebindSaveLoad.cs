@@ -6,19 +6,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class RebindSaveLoad
+public interface IRebindSaveLoad
+{
+    void ResetAllBindings();
+}
+
+public class RebindSaveLoad : IRebindSaveLoad
 {
     private readonly InputActionAsset[] _actions;
+    private readonly SignalBus _signalBus;
 
     private string RebindsKey(InputActionAsset action)
     {
-        return "rebinds_" + action.name;
+        return "input_overrides_" + action.name;
     }
 
     public RebindSaveLoad(SignalBus signalBus, IEnumerable<InputActionAsset> actions)
     {
         _actions = actions.ToArray();
-        signalBus.Subscribe<BindingChangedSignal>(OnBindingChanged);
+        _signalBus = signalBus;
+        _signalBus.Subscribe<BindingChangedSignal>(OnBindingChanged);
 
         foreach (var action in _actions)
         {
@@ -32,7 +39,12 @@ public class RebindSaveLoad
             {
                 action.LoadBindingOverridesFromJson(rebinds);
             }
+            else
+            {
+                action.RemoveAllBindingOverrides();
+            }
         }
+        _signalBus.Fire(new BindingLoadedSignal());
 
         SynchronizeActivePlayerInputs();
     }
@@ -147,5 +159,30 @@ public class RebindSaveLoad
 
         if (!string.IsNullOrEmpty(overrideJson))
             asset.LoadBindingOverridesFromJson(overrideJson);
+    }
+
+    public void ResetAllBindings()
+    {
+        foreach (var action in _actions)
+        {
+            if (action == null)
+            {
+                continue;
+            }
+
+            var rebinds = PlayerPrefs.GetString(RebindsKey(action), string.Empty);
+            if (!string.IsNullOrEmpty(rebinds))
+            {
+                action.LoadBindingOverridesFromJson(rebinds);
+            }
+            else
+            {
+                action.RemoveAllBindingOverrides();
+            }
+            var savedOverrides = action.SaveBindingOverridesAsJson();
+            PlayerPrefs.SetString(RebindsKey(action), savedOverrides);
+            PlayerPrefs.Save();
+        }
+        _signalBus.Fire(new BindingLoadedSignal());
     }
 }

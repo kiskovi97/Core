@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Kiskovi.Core
 {
@@ -6,10 +7,14 @@ namespace Kiskovi.Core
     {
         public RebindingUI[] rebindingUIs;
 
+        [Inject]
+        private IRebindSaveLoad _rebindSaveLoad;
+
         public void ResetAll()
         {
             foreach (var rebinding in rebindingUIs)
                 rebinding.ResetToDefault();
+            _rebindSaveLoad.ResetAllBindings();
         }
     }
 }

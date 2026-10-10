@@ -37,6 +37,7 @@ namespace Kiskovi.Core
             Container.DeclareSignal<MoveSignal>().WithId(PlayerId.Player2).OptionalSubscriber();
             Container.DeclareSignal<PauseGameRequestSignal>().OptionalSubscriber();
             Container.DeclareSignal<BindingChangedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<BindingLoadedSignal>().OptionalSubscriber();
 
             Container.BindInterfacesAndSelfTo<AvailableInputManager>().AsSingle().NonLazy();
             Container
