@@ -106,6 +106,11 @@ namespace Kiskovi.Core
                 var separator = separators[currentIndex - 1];
                 separator.gameObject.SetActive(true);
             }
+            if (currentIndex == 0 && separator != null)
+            {
+                var separator = separators[currentIndex];
+                separator.gameObject.SetActive(false);
+            }
         }
 
         public void Clear()
